@@ -29,9 +29,9 @@ is.ambig(x)
 \references{
 %% ~put references to the literature/web site here ~
 }
-\author{
-%%  ~~who you are~~
-}
+
+\author{Samuel Brown <s_d_j_brown@hotmail.com>}
+
 \note{
 %%  ~~further notes~~
 }

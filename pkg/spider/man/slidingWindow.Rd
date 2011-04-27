@@ -1,42 +1,35 @@
 \name{slidingWindow}
 \alias{slidingWindow}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{
-Create Sliding Windows along an alignment
-}
+
+\title{Create windows along an alignment}
+
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Creates windows of a specified width along a DNA alignment.
 }
+
 \usage{
 slidingWindow(align, width, interval = 1)
 }
 %- maybe also 'usage' for other objects documented here.
+
 \arguments{
-  \item{align}{
-%%     ~~Describe \code{align} here~~
-}
-  \item{width}{
-%%     ~~Describe \code{width} here~~
-}
-  \item{interval}{
-%%     ~~Describe \code{interval} here~~
-}
+  \item{align}{A DNA alignment of class 'DNAbin'}
+  \item{width}{Width of each window}
+  \item{interval}{Numeric or option of "codons". This sets interval between windows. Default of 1. Setting the option to "codons" gives an interval of 3.}
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+Sliding window analyses are often used to determine the variability along sequences. This can be useful for investigating if there is evidence for recombination, developing shorter genetic markers, or for determining variation of genetic diversity within a gene.
 }
-\value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
+
+\value{A list of 'DNAbin' objects, with each alignment being 'width'+1 bases in length}
+
 \references{
 %% ~put references to the literature/web site here ~
 }
+
 \author{
-%%  ~~who you are~~
+Samuel Brown <s_d_j_brown@hotmail.com>
 }
 \note{
 %%  ~~further notes~~
@@ -45,28 +38,27 @@ slidingWindow(align, width, interval = 1)
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{slideAnalyses}}
+\code{\link{slideBoxplots}}
 }
-\examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 
-## The function is currently defined as
-function(align, width, interval = 1){
-	annote <- function(x){
-		y <- align[ , x:(x+width)]
-		attr(y, "window") <- c(x, x+width)
-		y
-	}
-	if(interval == "codons") interval <- 3
-	align <- as.matrix(align)
-	len <- dim(align)[[2]]
-	iter <- seq(1, len-width, by = interval)
-	li <- lapply(iter, function(x) annote(x))
-	li
-  }
+\examples{
+data(woodmouse)
+woodmouse <- woodmouse[,1:20]
+win1 <- slidingWindow(woodmouse, width = 10)
+length(win1)
+
+win2 <- slidingWindow(woodmouse, width = 10, interval = 2)
+length(win2)
+
+win3 <- slidingWindow(woodmouse, width = 10, interval = "codons")
+length(win3)
+
+win4 <- slidingWindow(woodmouse, width = 15)
+length(win4)
+
 }
+
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{ ~kwd1 }
