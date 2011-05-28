@@ -1,0 +1,55 @@
+\name{seeBarcode}
+\alias{seeBarcode}
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{Create illustrative barcodes}
+
+\description{This function plots an illustrative barcode consisting of vertical bands in four colours corresponding to the DNA bases adenine (A), cytosine (C), guanine  (G) and thiamine (T).}
+
+\usage{illBC(seq, col=c("green", "blue", "black", "red"))}
+
+
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+  \item{seq}{A single seqence of class 'DNAbin'}
+  \item{col}{A character vector of length 4 giving colours to represent A, G, C and T respectively}
+}
+
+\details{
+Green, blue, black and red are the standard colours representing A
+}
+
+\value{
+Plots an illustrative barcode
+}
+
+\references{
+%% ~put references to the literature/web site here ~
+}
+
+\author{
+Samuel Brown <s_d_j_brown@hotmail.com>
+}
+
+\note{
+%%  ~~further notes~~
+}
+
+%% ~Make other sections like Warning with \section{Warning }{....} ~
+
+\seealso{
+%% ~~objects to See Also as \code{\link{help}}, ~~~
+}
+
+\examples{
+layout(matrix(1:6, ncol=1))
+par(mar=c(0.5, 0, 0.5, 0))
+data(woodmouse)
+illBC(woodmouse[1,])
+illBC(woodmouse[1,], col=c("pink", "orange", "steelblue", "yellow"))
+apply(woodmouse[1:4,], MARGIN=1, FUN=illBC)
+illBC(woodmouse)}
+
+% Add one or more standard keywords, see file 'KEYWORDS' in the
+% R documentation directory.
+\keyword{ ~kwd1 }
+\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
