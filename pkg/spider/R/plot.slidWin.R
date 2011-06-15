@@ -21,19 +21,25 @@ function(slidWin, outliers = FALSE, ...){
 
 	if(slidWin$boxplot_out){
 		layout(1)
-		#plot(1, type = "n", xlim = c(1,length(slidWin$bp_out)), ylim = slidWin$bp_range_out, xaxt = "n", main="Boxplots of distance matrices for each window")
-		#axis(1, at = 1:length(slidWin$bp_out), labels = as.character(slidWin$pos_out))
-		#for(i in 1:length(slidWin$bp_out)) bxp(slidWin$bp_out[[i]], at=i, add=TRUE, axes=FALSE, whisklty=1, whiskcol="red", staplelty=0, outpch=NA)
-		#x11()
-		plot(1, type = "n", xlim = c(1,length(slidWin$bp_InterSpp_out)), ylim = c(0, median(slidWin$bp_range_out)), xaxt = "n", main="Boxplots of inter-specific distances (orange whiskers) and \nintra-specific distances (blue whiskers) in each window")
-		axis(1, at = 1:length(slidWin$bp_InterSpp_out), labels = as.character(slidWin$pos_out))
-		if(outliers){
-			for(i in 1:length(slidWin$bp_InterSpp_out)) bxp(slidWin$bp_InterSpp_out[[i]], at=i, add=TRUE, axes=FALSE, whisklty=1, whiskcol="orange", staplelty=0, outpch=20, outcol="orange")
-			for(i in 1:length(slidWin$bp_IntraSpp_out)) bxp(slidWin$bp_IntraSpp_out[[i]], at=i, add=TRUE, axes=FALSE, whisklty=1, whiskcol="blue", staplelty=0, outpch=20, outcol="blue", outcex=0.75)
-		}
-		else{
-			for(i in 1:length(slidWin$bp_InterSpp_out)) bxp(slidWin$bp_InterSpp_out[[i]], at=i, add=TRUE, axes=FALSE, whisklty=1, whiskcol="orange", staplelty=0, outpch=NA)
-			for(i in 1:length(slidWin$bp_IntraSpp_out)) bxp(slidWin$bp_IntraSpp_out[[i]], at=i, add=TRUE, axes=FALSE, whisklty=1, whiskcol="blue", staplelty=0, outpch=NA)
+		if(slidWin$method == "overall"){
+			plot(1, type = "n", xlim = c(1,length(slidWin$bp_out)), ylim = slidWin$bp_range_out, xaxt = "n", main="Boxplot of distance matrix for each window")
+			axis(1, at = 1:length(slidWin$bp_out), labels = as.character(slidWin$pos_out))
+			for(i in 1:length(slidWin$bp_out)) bxp(slidWin$bp_out[[i]], at=i, add=TRUE, axes=FALSE, whisklty=1, whiskcol="red", staplelty=0, outpch=NA)
+		}#x11()
+		if(slidWin$method %in% c("interAll", "nonCon")){
+			labs <- c("interAll", "nonCon")
+			desc <- c("all inter-specific", "closest non-conspecific")
+			plotTitle <- paste("Boxplots of", desc[which(slidWin$method==labs)], "distances (orange whiskers) and \nintra-specific distances (blue whiskers) in each window", sep=" ")
+			plot(1, type = "n", xlim = c(1,length(slidWin$bp_InterSpp_out)), ylim = c(0, median(slidWin$bp_range_out)), xaxt = "n", main=plotTitle)
+			axis(1, at = 1:length(slidWin$bp_InterSpp_out), labels = as.character(slidWin$pos_out))
+			if(outliers){
+				for(i in 1:length(slidWin$bp_InterSpp_out)) bxp(slidWin$bp_InterSpp_out[[i]], at=i, add=TRUE, axes=FALSE, whisklty=1, whiskcol="orange", staplelty=0, outpch=20, outcol="orange")
+				for(i in 1:length(slidWin$bp_IntraSpp_out)) bxp(slidWin$bp_IntraSpp_out[[i]], at=i, add=TRUE, axes=FALSE, whisklty=1, whiskcol="blue", staplelty=0, outpch=20, outcol="blue", outcex=0.75)
+			}
+			else{
+				for(i in 1:length(slidWin$bp_InterSpp_out)) bxp(slidWin$bp_InterSpp_out[[i]], at=i, add=TRUE, axes=FALSE, whisklty=1, whiskcol="orange", staplelty=0, outpch=NA)
+				for(i in 1:length(slidWin$bp_IntraSpp_out)) bxp(slidWin$bp_IntraSpp_out[[i]], at=i, add=TRUE, axes=FALSE, whisklty=1, whiskcol="blue", staplelty=0, outpch=NA)
+			}
 		}
 	}
 

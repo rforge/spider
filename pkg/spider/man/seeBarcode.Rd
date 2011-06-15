@@ -5,7 +5,7 @@
 
 \description{This function plots an illustrative barcode consisting of vertical bands in four colours corresponding to the DNA bases adenine (A), cytosine (C), guanine  (G) and thiamine (T).}
 
-\usage{illBC(seq, col=c("green", "blue", "black", "red"))}
+\usage{seeBarcode(seq, col=c("green", "blue", "black", "red"))}
 
 
 %- maybe also 'usage' for other objects documented here.
@@ -15,11 +15,11 @@
 }
 
 \details{
-Green, blue, black and red are the standard colours representing A
+Green, blue, black and red are the standard colours representing A, G, C and T respectively.
 }
 
 \value{
-Plots an illustrative barcode
+Plots an illustrative barcode.
 }
 
 \references{
@@ -51,5 +51,5 @@ illBC(woodmouse)}
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
+\keyword{Barcoding}
 \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
