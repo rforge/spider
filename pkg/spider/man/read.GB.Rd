@@ -5,7 +5,7 @@
 Download sequences from Genbank with metadata
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Downloads sequences associated with the given accession numbers into a DNAbin class
 }
 \usage{
 read.GB(access.nb, seq.names = access.nb, species.names = TRUE, gene = TRUE, access = TRUE, as.character = FALSE)
@@ -13,39 +13,35 @@ read.GB(access.nb, seq.names = access.nb, species.names = TRUE, gene = TRUE, acc
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{access.nb}{
-%%     ~~Describe \code{access.nb} here~~
+A character vector giving the GenBank accession numbers to download
 }
   \item{seq.names}{
-%%     ~~Describe \code{seq.names} here~~
+A character vector giving the names to give to each sequence. Defaults to "accession number | species name"
 }
   \item{species.names}{
-%%     ~~Describe \code{species.names} here~~
+Logical. Should species names be downloaded? Default of TRUE
 }
   \item{gene}{
-%%     ~~Describe \code{gene} here~~
+Logical. Should the name of the gene region be downloaded? Default of TRUE
 }
   \item{access}{
-%%     ~~Describe \code{access} here~~
+Logical. Should the accession number be downloaded? Default of TRUE
 }
   \item{as.character}{
-%%     ~~Describe \code{as.character} here~~
+Logical. Should the sequences be returned as character vector? Default of FALSE, function returns sequences as a 'DNAbin' object.
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+This function is a modification of \code{\link[ape:ape-package]{read.GenBank}} to include metadata with each sequence. Additional data currently implemented are the species names and the gene region from which sequences were derived.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+A 'DNAbin' object with the following attributes: \code{"species"}, \code{"gene"}, and \code{"accession_num"}
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Samuel Brown <s_d_j_brown@hotmail.com>
 }
 \note{
 %%  ~~further notes~~
@@ -54,109 +50,21 @@ read.GB(access.nb, seq.names = access.nb, species.names = TRUE, gene = TRUE, acc
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link[ape:read.GenBank]{read.GenBank}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+## Not Run
 
-## The function is currently defined as
-function(access.nb, seq.names = access.nb, species.names = TRUE, gene=TRUE, access=TRUE,
+#read.GB("AY059961")
 
-    as.character = FALSE) 
+##Download the sequences making data(anoteropsis) from Genbank
+#nums <- 59961:59993
+#seqs <- paste("AY0", nums, sep="")
+#dat <- read.GB(seqs)
 
-{
-
-    N <- length(access.nb)
-
-    nrequest <- N\%/\%400 + as.logical(N\%\%400)
-
-    X <- character(0)
-
-    for (i in 1:nrequest) {
-
-        a <- (i - 1) * 400 + 1
-
-        b <- 400 * i
-
-        if (i == nrequest) 
-
-            b <- N
-
-        URL <- paste("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=nucleotide&id=", 
-
-            paste(access.nb[a:b], collapse = ","), "&rettype=gb", 
-
-            sep = "")
-
-        X <- c(X, scan(file = URL, what = "", sep = "\n", quiet = TRUE))
-
-    }
-
-    FI <- grep("^ {0,}ORIGIN", X) + 1
-
-    LA <- which(X == "//") - 1
-
-    obj <- list()
-
-    length(obj) <- N
-
-    for (i in 1:N) {
-
-        tmp <- gsub("[[:digit:] ]", "", X[FI[i]:LA[i]])
-
-        obj[[i]] <- unlist(strsplit(tmp, NULL))
-
-    }
-
-    names(obj) <- seq.names
-
-    if (!as.character) 
-
-        obj <- as.DNAbin(obj)
-
-    if (species.names) {
-
-        tmp <- character(N)
-
-        sp <- grep("ORGANISM", X)
-
-        for (i in 1:N) tmp[i] <- unlist(strsplit(X[sp[i]], " +ORGANISM +"))[2]
-
-        attr(obj, "species") <- gsub(" ", "_", tmp)
-
-    if (gene) {
-
-        tmp2 <- character(N)
-
-        def <- grep("DEFINITION", X)
-
-        for (i in 1:N) tmp2[i] <- unlist(strsplit(X[def[i]], "DEFINITION +"))[2]
-
-        attr(obj, "gene") <- gsub(" ", "_", tmp2)
-
-    if (access) {
-
-        tmp3 <- character(N)
-
-        def <- grep("ACCESSION", X)
-
-        for (i in 1:N) tmp3[i] <- unlist(strsplit(X[def[i]], "ACCESSION +"))[2]
-
-        attr(obj, "accession_num") <- gsub(" ", "_", tmp3)
-
-    }
-
-    names(obj)<-paste(attr(obj,"accession_num"), "|", attr(obj,"species"))
-
-    obj
-
-  }
-
-  }
-
-  }
+#attr(dat, "species")
+#attr(dat, "gene")
+#attr(dat, "accession_num")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

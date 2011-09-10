@@ -5,7 +5,7 @@
 Rank a 'slidWin' object
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Display the top 10 windows measured by \code{\link{slideAnalyses}}
 }
 \usage{
 rankSlidWin(slidWin, criteria="all")
@@ -13,27 +13,23 @@ rankSlidWin(slidWin, criteria="all")
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{slidWin}{
-%%     ~~Describe \code{slidWin} here~~
+An object of class `slidWin', made using \code{\link{slideAnalyses}}
 }
   \item{criteria}{
-%%     ~~Describe \code{outliers} here~~
+Name of criteria to sort by. Can be any of the following: \code{"position", "mean_distance", "monophyly", "clade_comparison", "clade_comp_shallow", "zero_noncon", "zero_distances", "above_threshold", "below_threshold"} or \code{"all"}. Default of \code{"all"}
 }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+A data frame giving the values of the measures calculated by \code{\link{slideAnalyses}}, ranked to show the top 10 positions based on the criterion given.
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Samuel Brown <s_d_j_brown@hotmail.com>
 }
 \note{
 %%  ~~further notes~~
@@ -42,42 +38,20 @@ rankSlidWin(slidWin, criteria="all")
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{slideAnalyses}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+data(dolomedes)
+doloDist <- dist.dna(dolomedes)
+doloSpp <- substr(names(dolomedes), 1, 5)
 
-## The function is currently defined as
-rankSlidWin <- 
-function(slidWin, criteria="all"){
-	revRank <- function(xx) (length(xx)+1) - rank(xx, ties.method="min")
-	measures <- c("position", "mean_distance", "monophyly", "clade_comparison", "clade_comp_shallow", "zero_noncon", "zero_distances", "above_threshold", "below_threshold")
-	#Remove objects not of interest
-	excluded <- match(c("dat_zero_out", "boxplot_out", "distMeasures", "thresA", "thresB", "treeMeasures", "pos_tr_out"), names(slidWin))
-	dFrame <- as.data.frame(slidWin[-excluded])
-	#Reorder and rename dataframe columns
-	dfOrder <- match(c("pos_out", "dist_mean_out", "win_mono_out", "comp_out", "comp_depth_out", "noncon_out", "zero_out", "thres_above_out", "thres_below_out"), names(dFrame))
-	dFrame <- dFrame[ , dfOrder]
-	names(dFrame) <- measures
-	#Order rows
-	high <- match(c("monophyly", "clade_comparison", "clade_comp_shallow", "above_threshold", "mean_distance"), measures)
-	low <- match(c("zero_noncon", "below_threshold", "zero_distances"), measures)
-	lowVal <- as.data.frame(lapply(dFrame, function(x) rank(x, ties.method="min")))
-	highVal <- as.data.frame(lapply(dFrame, revRank))
-	dfVals <- highVal
-	dfVals[ , low] <- lowVal[ , low]
-	if(criteria == "all") rowOrd <- order(apply(dfVals[ , -1], MARGIN=1, FUN=sum))
-		else{
-			ordNum <- which(measures %in% criteria)
-			if(length(criteria) > 1) rowOrd <- order(apply(dfVals[ , ordNum], MARGIN=1, FUN=sum))
-				else rowOrd <- order(dfVals[ , ordNum])
-				}
-	#Return top 10
-	head(dFrame[ rowOrd , ], n=10L)
+doloSlide <- slideAnalyses(dolomedes, 200, interval=10, doloSpp, treeMeasures=TRUE)
+
+rankSlidWin(doloSlide)
+rankSlidWin(doloSlide, criteria="zero_distances")
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
+\keyword{Sliding window}
 \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

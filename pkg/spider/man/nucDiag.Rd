@@ -1,37 +1,36 @@
-\name{is.ambig}
-\alias{is.ambig}
+\name{nucDiag}
+\alias{nucDiag}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Missing bases in alignments
+Nucleotide diagnostics for species alignments
 }
 \description{
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-is.ambig(x)
+nucDiag(DNAbin, sppVec)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-A DNA alignment of class `DNAbin'
+  \item{DNAbin}{
+An object of class 'DNAbin'.
+}
+  \item{sppVec}{
+The species vector (see \code{\link{sppVector}}).
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+A list giving the pure, private diagnostic nucleotides for each of the species represented in the species vector.
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
-
-\author{Samuel Brown <s_d_j_brown@hotmail.com>}
-
+\author{
+Samuel Brown <s_d_j_brown@hotmail.com>
+}
 \note{
 %%  ~~further notes~~
 }
@@ -42,8 +41,10 @@ A DNA alignment of class `DNAbin'
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-data(woodmouse)
-is.ambig(woodmouse)
+data(anoteropsis)
+anoSpp <- sapply(strsplit(names(anoteropsis), split="_"), function(x) paste(x[1], x[2], sep="_"))
+
+nucDiag(anoteropsis, anoSpp)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

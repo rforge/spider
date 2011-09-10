@@ -13,27 +13,23 @@ sppDistMatrix(dat, spp)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{dat}{
-%%     ~~Describe \code{dat} here~~
+A distance matrix
 }
   \item{spp}{
-%%     ~~Describe \code{spp} here~~
+The species vector (see \code{\link{sppVector}})
 }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+A square matrix with dimensions length(spp). It contains the mean intra specific distances down the diagonal, and the mean pairwise distance between the species in the triangles. The two triangles are identical. 
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Samuel Brown <s_d_j_brown@hotmail.com>
 }
 \note{
 %%  ~~further notes~~
@@ -45,24 +41,12 @@ sppDistMatrix(dat, spp)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+data(dolomedes)
+doloDist <- dist.dna(dolomedes)
+doloSpp <- substr(names(dolomedes), 1, 5)
 
-## The function is currently defined as
-function(dat, spp){
-	dat <- as.matrix(dat)
-	attr(dat, "dimnames")[[1]] <- spp
-	taxa <- unique(spp)
-	pair.mat <- matrix(data = NA, nrow = length(taxa), ncol = length(taxa), dimnames = list(one = taxa,two = taxa))
-	for(i in 1:length(taxa)){
-		for(j in 1:length(taxa)){
-			sppMat <- dat[which(dimnames(dat)[[1]] == taxa[i]), which(dimnames(dat)[[1]] == taxa[j])]
-			if(taxa[i] == taxa[j]) pair.mat[i,j] <- mean(sppMat[lower.tri(sppMat)]) else pair.mat[i,j] <- mean(sppMat)
-		}
-	}
-pair.mat
-  }
+sppDistMatrix(doloDist, doloSpp)
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

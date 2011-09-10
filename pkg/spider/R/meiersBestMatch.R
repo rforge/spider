@@ -1,16 +1,15 @@
-meiersBestMatch <- function(distobj, spp, threshold = 0.01){
+meiersBestMatch <- function(distobj, sppVector, threshold = 0.01){
 	distobj <- as.matrix(distobj)
 	diag(distobj) <- NA
-	len <- length(spp)
-	output <- rep(NA, len)
-	aa <- apply(dist, MARGIN=2, FUN=function(x) which(x < threshold))
-	bb <- lapply(aa, function(x) unique(spp[x]))
-	cc <- sapply(bb, length)
-	dd <- which(cc == 1)
-	ee <- spp == bb
-	output[which(ee)] <- "correct"
-	output[which(!ee)] <- "incorrect"
-	output[which(cc == 0)] <- "no id"
-	output[which(cc > 1)] <- "ambiguous"
+	output <- rep(NA, length(sppVector))
+	aa <- apply(distobj, MARGIN=2, FUN=function(x) which(x == min(x, na.rm = TRUE)))
+	bb <- lapply(aa, function(x) unique(sppVector[x]))
+	cc <- sppVector == bb
+	dd <- sapply(1:length(sppVector), function(x) sppVector[x] %in% bb[[x]])
+	ee <- apply(distobj, MARGIN=2, FUN=function(x) min(x, na.rm = TRUE))
+	output[which(cc & dd)] <- "correct"
+	output[which(!cc & !dd)] <- "incorrect"
+	output[which(!cc & dd)] <- "ambiguous"
+	output[which(ee > threshold)] <- "no id"
 	output
 }

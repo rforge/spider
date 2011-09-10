@@ -11,14 +11,19 @@ read.BOLD <- function(IDs){
 		URL <- paste("http://services.boldsystems.org/eFetch.php?record_type=full&id_type=processid&ids=(", urlID, ")&return_type=text", sep="")
 		res <- scan(file = URL, what = "", sep = "\n", quiet = TRUE)
 		res <- strsplit(res, "\\t")
+		recID <- sapply(res, function(x) x[1])[-1]
 		species <- sapply(res, function(x) x[24])[-1]
-		nam <- paste(IDs[which(nums==i)], species, sep="_")
+		species <- gsub(" ", "_", species)
+		nam <- paste(recID, species, sep="|")
 		seqs <- as.DNAbin(sapply(res, function(x) tolower(unlist(strsplit(x[55], split=""))))[-1])
 		names(seqs) <- nam
 		attr(seqs, "species") <- species
-		attr(seqs, "accession_num") <- IDs
-		attr(seqs, "gene") <- rep("cytochrome oxidase I (COI)", length(IDs))
+		attr(seqs, "accession_num") <- recID
 		allSeqs[[i]] <- seqs
 	}
-	do.call(c, allSeqs)
+	collSeqs <- do.call(c, allSeqs)
+	attr(collSeqs, "species") <- unlist(lapply(allSeqs, function(x) attr(x, "species")))
+	attr(collSeqs, "accession_num") <- unlist(lapply(allSeqs, function(x) attr(x, "accession_num")))
+	attr(collSeqs, "gene") <- rep("cytochrome oxidase I (COI)", length(collSeqs))
+	collSeqs
 }

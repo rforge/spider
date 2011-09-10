@@ -1,6 +1,7 @@
 slidingWindow <-
 function(align, width, interval = 1){
 	annote <- function(x){
+		width <- width - 1
 		y <- align[ , x:(x+width)]
 		attr(y, "window") <- c(x, x+width)
 		y

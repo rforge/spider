@@ -1,0 +1,62 @@
+
+\name{haploaccum}
+\alias{haploaccum}
+
+\title{Haplotype accumulation curves}
+
+\description{
+\code{haploaccum} identifies the different haplotypes represented in a set of DNA sequences and creates haplotype accumulation curves.}
+
+\usage{haploaccum(dat, method = "random", permutations = 100, ...)
+  ## S3 method for class 'haplo.accum'
+  plot(x, add = FALSE, ci = 2, ci.type = c("bar","line","polygon"), col = par("fg"), ci.col = col, ci.lty = 1, ...)
+}
+    
+\arguments{
+  \item{dat}{A set of DNA sequences in an object of class ``DNAbin''}
+  \item{method}{Method for haplotype accumulation. Method \code{``collector''} enters the sequences in the order that they appear in the sequence alignment and \code{``random''} adds the sequences in a random order.}
+  \item{permutations}{Number of permutations for method \code{``random''}.}
+  \item{x}{A haploaccum object obtained from \code{haploaccum}}
+  \item{add}{Add graph to an existing graph.}
+  \item{ci}{Multiplier for the calculation of confidence intervals from standard deviation. \code{ci = 0} prevents the drawing of confidence intervals.}
+  \item{ci.type}{Type of confidence intervals: \code{``bar''} for vertical bars, \code{``line''} for lines, and \code{``polygon''} for a shaded area.}
+  \item{col}{Colour for curve line.}
+  \item{ci.col}{Colour for lines or shaded area when \code{``polygon''}.}
+  \item{ci.lty}{Line type for confidence interval lines or border of the \code{``polygon''}.}
+  \item{...}{Other parameters to functions}
+}
+
+\details{
+Haplotype accumulation curves can be used to assess haplotype diversity in an area or compare different populations, or to evaluate sampling effort. \code{``random''} calculates the mean accumulated number of haplotypes and its standard deviation through random permutations (subsampling of sequences), similar to the method to produce rarefaction curves (Gotelli and Colwell 2001).\
+}
+
+\value{
+An object of class "haplo.accum" with items:
+  \item{call}{Function call.}
+  \item{method}{Method for accumulation.}
+  \item{sequences}{Number of analysed sequences.}
+  \item{n.haplotypes}{Accumulated number of haplotypes corresponding to each number of sequences.}                                      
+  \item{sd}{The standard deviation of the haplotype accumulation curve. Estimated through permutations for \code{method = ``random''} and \code{NULL} for \code{method = ``collector''}.}
+  \item{perm}{Results of the permutations for \code{method = ``random''}.}
+}
+
+\references{
+  Gotellli, N.J. \& Colwell, R.K. (2001). Quantifying biodiversity: procedures and pitfalls in measurement and comparison of species richness. \textit{Ecol. Lett.} 4, 379--391.
+}
+
+\author{
+Jagoba Malumbres-Olarte <j.malumbres.olarte@gmail.com>.
+}
+
+\note{
+This function is based on the functions \code{haplotype} (E. Paradis) from the package 'pegas' and \code{specaccum} (R. Kindt) from the package'vegan'. Missing or ambiguous data will be detected and indicated by a warning, as they may cause an overestimation of the number of haplotypes.
+}
+
+\examples{
+data(dolomedes)
+doloHaplo <- dolomedes[sample(37, size = 200, replace = TRUE), ] #Generate multiple haplotypes
+dolocurv <- haploaccum(doloHaplo, method = "random", permutations = 100)
+dolocurv
+plot(dolocurv)
+plot(dolocurv, add = FALSE, ci = 2, ci.type = "bar", col = "black", ci.col = "red", ci.lty = 1)
+

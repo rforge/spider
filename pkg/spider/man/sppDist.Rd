@@ -13,27 +13,26 @@ sppDist(dat, spp)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{dat}{
-%%     ~~Describe \code{dat} here~~
+A distance matrix
 }
   \item{spp}{
-%%     ~~Describe \code{spp} here~~
+The species vector (see \code{\link{sppVector}})
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+This function can be used to produce histograms and other charts exploring the `barcode gap'
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+A list with two elements
+\item{inter} A numeric vector containing ALL inter-specific pairwise distances
+\item{intra} A numeric vector containing ALL intra-specific pairwise distances
+
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Samuel Brown <s_d_j_brown@hotmail.com>
 }
 \note{
 %%  ~~further notes~~
@@ -42,28 +41,17 @@ sppDist(dat, spp)
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{sppDistMatrix}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+data(dolomedes)
+doloDist <- dist.dna(dolomedes)
+doloSpp <- substr(names(dolomedes), 1, 5)
 
-## The function is currently defined as
-function(dat, spp){
-	dat <- as.matrix(dat)
-	attr(dat, "dimnames")[[1]] <- spp
-	taxa <- unique(spp)
-	intra <- list()
-	inter <- list()
-	for(i in 1:length(taxa)){
-		for(j in 1:length(taxa)){
-			sppMat <- dat[which(dimnames(dat)[[1]] == taxa[i]), which(dimnames(dat)[[1]] == taxa[j])]
-			if(taxa[i] == taxa[j]) intra[[length(intra)+1]] <- sppMat[lower.tri(sppMat)] else inter[[length(inter)+1]] <- sppMat
-			}
-	}
-list(inter = unlist(inter), intra = unlist(intra))
-  }
+sppDist(doloDist, doloSpp)
+
+#Histogram of the barcode gap
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

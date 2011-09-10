@@ -20,9 +20,12 @@ slidingWindow(align, width, interval = 1)
 }
 \details{
 Sliding window analyses are often used to determine the variability along sequences. This can be useful for investigating if there is evidence for recombination, developing shorter genetic markers, or for determining variation of genetic diversity within a gene.
+Result is a list of DNA alignments. The list has length of the DNA alignment minus the width.
+The window covered by each alignment can be retreived with attr(x, "window")
+
 }
 
-\value{A list of 'DNAbin' objects, with each alignment being 'width'+1 bases in length}
+\value{A list of 'DNAbin' objects, with each alignment being 'width' bases in length}
 
 \references{
 %% ~put references to the literature/web site here ~
@@ -56,7 +59,7 @@ length(win3)
 
 win4 <- slidingWindow(woodmouse, width = 15)
 length(win4)
-
+attr(win4, "window")
 }
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the

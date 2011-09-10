@@ -13,45 +13,70 @@ slideAnalyses(dat, width, spp, interval = 1, distMeasures = TRUE, thresA = 0.2, 
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{dat}{
-%%     ~~Describe \code{dat} here~~
+A DNA alignment of class `DNAbin'
 }
   \item{width}{
-%%     ~~Describe \code{width} here~~
+Desired width of windows in number of base pairs
 }
   \item{spp}{
-%%     ~~Describe \code{spp} here~~
+Species vector (see \code{\link{sppVector}})
 }
   \item{interval}{
-%%     ~~Describe \code{interval} here~~
+Distance between each window in number of base pairs. Default of 1. Giving the option of 'codons' sets the size to 3.
 }
   \item{distMeasures}{
-%%     ~~Describe \code{distMeasures} here~~
+Logical. Should distance measures be calculated? Default of TRUE
 }
   \item{thresA}{
-%%     ~~Describe \code{thresA} here~~
+Threshold to calculate the number of distance above. Default of 0.2
 }
   \item{thresB}{
-%%     ~~Describe \code{thresB} here~~
+Threshold to calculate the number of distance below. Default of 0.1
 }
   \item{treeMeasures}{
-%%     ~~Describe \code{treeMeasures} here~~
+Logical. Should tree-based measures be calculated? Default of FALSE
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+Distance measures include the following:
+\item{proportion of zero non-conspecific distances}
+\item{number of distances that are above and below the thresholds given}
+\item{number of zero-length distances}
+\item{overall mean distance}
+
+Tree-based measures include the following: 
+\item{proportion of species that are monophyletic,}
+\item{proportion of clades that are identical between the NJ tree calculated for the window and the tree calculated for the full dataset,}
+\item{the above with \code{method="shallow"}.}
+
+Tree-based measures are a lot more time-intensive than distance measures. When dealing with lots of taxa and short window sizes, this part of the function can take hours.
+
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+An object of class 'slidWin' which is a list containing the following elements:
+\item{win_mono_out}{Proportion of species that are monophyletic}
+\item{comp_out}{Proportion of clades that are identical between the NJ tree calculated for the window and the tree calculated for the full dataset}
+\item{comp_depth_out}{Proportion of shallow clades that are identical}
+\item{pos_tr_out}{Index of window position for tree-based analyses}
+\item{noncon_out}{proportion of zero non-conspecific distances}
+\item{thres_below_out}{number of distances that are below the threshold given}
+\item{thres_above_out}{number of distances that are above the threshold given}
+\item{zero_out}{number of zero-length distances}
+\item{dist_mean_out}{overall mean distance}
+\item{pos_out}{Index of window position}
+\item{dat_zero_out}{Number of zero inter-specific distances in the full dataset}
+\item{boxplot_out}{Always FALSE. Required for \code{plot.slidwin}}
+\item{distMeasures}{Value of argument. Required for \code{plot.slidwin}}
+\item{thresA}{Value of argument. Required for \code{plot.slidwin}}
+\item{thresB}{Value of argument. Required for \code{plot.slidwin}}
+\item{treeMeasures}{Value of argument. Required for \code{plot.slidwin}}
+
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Samuel Brown <s_d_j_brown@hotmail.com>
 }
 \note{
 %%  ~~further notes~~
@@ -60,60 +85,17 @@ slideAnalyses(dat, width, spp, interval = 1, distMeasures = TRUE, thresA = 0.2, 
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{plot.slidWin}}, \code{\link{rankSlidWin}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+data(dolomedes)
+doloDist <- dist.dna(dolomedes)
+doloSpp <- substr(names(dolomedes), 1, 5)
 
-## The function is currently defined as
-function(dat, width, spp, interval = 1, distMeasures = TRUE, thresA = 0.2, thresB = 0.1, treeMeasures = FALSE){
-	#Produce distance matrix, number of zero cells of full sequence
-	boxplot_out <-FALSE
-	dat <- as.matrix(dat)
-	dimnames(dat)[[1]] <- spp
-	datd <- dist.dna(dat, pairwise.deletion = TRUE)
-	dat_zero_out <- sum(as.numeric(datd == 0))/length(datd)
-	#Create the windows
-	win <- slidingWindow(dat, width-1, interval = interval)
-	pos_out <- sapply(win, function(x) attr(x, "window")[1])
-	win_dist <- lapply(win, function(x) dist.dna(x, pairwise.deletion = TRUE))
-	#Distance metrics
-	if(distMeasures){
-		#Mean of distance matrix
-		dist_mean_out <- sapply(win_dist, mean) 
-		#Number of zero cells
-		zero_out <- sapply(win_dist, function(y) sum(as.numeric(y == 0))/length(y))
-		#Threshold measures
-		thres_above_out <- sapply(win_dist, function(x) sum( as.numeric(x >= thresA) ) )
-		thres_below_out <- sapply(win_dist, function(x) sum( as.numeric(x <= thresB) ) )
-		#Nearest non-conspecific distance
-		noncon_out <- sapply(win_dist, function(x) nonConDist(x, propZero = TRUE))
-		
-	}
-	if(treeMeasures){
-		#Produce NJ tree of full sequence
-		dat_tr <- nj(datd)
-		depth <- which(node.depth(dat_tr)[node.depth(dat_tr) > 1] <= median(node.depth(dat_tr)[node.depth(dat_tr) > 1]))
-		#Remove windows with NA distances
-		dist_na <- sapply(win_dist, function(x)  sum( as.numeric( is.na(x) ) ) )
-		pos_tr_out <- pos_out[ dist_na < 1 ]
-		win_tr <- lapply(win_dist[ dist_na < 1 ], nj)
-		#Comparing clade composition with full alignment
-		comp_out <- sapply(win_tr, function(x) tree.comp(dat_tr, x))
-		comp_depth_out <- sapply(win_tr, function(x) tree.comp(dat_tr, x, method="shallow"))
-		#Monophyly
-		win_mono <- lapply(win_tr, monophyly)
-		win_mono_out <- sapply(win_mono, function(x) length(which(x))/length(x))
-		}
-rm(list = ls()[!ls() \%in\% c(ls(pattern="_out"), ls(pattern="res"))])
-output <- as.list(environment())
-class(output) <- "slidWin"
-output
-  }
+slideAnalyses(dolomedes, 200, interval=10, doloSpp, treeMeasures=TRUE)
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
+\keyword{Sliding window}
 \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

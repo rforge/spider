@@ -44,10 +44,10 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 layout(matrix(1:6, ncol=1))
 par(mar=c(0.5, 0, 0.5, 0))
 data(woodmouse)
-illBC(woodmouse[1,])
-illBC(woodmouse[1,], col=c("pink", "orange", "steelblue", "yellow"))
-apply(woodmouse[1:4,], MARGIN=1, FUN=illBC)
-illBC(woodmouse)}
+seeBarcode(woodmouse[1,])
+seeBarcode(woodmouse[1,], col=c("pink", "orange", "steelblue", "yellow"))
+apply(woodmouse[1:4,], MARGIN=1, FUN=seeBarcode)
+}
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

@@ -13,33 +13,46 @@ slideBoxplots(dat, width, spp, interval = 1)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{dat}{
-%%     ~~Describe \code{dat} here~~
+A DNA alignment of class 'DNAbin'
 }
   \item{width}{
-%%     ~~Describe \code{width} here~~
+Width of windows
 }
   \item{spp}{
-%%     ~~Describe \code{spp} here~~
+A species vector (see \code{\link{sppVector}}
 }
   \item{interval}{
-%%     ~~Describe \code{interval} here~~
+Distance between each window in number of base pairs. Default of 1. Giving the option of 'codons' sets the size to 3.
+}
+  \item{method}{
+Options of \code{"overall", "interAll"} or \code{"nonCon"} (the default)
 }
 }
 \details{
-%%  ~~ If necessary, more details than the description above ~~
+Giving \code{method="overall"} calculates the boxplot for the distance matrix of each window.
+
+Giving \code{method="interAll"} calculates boxplots for the inter- and intra-specific distances of each window, showing the result for ALL inter-specific distances.
+
+Giving \code{method="nonCon"} calculates boxplots for the inter- and intra-specific distances of each window, showing the result for only the nearest-conspecific distances for each individual.
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+A list with 
+
+ \item{treeMeasures}{Logical. Tree measures calculated? Always FALSE}
+ \item{distMeasures}{Logical. Distance measures calculated? Always FALSE}
+ \item{bp_out}{If \code{method="overall"}, contains the boxplot objects of each window}
+ \item{bp_InterSpp_out}{If \code{method!="overall"}, contains the boxplot objects of the interspecific distances of each window}
+ \item{bp_IntraSpp_out}{If \code{method!="overall"}, contains the boxplot objects of the intraspecific distances of each window}
+ \item{bp_range_out}{range of y-axis values}
+ \item{pos_out}{x-axis values}
+ \item{boxplot_out}{Logical. Boxplots calculated? Always TRUE}
+ \item{method}{The method used for calculating boxplots. \code{"overall", "interAll"} or \code{"nonCon"}}
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Samuel Brown <s_d_j_brown@hotmail.com>
 }
 \note{
 %%  ~~further notes~~
@@ -48,41 +61,21 @@ slideBoxplots(dat, width, spp, interval = 1)
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{slidingWindow}}, \code{\link{slideAnalyses}}, \code{\link{plotslidWin}}, \code{\link[graphics:boxplot]{boxplot}}
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+data(dolomedes)
+doloDist <- dist.dna(dolomedes)
+doloSpp <- substr(names(dolomedes), 1, 5)
 
-## The function is currently defined as
-function(dat, width, spp, interval = 1){
-	#Produce distance matrix, number of zero cells of full sequence
-	boxplot_out <- TRUE
-	dat <- as.matrix(dat)
-	dimnames(dat)[[1]] <- spp
-	datd <- dist.dna(dat, pairwise.deletion = TRUE)
-	#Create the windows
-	win <- slidingWindow(dat, width-1, interval = interval)
-	pos_out <- sapply(win, function(x) attr(x, "window")[1])
-	win_dist <- lapply(win, function(x) dist.dna(x, pairwise.deletion = TRUE))
-	bp_range_out <- range(win_dist,na.rm=TRUE)
-	#Boxplots of overall distance matrix
-	bp_out <- lapply(win_dist, function(x) boxplot(x, plot=FALSE))
-	#Boxplots of intra- and inter-specific distances
-	spp_dist <- lapply(win_dist, function(x) sppDist(x, spp))
-	bp_InterSpp_out <- lapply(spp_dist, function(x) boxplot(x$inter, plot=FALSE))
-	bp_IntraSpp_out <- lapply(spp_dist, function(x) boxplot(x$intra, plot=FALSE))
+doloNonCon <- slideBoxplots(dolomedes, 200, interval=10, doloSpp)
 
-rm(list = ls()[!ls() \%in\% ls(pattern="_out")])
-distMeasures <- FALSE
-treeMeasures <- FALSE
-output <- as.list(environment())
-class(output) <- "slidWin"
-output
-  }
+doloOverall <- slideBoxplots(dolomedes, 200, interval=10, doloSpp, method="overall")
+
+doloInterall <- slideBoxplots(dolomedes, 200, interval=10, doloSpp, method="interAll")
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
+\keyword{Sliding window}
 \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

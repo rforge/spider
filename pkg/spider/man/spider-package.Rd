@@ -12,8 +12,8 @@ A package for the analysis of species limits and DNA barcoding data
 \tabular{ll}{
 Package: \tab spider\cr
 Type: \tab Package\cr
-Version: \tab 1.0-3\cr
-Date: \tab 2011-06-15\cr
+Version: \tab 1.0-5\cr
+Date: \tab 2011-09-06\cr
 License: \tab GPL\cr
 LazyLoad: \tab yes\cr
 }
@@ -23,8 +23,8 @@ LazyLoad: \tab yes\cr
 \author{
 Samuel Brown, Rupert Collins, Stephane Boyer, Marie-Caroline Lefort, Jagoba Malumbres-Olarte, Cor Vink, Rob Cruickshank
 
+Maintainer:
 Samuel Brown <s_d_j_brown@hotmail.com>
-~~ The author and/or maintainer of the package ~~
 }
 \references{
 ~~ Literature or other references for background information ~~

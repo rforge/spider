@@ -5,7 +5,7 @@
 Number of pairwise transitions and transversions in an alignment
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Calculates the number of pairwise transitions and transversions between sequences
 }
 \usage{
 titv(dat)
@@ -13,24 +13,20 @@ titv(dat)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{dat}{
-%%     ~~Describe \code{dat} here~~
+A DNA alignment of class DNAbin
 }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+A square matrix with dimensions of length(dat). The upper triangle contains the number of transversions. The lower triangle contains the number of transitions.
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Samuel Brown <s_d_j_brown@hotmail.com>
 }
 \note{
 %%  ~~further notes~~
@@ -42,23 +38,25 @@ titv(dat)
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+data(dolomedes)
 
-## The function is currently defined as
-function(dat){
-mat<-as.matrix(dat)
-res<-matrix(NA, ncol=dim(mat)[1], nrow=dim(mat)[1], dimnames=list(x=names(dat), y=names(dat)))
-for(i in 1:(dim(mat)[1] - 1)){
-for(j in (i+1):dim(mat)[1]){
-vec<-as.numeric(mat[i,])+as.numeric(mat[j,])-8
-res[j,i]<-sum(!is.na(match(vec,c(200,56))))#Transitions
-res[i,j]<-sum(!is.na(match(vec,c(152,168,88,104))))#Transversions
-  }
-  }
-res
-  }
+subs <- titv(dolomedes)
+
+#Transversions
+subs[upper.tri(subs)]
+tv <- t(subs)
+tv <- tv[lower.tri(tv)]
+
+#Transitions
+ti <- subs[lower.tri(subs)]
+
+
+#Saturation plot
+doloDist <- dist.dna(dolomedes)
+plot(doloDist, ti, type="p", pch=19, col="blue", main="Saturation plot of number of transitions and transversions \nagainst K2P distance. Red: transversions. Blue: transitions")
+points(doloDist, tv, pch=19, col="red")
+
+
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

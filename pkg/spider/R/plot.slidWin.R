@@ -14,7 +14,7 @@ function(slidWin, outliers = FALSE, ...){
 
 	distT <- function(){
 		ylimcomp <- range(slidWin$comp_out, slidWin$comp_depth_out, na.rm=TRUE)
-		plot(slidWin$pos_tr_out, slidWin$comp_out, ylim = ylimcomp, xlab = "Position", ylab = "Proportion", main="Proportion of identical clades between trees derived from the full dataset and each window.\nBlack points are uncorrected for node depth.\nBlue points show the proportion of identical terminal nodes")
+		plot(slidWin$pos_tr_out, slidWin$comp_out, ylim = ylimcomp, xlab = "Position", ylab = "Proportion", main="Proportion of identical clades between trees derived from the full dataset and each window.\nBlack points are uncorrected for node depth.\nBlue points show the proportion of identical shallow clades")
 			points(slidWin$pos_tr_out, slidWin$comp_depth_out, col="blue")
 		plot(slidWin$pos_tr_out, slidWin$win_mono_out, xlab = "Position", ylab = "Proportion of monophyly", main = "Proportion of species that are monophyletic")
 	}

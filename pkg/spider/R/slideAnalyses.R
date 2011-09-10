@@ -7,7 +7,7 @@ function(dat, width, spp, interval = 1, distMeasures = TRUE, thresA = 0.2, thres
 	datd <- dist.dna(dat, pairwise.deletion = TRUE)
 	dat_zero_out <- sum(as.numeric(datd == 0))/length(datd)
 	#Create the windows
-	win <- slidingWindow(dat, width-1, interval = interval)
+	win <- slidingWindow(dat, width, interval = interval)
 	pos_out <- sapply(win, function(x) attr(x, "window")[1])
 	win_dist <- lapply(win, function(x) dist.dna(x, pairwise.deletion = TRUE))
 	#Distance metrics

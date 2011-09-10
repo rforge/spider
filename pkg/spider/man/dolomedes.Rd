@@ -3,8 +3,11 @@
 \alias{dolomedes}
 \title{Cytochrome oxidase I (COI) sequences of New Zealand \emph{Dolomedes} species}
 
-\description{This is a set of 33 sequences of the mitochondrial protein-coding gene cytochrome oxidase I from 20 species of the New Zealand spider genus \emph{Dolomedes} and two species of \emph{Artoria} as outgroups.}
+\description{This is a set of 37 sequences of the mitochondrial protein-coding gene cytochrome oxidase I from the 4 New Zealand species of the spider genus \emph{Dolomedes}. These sequences are available on GenBank as accession numbers GQ337328 through GQ337385}
 
 \usage{dolomedes}
 
-\format{A DNAbin object containing 33 sequences with a length of 409 base pairs}
+\format{A DNAbin object containing 37 sequences with a length of 850 base pairs}
+
+\source{
+Vink, C. J., and Duperre, N. (2010). Pisauridae (Arachnida: Araneae). _Fauna of New Zealand_, *64* , 1-54.}
