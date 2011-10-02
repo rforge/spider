@@ -8,7 +8,7 @@
 \description{}
 
 \usage{
-meiersBestMarch(distobj, sppVector, threshold = 0.01)
+meiersBestMatch(distobj, sppVector, threshold = 0.01)
 nearNeighbour(distobj, sppVector, names = FALSE)
 idBOLD(distobj, sppVector, threshold = 0.01, highThreshold = 0.05)}
 

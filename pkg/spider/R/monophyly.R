@@ -1,21 +1,21 @@
 monophyly <- 
-function (phy, pp = NA, singletonsMono = TRUE) 
+function (phy, sppVector, pp = NA, singletonsMono = TRUE) 
 {
     res <- list()
-    x <- lapply(unique(phy$tip.label), function(y) which(phy$tip.label == 
+    xxx <- lapply(unique(sppVector), function(y) which(sppVector == 
         y))
-    sppTab <- sapply(x, length)
+    sppTab <- sapply(xxx, length)
     singletons <- which(sppTab == 1)
     nonSingletons <- which(sppTab != 1)
-    ifelse(is.na(pp), y <- .Call("bipartition", phy$edge, length(phy$tip.label), 
-        phy$Nnode, PACKAGE = "ape"), y <- pp)
-    z <- sapply(y, length)
-    defNon <- which(!sppTab %in% z)
-    poss <- which(sppTab %in% z)
+    ifelse(is.na(pp), yyy <- .Call("bipartition", phy$edge, length(phy$tip.label), 
+        phy$Nnode, PACKAGE = "ape"), yyy <- pp)
+    zzz <- sapply(yyy, length)
+    defNon <- which(!sppTab %in% zzz)
+    poss <- which(sppTab %in% zzz)
     for (i in poss) {
         res[i] <- NA
-        for (j in 1:length(y[which(z == sppTab[i])])) res[[i]][j] <- sum(as.numeric(!x[[i]] %in% 
-            y[which(z == sppTab[i])][[j]]))
+        for (j in 1:length(yyy[which(zzz == sppTab[i])])) res[[i]][j] <- sum(as.numeric(!xxx[[i]] %in% 
+            yyy[which(zzz == sppTab[i])][[j]]))
     }
     out <- sapply(res, function(x) as.logical(sum(as.numeric(x < 
         1))))
@@ -24,4 +24,3 @@ function (phy, pp = NA, singletonsMono = TRUE)
     out[singletons] <- singletonsMono
     out
 }
-

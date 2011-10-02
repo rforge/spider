@@ -9,16 +9,18 @@ Species monophyly over a tree
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-monophyly(phy, pp = NA, singletonsMono = TRUE)
+monophyly(phy, sppVector, pp = NA, singletonsMono = TRUE)
 }
 \usage{
-monophylyBoot(phy, DNAbin, pp = NA, singletonsMono = TRUE, reps = 1000, thresh = 0.7)
+monophylyBoot(phy, sppVector, DNAbin, pp = NA, singletonsMono = TRUE, reps = 1000, thresh = 0.7, block = 3)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{phy}{
-Tree of interest with tip labels consistent within species identity such that length(unique(phy$tip.label)) is the same as the number of species in the tree
+Tree of interest.
 }
+ \item{sppVector}{
+ Species vector. See \code{\link{sppVector}}.
   \item{pp}{
 Object of class prop.part. Assists in speeding up the function, if it has been called already.
 }
@@ -31,6 +33,8 @@ An object of class 'DNAbin'. Required for calculating bootstrap values.
   \item{reps}{Numeric. Number of bootstrap replications. Default of 1000.
 }
   \item{thresh}{Numeric between 0 and 1. Bootstrap threshold under which potentially monophyletic species are negated. Default of 0.7.
+}
+  \item{block}{The number of nucleotides that will be resampled together. Default of 3 to resample on the codon level.
 }
 }
 \details{
@@ -55,32 +59,29 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
+set.seed(16)
 tr <- rtree(15)
 spp <- rep(LETTERS[1:5], rep(3,5))
-tr$tip.label <- spp
-monophyly(tr)
+monophyly(tr, spp)
 
 tr2 <- tr
 spp2 <- c(rep(LETTERS[1:4], rep(3,4)), LETTERS[5:7])
-tr2$tip.label <- spp2
-monophyly(tr2)
+monophyly(tr2, spp2)
 
 data(anoteropsis)
 anoTree <- nj(dist.dna(anoteropsis))
 anoSpp <- sapply(strsplit(names(anoteropsis), split="_"), function(x) paste(x[1], x[2], sep="_"))
 
-anoTree$tip.label <- anoSpp
-monophyly(anoTree)
+monophyly(anoTree, anoSpp)
 monophyly(anoTree, singletonsMono=FALSE)
 unique(anoSpp)
 
 data(woodmouse)
 woodTree <- nj(dist.dna(woodmouse))
 woodSpp <- c("D", "C", "C", "A", "A", "E", "A", "F", "C", "F", "E", "D", "A", "A", "E")
-woodTree$tip.label <- woodSpp
-monophyly(woodTree)
-monophylyBoot(woodTree, woodmouse)
-monophylyBoot(woodTree, woodmouse, thresh=0.9)
+monophyly(woodTree, woodSpp)
+monophylyBoot(woodTree, woodSpp, woodmouse)
+monophylyBoot(woodTree, woodSpp, woodmouse, thresh=0.9)
 unique(woodSpp)
 
 }
