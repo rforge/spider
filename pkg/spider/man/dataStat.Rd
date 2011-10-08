@@ -49,7 +49,7 @@ Rupert Collins <rupertcollins@gmail.com>
 }
 \examples{
 data(anoteropsis)
-sppName <- sapply(strsplit(names(anoteropsis), split="_"), function(x) paste(x[1], x[2], sep="_"))
+sppName <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), function(x) paste(x[1], x[2], sep="_"))
 genName <-  sapply(strsplit(sppName, split="_"), function(x) x[1])
 dataStat(sppName, genName)
 

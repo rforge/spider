@@ -63,7 +63,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 
 data(anoteropsis)
 anoDist <- dist.dna(anoteropsis)
-anoSpp <- sapply(strsplit(names(anoteropsis), split="_"), function(x) paste(x[1], x[2], sep="_"))
+anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), function(x) paste(x[1], x[2], sep="_"))
 
 meiersBestMatch(anoDist, anoSpp)
 meiersBestMatch(anoDist, anoSpp, threshold=0.005)
@@ -73,7 +73,7 @@ idBOLD(anoDist, anoSpp, threshold=0.003, highThreshold=0.1)
 
 data(dolomedes)
 doloDist <- dist.dna(dolomedes)
-doloSpp <- substr(names(dolomedes), 1, 5)
+doloSpp <- substr(dimnames(dolomedes)[[1]], 1, 5)
 
 meiersBestMatch(doloDist, doloSpp)
 meiersBestMatch(doloDist, doloSpp, threshold=0.005)

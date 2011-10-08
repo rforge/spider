@@ -66,7 +66,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 \examples{
 data(dolomedes)
 doloDist <- dist.dna(dolomedes)
-doloSpp <- substr(names(dolomedes), 1, 5)
+doloSpp <- substr(dimnames(dolomedes)[[1]], 1, 5)
 
 doloNonCon <- slideBoxplots(dolomedes, 200, interval=10, doloSpp)
 

@@ -5,10 +5,10 @@
 Rank a 'slidWin' object
 }
 \description{
-Display the top 10 windows measured by \code{\link{slideAnalyses}}
+Display the top windows measured by \code{\link{slideAnalyses}}
 }
 \usage{
-rankSlidWin(slidWin, criteria="all")
+rankSlidWin(slidWin, criteria="all", num = 10)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -17,6 +17,9 @@ An object of class `slidWin', made using \code{\link{slideAnalyses}}
 }
   \item{criteria}{
 Name of criteria to sort by. Can be any of the following: \code{"position", "mean_distance", "monophyly", "clade_comparison", "clade_comp_shallow", "zero_noncon", "zero_distances", "above_threshold", "below_threshold"} or \code{"all"}. Default of \code{"all"}
+}
+  \item{num}{
+Number of windows to return. Default of 10. 
 }
 }
 \details{
@@ -43,7 +46,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 \examples{
 data(dolomedes)
 doloDist <- dist.dna(dolomedes)
-doloSpp <- substr(names(dolomedes), 1, 5)
+doloSpp <- substr(dimnames(dolomedes)[[1]], 1, 5)
 
 doloSlide <- slideAnalyses(dolomedes, 200, interval=10, doloSpp, treeMeasures=TRUE)
 

@@ -56,7 +56,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 \examples{
 data(anoteropsis)
 ddat <- dist.dna(anoteropsis)
-sppName <- sapply(strsplit(names(anoteropsis), split="_"), function(x) paste(x[1], x[2], sep="_"))
+sppName <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), function(x) paste(x[1], x[2], sep="_"))
 
 nonConDist(ddat, sppName)
 nonConDist(ddat, sppName, propZero=TRUE)

@@ -14,24 +14,23 @@
 \BOOKMARK [2][-]{subsection.3.5}{Getting sequences from BOLD}{section.3}% 14
 \BOOKMARK [1][-]{section.4}{Species vectors}{}% 15
 \BOOKMARK [2][-]{subsection.4.1}{What they're all about}{section.4}% 16
-\BOOKMARK [2][-]{subsection.4.2}{A basic species vector}{section.4}% 17
-\BOOKMARK [2][-]{subsection.4.3}{Extracting the species vector from pre-named labels}{section.4}% 18
-\BOOKMARK [3][-]{subsubsection.4.3.1}{anoteropsis species vector}{subsection.4.3}% 19
-\BOOKMARK [3][-]{subsubsection.4.3.2}{dolomedes species vector}{subsection.4.3}% 20
-\BOOKMARK [3][-]{subsubsection.4.3.3}{collembola species vector}{subsection.4.3}% 21
-\BOOKMARK [3][-]{subsubsection.4.3.4}{weevils species vector}{subsection.4.3}% 22
-\BOOKMARK [2][-]{subsection.4.4}{Other useful functions for extracting names}{section.4}% 23
-\BOOKMARK [1][-]{section.5}{Sliding windows}{}% 24
-\BOOKMARK [2][-]{subsection.5.1}{The basic idea}{section.5}% 25
-\BOOKMARK [2][-]{subsection.5.2}{Conducting analyses}{section.5}% 26
-\BOOKMARK [2][-]{subsection.5.3}{The magic of slideAnalyses}{section.5}% 27
-\BOOKMARK [2][-]{subsection.5.4}{Plots of boxes}{section.5}% 28
-\BOOKMARK [1][-]{section.6}{Barcoding identification metrics}{}% 29
-\BOOKMARK [2][-]{subsection.6.1}{Summary statistics}{section.6}% 30
-\BOOKMARK [2][-]{subsection.6.2}{Distance measures of identification success}{section.6}% 31
-\BOOKMARK [3][-]{subsubsection.6.2.1}{Nearest neighbour}{subsection.6.2}% 32
-\BOOKMARK [3][-]{subsubsection.6.2.2}{BOLD identification criteria}{subsection.6.2}% 33
-\BOOKMARK [3][-]{subsubsection.6.2.3}{Meier's best match}{subsection.6.2}% 34
-\BOOKMARK [2][-]{subsection.6.3}{Species monophyly}{section.6}% 35
-\BOOKMARK [2][-]{subsection.6.4}{Sensitivity analysis}{section.6}% 36
-\BOOKMARK [1][-]{section.7}{Conclusion}{}% 37
+\BOOKMARK [2][-]{subsection.4.2}{Extracting the species vector from pre-named labels}{section.4}% 17
+\BOOKMARK [3][-]{subsubsection.4.2.1}{anoteropsis species vector}{subsection.4.2}% 18
+\BOOKMARK [3][-]{subsubsection.4.2.2}{dolomedes species vector}{subsection.4.2}% 19
+\BOOKMARK [3][-]{subsubsection.4.2.3}{collembola species vector}{subsection.4.2}% 20
+\BOOKMARK [3][-]{subsubsection.4.2.4}{weevils species vector}{subsection.4.2}% 21
+\BOOKMARK [2][-]{subsection.4.3}{Other useful functions for extracting names}{section.4}% 22
+\BOOKMARK [1][-]{section.5}{Sliding windows}{}% 23
+\BOOKMARK [2][-]{subsection.5.1}{The basic idea}{section.5}% 24
+\BOOKMARK [2][-]{subsection.5.2}{Conducting analyses}{section.5}% 25
+\BOOKMARK [2][-]{subsection.5.3}{The magic of slideAnalyses}{section.5}% 26
+\BOOKMARK [2][-]{subsection.5.4}{Plots of boxes}{section.5}% 27
+\BOOKMARK [1][-]{section.6}{Barcoding identification metrics}{}% 28
+\BOOKMARK [2][-]{subsection.6.1}{Summary statistics}{section.6}% 29
+\BOOKMARK [2][-]{subsection.6.2}{Distance measures of identification success}{section.6}% 30
+\BOOKMARK [3][-]{subsubsection.6.2.1}{Nearest neighbour}{subsection.6.2}% 31
+\BOOKMARK [3][-]{subsubsection.6.2.2}{BOLD identification criteria}{subsection.6.2}% 32
+\BOOKMARK [3][-]{subsubsection.6.2.3}{Meier's best match}{subsection.6.2}% 33
+\BOOKMARK [2][-]{subsection.6.3}{Species monophyly}{section.6}% 34
+\BOOKMARK [2][-]{subsection.6.4}{Sensitivity analysis}{section.6}% 35
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 36

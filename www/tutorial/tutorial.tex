@@ -85,6 +85,7 @@ This document is a tutorial on the use of some of the functions implemented in \
 \subsection{Conventions}
 
 \subsubsection{Species}
+\label{speciesDef}
 The term `species' will be used a lot in this document. The creators of the package are biologists, mostly working with DNA sequences in a taxonomic and systematic context, and so this term is naturally the one we feel most comfortable using. However, it is important to remember that `species' in this context is not necessarily limited to biological species, but can refer to any group, population or other form of cluster being dealt with. 
 
 \subsubsection{R commands}
@@ -203,7 +204,7 @@ anoteropsis
 \end{console}
 
 \begin{Routput}
-33 DNA sequences in binary format stored in a list.
+33 DNA sequences in binary format stored in a matrix.
 
 All sequences of same length: 409 
 
@@ -222,7 +223,7 @@ dolomedes
 \end{Rio}
 
 \begin{Routput}
-37 DNA sequences in binary format stored in a list.
+37 DNA sequences in binary format stored in a matrix.
 
 All sequences of same length: 850 
 
@@ -252,6 +253,10 @@ dat
 
 The first line (\fun{setwd()}) sets the working directory for the \progname{R} session. Every other file that you read or write for the duration of your session will end up in the directory specified here (unless you change it later in the session).
 
+If all sequences in the alignment are the same length, \fun{read.dna()} stores the result as a matrix. The names of these sequences can be retrieved using the command \fun{dimnames(dat)}. This command results in a list, the first element of which contains the rownames (in this case the sequence names), the second contains the column names (in this case empty). Thus, the names of sequences can be obtained using \fun{dimnames(dat)[[1]]}.
+
+If the alignment contains sequences of different lengths, \fun{read.dna()} stores the result as a list. When this occurs, the names of the sequences can be retrieved using \fun{names(dat)}. 
+
 \subsection{Getting sequences from GenBank}
 \href{http://www.ncbi.nlm.nih.gov/nuccore}{GenBank} is the premier global depository for DNA sequences from all organisms. It is a huge and exciting place to visit and is an extremely valuable resource for doing all sorts of research that involves DNA. 
 
@@ -264,7 +269,7 @@ seq <- c(seq, "DQ309568")
 collembola <- read.GB(seq)
 \end{console}
 
-GenBank considers the DNA sequences it stores as individuals, so the data downloaded from it are not necessarily aligned. To check properly, it is necessary to export the sequences to an external alignment editor such as \href{http://www.megasoftware.net}{MEGA} \cite{SW.Tamu.etal.2011.MEGA}, \href{http://www.mekentosj.com/science/4peaks}{4Peaks} or \href{http://pbil.univ-lyon1.fr/software/seaview.html}{Seaview} \citep{SW.Guoy.etal.2010.SeaView}. However,  \spider provides a few tools for us to do a rough-and-ready job within \progname{R} itself. First of all, we'll see how long the sequences are:
+GenBank considers the DNA sequences it stores as individuals, so the data downloaded from it are not necessarily aligned. To check properly, it is necessary to export the sequences to an external alignment editor such as \href{http://www.megasoftware.net}{MEGA} \citep{SW.Tamu.etal.2011.MEGA}, \href{http://www.mekentosj.com/science/4peaks}{4Peaks} or \href{http://pbil.univ-lyon1.fr/software/seaview.html}{Seaview} \citep{SW.Guoy.etal.2010.SeaView}. However,  \spider provides a few tools for us to do a rough-and-ready job within \progname{R} itself. First of all, we'll see how long the sequences are:
 
 \begin{console}
 collLength <- sapply(collembola, length)
@@ -335,19 +340,21 @@ We now have an alignment that is only 670 bp long. Less than half of the origina
 \label{species.vectors}
 
 \subsection{What they're all about}
-Species vectors are the method used by \spider to distinguish between the groups in the dataset. They are simply a character vector that is the same length as the number of individuals in the dataset. The elements in the species vector correspond to the individuals in the dataset, so order is very important. The elements must also be \emph{consistent within} each species and \emph{unique between} them. In the terminology for this document, `species vector' refers to the whole object, while `species index' refers to individual elements within it.
+Species vectors are the method used by \spider to distinguish between the species in the dataset. They are simply a character vector that is the same length as the number of individuals in the dataset. The elements in the species vector correspond to the individuals in the dataset, so order is very important. The elements must also be \emph{consistent within} each species and \emph{unique between} them. In the terminology for this document, `species vector' refers to the whole object, while `species index' refers to individual elements within it. I will reiterate here, that the term `species' can refer to any grouping structure that you care to use. See Section \ref{speciesDef} for more details on how `species' is used in this document.
 
 Examples of species vectors and different methods of creating them are discussed below. 
 
-\subsection{A basic species vector}
+% \subsection{A basic species vector}
 
-\begin{console}
-set.seed(13)
-tr <- rtree(9)
-speciesVector <- c("A", "A", "B", "B", "C", "C", "D", "D", "D")
-plot(tr)
-tiplabels(speciesVector, adj=c(-2,0.5))
-\end{console}
+% The following block of code creates a randomly generated tree and plots the tiplabels showing the species vector we created for this tree.
+
+% \begin{console}
+% set.seed(13)
+% tr <- rtree(9)
+% speciesVector <- c("A", "A", "B", "B", "C", "C", "D", "D", "D")
+% plot(tr)
+% tiplabels(speciesVector, adj=c(-2,0.5))
+% \end{console}
 
 \subsection{Extracting the species vector from pre-named labels}
 Most of the biologists I've come across name their sequences with a  system that incorporates the species identity into it in some way, shape or form. The \fun{anoteropsis} and \fun{dolomedes} datasets demonstrate two different methods of incorporating the information into the labels.
@@ -355,7 +362,7 @@ Most of the biologists I've come across name their sequences with a  system that
 \subsubsection{\fun{anoteropsis} species vector}
 
 \begin{console}
-head(names(anoteropsis))
+head(dimnames(anoteropsis)[[1]])
 \end{console}
 
 \begin{Routput}
@@ -367,7 +374,7 @@ head(names(anoteropsis))
 In \fun{anoteropsis} the labels are made up of the genus and species separated by an underscore. When more than one specimen per species is included, the geographic locality is also included, separated again by an underscore. The species vector can easily be constructed by splitting apart each element at the underscore (using \fun{strsplit()}), and pasting the first two parts together again (using a combination of \fun{paste()} and \fun{sapply()}). To put it all together:
 
 \begin{console}
-aa <- strsplit(names(anoteropsis), split="_")
+aa <- strsplit(dimnames(anoteropsis)[[1]], split="_")
 anoSpp <- sapply(aa, function(x) paste(x[1], x[2], sep="_"))
 head(anoSpp)
 \end{console}
@@ -380,7 +387,7 @@ head(anoSpp)
 \subsubsection{\fun{dolomedes} species vector}
 
 \begin{console}
-names(dolomedes)
+dimnames(dolomedes)[[1]]
 \end{console}
 
 \begin{Routput}
@@ -392,7 +399,7 @@ names(dolomedes)
 The labels given to \fun{dolomedes} are slightly different. The species names are abbreviated at the beginning of the label, followed by the specimen numbers possessing that haplotype. We can see though, that each species name is a set length---5 characters long. This allows us to use \fun{substr()} to extract this information:
 
 \begin{console}
-doloSpp <- substr(names(dolomedes), 1, 5)
+doloSpp <- substr(dimnames(dolomedes)[[1]], 1, 5)
 doloSpp
 \end{console}
 
@@ -635,7 +642,7 @@ rankSlidWin(anoAna)
 73   0.1818182     0.02462121               1             312
 \end{Routput}
 
-It shows the same conclusion that we drew from the graphical representation of the data, namely that the windows around the 200 mark are particularly good by most of the criteria.
+It shows the same conclusion that we drew from the graphical representation of the data, namely that the windows around the 200 mark are particularly good by most of the criteria. The default behaviour of \fun{rankSlidWin()} is that it returns the best summed over all critera, but other criteria can be used to rank the windows. See the help page of \fun{rankSlidWin()} for more details.
 
 \subsection{Plots of boxes}
 Another way of looking at the variation across the sequence is by plotting boxplots that show the distribution of pairwise genetic distances of each window. This can be done by using the function \fun{slideBoxplots()}. This function has three methods that be used. \fun{"overall"} shows a single boxplot that represents the whole distance matrix, \fun{"interAll"} separates the distances into intra- and inter-specific distances and plots a boxplot of each. This differs from \fun{"nonCon"} (the default) in that \fun{"nonCon"} restricts the inter-specific distances to only the nearest non-conspecific distance for each individual in the dataset.

@@ -52,12 +52,12 @@ Rupert Collins <rupertcollins@gmail.com>
 \examples{
 data(anoteropsis)
 ddat <- dist.dna(anoteropsis)
-sppName <- sapply(strsplit(names(anoteropsis), split="_"), function(x) paste(x[1], x[2], sep="_"))
+sppName <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), function(x) paste(x[1], x[2], sep="_"))
 idError(ddat, sppName)
 
 data(dolomedes)
 doloDat <- dist.dna(dolomedes)
-doloSpp <- substr(names(dolomedes), 1, 5)
+doloSpp <- substr(dimnames(dolomedes)[[1]], 1, 5)
 idError(doloDat, doloSpp)
 
 #Conduct the analysis over a range of values to determine the optimum threshold

@@ -70,7 +70,7 @@ monophyly(tr2, spp2)
 
 data(anoteropsis)
 anoTree <- nj(dist.dna(anoteropsis))
-anoSpp <- sapply(strsplit(names(anoteropsis), split="_"), function(x) paste(x[1], x[2], sep="_"))
+anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), function(x) paste(x[1], x[2], sep="_"))
 
 monophyly(anoTree, anoSpp)
 monophyly(anoTree, singletonsMono=FALSE)

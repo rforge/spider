@@ -39,14 +39,14 @@ Returns a numeric vector giving the indices of the selected individuals.
 \examples{
 data(anoteropsis)
 anoDist <- dist.dna(anoteropsis)
-anoSpp <- sapply(strsplit(names(anoteropsis), split="_"), function(x) paste(x[1], x[2], sep="_"))
+anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), function(x) paste(x[1], x[2], sep="_"))
 
 rmSingletons(anoSpp)
 rmSingletons(anoSpp, exclude=FALSE)
 
 data(dolomedes)
 doloDist <- dist.dna(dolomedes)
-doloSpp <- substr(names(dolomedes), 1, 5)
+doloSpp <- substr(dimnames(dolomedes)[[1]], 1, 5)
 
 rmSingletons(doloSpp)
 rmSingletons(doloSpp, exclude=FALSE)

@@ -35,7 +35,7 @@ function(dat, width, spp, interval = 1, distMeasures = TRUE, thresA = 0.2, thres
 		comp_out <- sapply(win_tr, function(x) tree.comp(dat_tr, x))
 		comp_depth_out <- sapply(win_tr, function(x) tree.comp(dat_tr, x, method="shallow"))
 		#Monophyly
-		win_mono <- lapply(win_tr, monophyly)
+		win_mono <- lapply(win_tr, function(x) monophyly(x, spp))
 		win_mono_out <- sapply(win_mono, function(x) length(which(x))/length(x))
 		}
 rm(list = ls()[!ls() %in% c(ls(pattern="_out"), ls(pattern="res"))])
