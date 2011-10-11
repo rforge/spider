@@ -28,8 +28,8 @@ urlcolor=royalblue,
 %   New commands and environments
 %################################
 
-\newcommand{\spider}{\textsc{spider}~} %With space at end
-\newcommand{\Spider}{\textsc{spider}} %Without space at end. Note the capital letter!
+\newcommand{\spider}{\textsc{Spider}~} %With space at end
+\newcommand{\Spider}{\textsc{Spider}} %Without space at end. Note the capital letter!
 \newcommand{\scinm}{\emph}
 \newcommand{\progname}[1]{\textsc{#1}}
 \newcommand{\fun}[1]{\texttt{#1}}
@@ -59,7 +59,7 @@ urlcolor=royalblue,
 %   Title
 %################################
 
-\title{\Spider: Species Identity and Evolution in R.\\ A tutorial}
+\title{\Spider: Species Identity and Evolution in R.\\ A Tutorial}
 
 \author{Samuel D.\ J.\ Brown\\\href{mailto:s_d_j_brown@hotmail.com}
 {s\_d\_j\_brown@hotmail.com}\\Rupert A.\ Collins\\\href{mailto:rupertcollins@gmail.com}{rupertcollins@gmail.com}}
@@ -79,21 +79,21 @@ urlcolor=royalblue,
 %####################################
 
 \section{Introduction}
-\spider: Species Identity and Evolution in R is an \progname{R} package that implements a number of the most useful analyses for DNA barcoding studies and other research on species delimitation and speciation. It has been developed primarily by staff and students in the Department of Ecology at Lincoln University, and was first released in 2011. The package seeks to a number of analyses that the developers have found useful in their own research and hadn't been implemented in other \progname{R} packages. 
+\Spider: Species Identity and Evolution in R, is an \progname{R} package implementing a number of the most useful analyses for DNA barcoding studies and other research into species delimitation and speciation. It has been developed primarily by staff and students in the Department of Ecology at Lincoln University, and was first released in 2011. The package seeks to provide a number of analyses that the developers have found useful in their own research and hadn't been implemented in other \progname{R} packages. 
 
-This document is a tutorial on the use of some of the functions implemented in \spider and guides to the interpretation of its output. It is intended to be useful for the absolute beginner, and users who are familiar with \progname{R} and \progname{ape} are encouraged to skip the first few sections. This tutorial does not discuss in detail the basic \progname{R} syntax and data structures (with a few exceptions), and the reader is referred to other manuals\footnote{The freely available \href{http://cran.r-project.org/doc/manuals/R-intro.pdf}{An Introduction to R}, \href{http://cran.r-project.org/doc/contrib/usingR.pdf}{Using R for data analysis and graphics} and \href{http://cran.r-project.org/doc/contrib/Paradis-rdebuts_en.pdf}{R for beginners} are particularly recommended} for that information.
+This document is a tutorial on the use of some of the functions implemented in \Spider, and offers a guide to the interpretation of its output. It is intended to be useful for the beginner, so users who are familiar with \progname{R} and \progname{Ape} are encouraged to skip the first few sections. This tutorial does not discuss in detail the basic \progname{R} syntax and data structures (with a few exceptions), and the reader is referred to other manuals\footnote{The freely available \href{http://cran.r-project.org/doc/manuals/R-intro.pdf}{An Introduction to R}, \href{http://cran.r-project.org/doc/contrib/usingR.pdf}{Using R for data analysis and graphics} and \href{http://cran.r-project.org/doc/contrib/Paradis-rdebuts_en.pdf}{R for beginners} are particularly recommended} for this information.
 
 \subsection{Conventions}
 
 \subsubsection{Species}
 \label{speciesDef}
-The term `species' will be used a lot in this document. The creators of the package are biologists, mostly working with DNA sequences in a taxonomic and systematic context, and so this term is naturally the one we feel most comfortable using. However, it is important to remember that `species' in this context is not necessarily limited to biological species, but can refer to any group, population or other form of cluster being dealt with. 
+The term ``species'' will be used a lot in this document. The creators of the package are biologists, mostly working with DNA sequences in ecology, taxonomy and systematics, and so this term is naturally the one we feel most comfortable using. However, it is important to remember that ``species'' in this context is just an identifier for our groups of interest, and is not necessarily limited to biological species---it can	refer to any group, population or other form of cluster. 
 
 \subsubsection{R commands}
-Commands to be typed into the \progname{R} console are typeset in \texttt{\textcolor{blue}{blue typewriter}} font, while output are typeset in \texttt{\textcolor{red}{red typewriter}} font. Functions mentioned in the text are typeset in \texttt{black typewriter} font.
+Commands to be typed into the \progname{R} console are typeset in \texttt{\textcolor{blue}{blue typewriter}} font, while  \progname{R}'s output is typeset in \texttt{\textcolor{red}{red typewriter}} font. Functions mentioned in the text are typeset in \texttt{black typewriter} font.
 
 \subsubsection{Vectors}
-Character vectors will be discussed a lot, particularly in``Species vectors'' (Section \ref{species.vectors}), so I will briefly discuss them here. Vectors form the basic \progname{R} data structure, created in the following way:
+Character vectors will be discussed a lot, particularly in ``Species vectors'' (Section \ref{species.vectors}), so I will briefly discuss them here. Vectors form the basic \progname{R} data structure, created in the following way:
 
 \begin{Rio}
 (x <- c(1, 4, 6, 7, 2))
@@ -102,10 +102,10 @@ Character vectors will be discussed a lot, particularly in``Species vectors'' (S
 [1] "A" "B" "C" "F" "G"
 \end{Rio}
 
-There are many different modes of vectors, however here we will only deal with two of them: numeric and character. The first example above is a numeric vector---funnily enough, it's made up of numbers. The second is a character vector. Numbers and letters can be mixed, but the result will be a character vector. The parts of a vector will be called `elements' here, such that the first element of \fun{x} is 1, while that of \fun{y} is ``A''. The 2nd is 4 and ``B'' respectively, and the 4th is 7 and ``F''.
+There are many different modes of vectors, however here we will only deal with two of them: numeric and character. The first example above is a numeric vector---funnily enough, it's made up of numbers. The second is a character vector. Numbers and letters can be mixed, but the result will be a character vector. The parts of a vector will be called ``elements'' here, such that the first element of \fun{x} is 1, while that of \fun{y} is ``A''. The 2nd is 4 and ``B'' respectively, and the 4th is 7 and ``F''.
 
 \subsubsection{Lists}
-\spider uses lists a lot. Lists are very useful in that they are able to store in one big object lots of other little objects bits of different classes, modes and lengths. In addition, the \fun{lapply()} function makes it easy to do the same thing to each element within a list. To demonstrate the utility of lists:
+\spider uses lists a lot. Lists are very useful in that they are able to store in one big object, lots of other little objects bits of different classes, modes and lengths. In addition, the \fun{lapply()} function makes it easy to do the same thing to each element within a list. To demonstrate the utility of lists:
 
 \begin{console}
 testList <- list(a=1:5, b=LETTERS[1:10], c=matrix(1:4, 2))
@@ -171,7 +171,7 @@ In addition to the stable version on CRAN, a development version is available at
 install.packages("spider", repos="http://R-Forge.R-project.org")
 \end{console}
 
-\spider requires the installation of the packages \progname{ape} \citep{SW.Para.2004.ape} and \progname{pegas} \citep{SW.Para.2010.pegas} which provide the primary data structures for working with DNA sequences and phylogenetic trees. If these packages are not already on your system, they will automatically be installed when the commands above have been run.
+\spider requires the installation of the packages \progname{Ape} \citep{SW.Para.2004.ape} and \progname{Pegas} \citep{SW.Para.2010.pegas} which provide the primary data structures for working with DNA sequences and phylogenetic trees. If these packages are not already on your system, they will automatically be installed when the commands above have been run.
 
 
 %####################################
@@ -187,7 +187,7 @@ Once you have installed \Spider, load the package using the following command:
 library(spider)
 \end{console}
 
-As well as \Spider, this command will load the packages \progname{ape}, \progname{pegas} and the required packages for \progname{pegas}, \progname{adegenet} \citep{Jomb.2008} and \progname{MASS} \citep{Vena.Ripl.2002}.
+As well as \Spider, this command will load the packages \progname{Ape}, \progname{Pegas} and the required packages for \progname{Pegas}, \progname{Adegenet} \citep{Jomb.2008} and \progname{Mass} \citep{Vena.Ripl.2002}.
 
 
 \subsection{Bundled datasets}
@@ -244,10 +244,10 @@ class(dolomedes)
 This tells us a whole bunch of stuff. Starting from the top, the first line tells us how many sequences are in the alignment, and if these sequences are stored as a list or as a matrix. This latter piece of information is handy to know if we want to manipulate them further down the track. The next line tells us the length of the sequences, including the minimum, maximum and average if the sequences are of different lengths. The third line shows the names of the first few sequences to give us an idea of the naming scheme, and finally the base composition of the alignment is given.
 
 \subsection{Loading your own}
-While the above datasets give us something to work on for the rest of the tutorial, what is a lot more interesting is working on your own datasets. To load your own datasets into \Spider, use the function \fun{read.dna()} supplied by \progname{ape}. This function can read DNA sequence files encoded in the \href{http://cmgm.stanford.edu/phylip/formats.html#6}{PHYLIP} sequential or interleaved formats, CLUSTAL, or (my preferred option) FASTA format. To load sequences stored in a FASTA formatted file called `mySequences.fas' in the `R' folder in your `My Documents', use the following commands:
+While the above datasets give us something to work on for the rest of the tutorial, what is a lot more interesting is working on your own datasets. To load your own datasets into \Spider, use the function \fun{read.dna()} supplied by \progname{Ape}. This function can read DNA sequence files encoded in the \href{http://cmgm.stanford.edu/phylip/formats.html#6}{\progname{Phylip}} sequential or interleaved formats, \progname{Clustal}, or (my preferred option) \progname{Fasta} format. To load sequences stored in a \progname{Fasta} formatted file called ``mySequences.fas'' in the ``R'' folder in your ``My Documents'', use the following commands:
 
 \begin{console}
-setwd("C:/My Document/R/")
+setwd("C:/My Documents/R/")
 dat <- read.dna("mySequences.fas", format="fasta")
 dat
 \end{console}
@@ -261,16 +261,15 @@ If the alignment contains sequences of different lengths, \fun{read.dna()} store
 \subsection{Getting sequences from GenBank}
 \href{http://www.ncbi.nlm.nih.gov/nuccore}{GenBank} is the premier global depository for DNA sequences from all organisms. It is a huge and exciting place to visit and is an extremely valuable resource for doing all sorts of research that involves DNA. 
 
-\progname{ape} provides a function \fun{read.GenBank} which allows sequences to be downloaded from the system directly into a \fun{DNAbin} object. The original version did not include information such as species names or gene regions, so a modified version is included in \Spider, \fun{read.GB}. This function works on a character vector of GenBank accession numbers, and retrieves the records that correspond to those numbers. As an example, the following code downloads 63 sequences of antarctic springtails \citep{Green.etal.2011}.
+\progname{Ape} provides a function \fun{read.GenBank()} which allows sequences to be downloaded from the system directly into a \fun{DNAbin} object. The original version did not include information such as species names or gene regions, so a modified version is included in \Spider, \fun{read.GB()}. This function works on a character vector of GenBank accession numbers, and retrieves the records that correspond to those numbers. As an example, the following code downloads 63 sequences of antarctic springtails \citep{Green.etal.2011}.
 
 \begin{console}
 seq <- 732028:732089
 seq <- paste("HQ", seq, sep="")
-seq <- c(seq, "DQ309568")
 collembola <- read.GB(seq)
 \end{console}
 
-GenBank considers the DNA sequences it stores as individuals, so the data downloaded from it are not necessarily aligned. To check properly, it is necessary to export the sequences to an external alignment editor such as \href{http://www.megasoftware.net}{MEGA} \citep{SW.Tamu.etal.2011.MEGA}, \href{http://www.mekentosj.com/science/4peaks}{4Peaks} or \href{http://pbil.univ-lyon1.fr/software/seaview.html}{Seaview} \citep{SW.Guoy.etal.2010.SeaView}. However,  \spider provides a few tools for us to do a rough-and-ready job within \progname{R} itself. First of all, we'll see how long the sequences are:
+GenBank considers the DNA sequences it stores as individuals, so the data downloaded from it are not necessarily aligned. To check properly, it is necessary to export the sequences to an external alignment editor such as \href{http://www.megasoftware.net}{\progname{Mega}} \citep{SW.Tamu.etal.2011.MEGA}, \href{http://www.mekentosj.com/science/4peaks}{\progname{4Peaks}} or \href{http://pbil.univ-lyon1.fr/software/seaview.html}{\progname{Seaview}} \citep{SW.Guoy.etal.2010.SeaView}. However,  \spider provides a few tools for us to do a rough-and-ready job within \progname{R} itself. First of all, we'll see how long the sequences are:
 
 \begin{console}
 collLength <- sapply(collembola, length)
@@ -297,7 +296,7 @@ apply(as.matrix(collembola)[sample(1:45,5),], MARGIN=1, FUN=seeBarcode)
 seeBarcode(as.matrix(dolomedes)[sample(1:37, 1),1:658])
 \end{console}
 
-This code plots the sequences for 5 randomly sampled \fun{collembola} and one \fun{dolomedes}. The results can be seen in Figure \ref{seeBarcode.fig}. The top 5 all show reasonably similar patterns of variation. In particular, the blue, yellow \& red, blue pattern in the second quarter is consistent across all \fun{collembola} sequences. Compared to the \fun{dolomedes} sequence, the difference is clear. For the purpose of the rest of the document, I'll assume the sequences in \fun{collembola} are correctly aligned. As mentioned above however, in other analyses it will be necessary to determine this with greater certainty.
+This code plots the sequences for 5 randomly sampled \fun{collembola} and one \fun{dolomedes}. The results can be seen in Figure \ref{seeBarcode.fig}. The top 5 all show reasonably similar patterns of variation. In particular, the blue, yellow \& red, blue pattern in the second quarter is consistent across all \fun{collembola} sequences. Compared to the \fun{dolomedes} sequence, the difference is clear. For the purpose of the rest of the document, I'll assume the sequences in \fun{collembola} are correctly aligned. As mentioned above, however, in other analyses it will be necessary to determine this with greater certainty.
 
 \begin{figure}[tbp]
 	\includegraphics[width=\textwidth]{seeBarcode}
@@ -309,7 +308,7 @@ This code plots the sequences for 5 randomly sampled \fun{collembola} and one \f
 
 \subsection{Getting sequences from BOLD}
 \label{BOLD.section}
-The \href{http://www.barcodinglife.com}{Barcode of Life Data System (BOLD)} is the data storage portal for a global endeavour to catalogue the living world, using short (around 500 bp) DNRA sequences from standard gene regions (CITE). The bulk of this data comes from the mitochondrial gene region cytochrome \emph{c} oxidase I (COI). There are a lot of sequences in the database, but unfortunately only a small portion of them are currently made public. \spider contains functions for searching and downloading sequences from BOLD. The sequences being downloaded are from \scinm{Trigonopterus} weevils from northern New Guinea rainforest which show very high levels of diversity \citep{Ried.etal.2010,Ried.2010}
+The \href{http://www.barcodinglife.com}{Barcode of Life Data System (\progname{Bold})} is the data storage portal for a global endeavour to catalogue the living world, using short (around 650 bp) DNA sequences from standard gene regions (CITE). The bulk of this data comes from the mitochondrial gene region cytochrome \emph{c} oxidase I (COI). There are a lot of sequences in the database, but unfortunately only a small portion of them are currently made public. \spider contains functions for searching and downloading sequences from \progname{Bold}. The sequences being downloaded are from \scinm{Trigonopterus} weevils from northern New Guinea rainforest which show very high levels of diversity \citep{Ried.etal.2010,Ried.2010}
 
 \begin{console}
 nums <- search.BOLD("Trigonopterus")
@@ -318,13 +317,13 @@ weevils <- read.BOLD(nums)
 
 The function \fun{search.BOLD()} searches the database and retrieves the specimen numbers for the records matching the search term. These numbers are then used by \fun{read.BOLD()} to download the sequences.
 
-NB: At the moment, the eFetch system for downloading sequences (used by \fun{read.BOLD}) returns the same records three times. I emailed the good people at BOLD about it, but it is yet to be rectified. The line below will remove these triplicate records, but hopefully the problem will be fixed in the near future.
+NB: At the moment, the eFetch system for downloading sequences (used by \fun{read.BOLD}) returns the same records three times. I emailed the good people at \progname{Bold} about it, but it is yet to be rectified. The line below will remove these triplicate records, but hopefully the problem will be fixed in the near future.
 
 \begin{console}
 weevils <- weevils[match(unique(names(weevils)), names(weevils))]
 \end{console}
 
-If you have a look at the \fun{weevils} object, you'll see that the sequence length is given as 1500 bp. Later on though, we'll find that most of this length is made up of missing data, so we'll cut it down to size.
+If you have a look at the \fun{weevils} object, you'll see that the sequence length is given as 1,500 bp. Later on though, we'll find that most of this length is made up of missing data, so we'll cut it down to size.
 
 \begin{console}
 weevils <- as.matrix(weevils)[,1:700]
@@ -341,7 +340,7 @@ We now have an alignment that is only 670 bp long. Less than half of the origina
 \label{species.vectors}
 
 \subsection{What they're all about}
-Species vectors are the method used by \spider to distinguish between the species in the dataset. They are simply a character vector that is the same length as the number of individuals in the dataset. The elements in the species vector correspond to the individuals in the dataset, so order is very important. The elements must also be \emph{consistent within} each species and \emph{unique between} them. In the terminology for this document, `species vector' refers to the whole object, while `species index' refers to individual elements within it. I will reiterate here, that the term `species' can refer to any grouping structure that you care to use. See Section \ref{speciesDef} for more details on how `species' is used in this document.
+Species vectors are the method used by \spider to distinguish between the species in the dataset. They are simply a character vector that is the same length as the number of individuals in the dataset. The elements in the species vector correspond to the individuals in the dataset, so order is very important. The elements must also be \emph{consistent within} each species, and \emph{unique between} them. In the terminology for this document, ``species vector'' refers to the whole object, while ``species index'' refers to individual elements within it. I will reiterate here, that the term ``species'' can refer to any grouping structure that you care to use. See Section \ref{speciesDef} for more details on how ``species'' is used in this document.
 
 Examples of species vectors and different methods of creating them are discussed below. 
 
@@ -488,7 +487,7 @@ weevilSpp2 <- sapply(weevilSpp2, function(x) paste(x[2], x[4], sep="-"))
   [4] "Trigonopterus-spw"  "Trigonopterus-spw"  "Trigonopterus-spv"
 \end{Routput}
 
-The function \fun{read.BOLD()} has an \fun{attr()} slot in the same way that \fun{read.GB()} has. However, with BOLD's current penchant for returning three of the same thing, the command \fun{attr(weevils, "species"} returns a vector three times longer than the actual number of sequences. As species vectors need to be the same length as the number of individuals in the analysis, this is not a good thing.
+The function \fun{read.BOLD()} has an \fun{attr()} slot in the same way that \fun{read.GB()} has. However, with \progname{Bold}'s current penchant for returning three of the same thing, the command \fun{attr(weevils, "species")} returns a vector three times longer than the actual number of sequences. As species vectors need to be the same length as the number of individuals in the analysis, this is not a good thing.
 
 \subsection{Other useful functions for extracting names}
 The above examples have made extensive use of a few of the \progname{R}'s key functions for manipulating character strings. Other functions worth knowing about include the \fun{grep()} family of functions, including \fun{gsub()}. These functions have the ability to search for patterns in strings, and the latter has the ability to make changes to the strings along the way. 
@@ -534,7 +533,7 @@ Base composition:
 
 \subsection{Conducting analyses}
 
-If, for example, we wanted to see the change in GC content across the \fun{anoteropsis} sequence, we can \fun{sapply()} the \progname{ape} command \fun{GC.content()} across our windows:
+If, for example, we wanted to see the change in GC content across the \fun{anoteropsis} sequence, we can \fun{sapply()} the \progname{Ape} command \fun{GC.content()} across our windows:
 
 \begin{console}
 anoGC <- sapply(anoWin, GC.content)
@@ -553,14 +552,14 @@ If we plot the results of \fun{anoGC}, we get Figure \ref{slidWin.fig}.
 \end{figure}
 
 \subsection{The magic of \fun{slideAnalyses}}
-A number of the most useful analyses for determining the optimum region for designing mini-barcodes \citep{Meus.etal.2008} have been implemented in the \fun{slideAnalyses()} function. This function does the whole shebang from creating the windows, to conducting the analyses. The result is a massive list detailing the data from each window. Take note that this is our first glimpse of `species vectors' in action:
+A number of the most useful analyses for determining the optimum region for designing mini-barcodes \citep{Meus.etal.2008} have been implemented in the \fun{slideAnalyses()} function. This function does the whole shebang from creating the windows, to conducting the analyses. The result is a massive list detailing the data from each window. Take note that this is our first glimpse of ``species vectors'' in action:
 
 \begin{console}
 anoAna <- slideAnalyses(anoteropsis, 50, anoSpp, interval="codons", 
 distMeasures=TRUE, treeMeasures=TRUE)
 \end{console}
 
-First up: the arguments. \fun{anoteropsis} is our \fun{DNAbin} object containing our sequences, `50' is the desired width of the windows in question. \fun{anoSpp} is our species vector, \fun{"codons"} is a fancy way of getting an interval of 3 between our windows, \fun{distMeasures=TRUE} indicates that we want to calculate metrics based on a Kimura 2-parameter distances matrix for each window, and \fun{treeMeasures=TRUE} indicates that we want to calculate metrics based on a neighbour-joining tree from the distance matrix above. The default is that \fun{distMeasures=TRUE} and \fun{treeMeasures=FALSE} because the latter takes a lot more time to compute than the former. 
+First up: the arguments. \fun{anoteropsis} is our \fun{DNAbin} object containing our sequences, ``50'' is the desired width of the windows in question. \fun{anoSpp} is our species vector, \fun{"codons"} is a fancy way of getting an interval of 3 between our windows, \fun{distMeasures=TRUE} indicates that we want to calculate metrics based on a Kimura 2-parameter distances matrix for each window, and \fun{treeMeasures=TRUE} indicates that we want to calculate metrics based on a neighbour-joining tree from the distance matrix above. The default is that \fun{distMeasures=TRUE} and \fun{treeMeasures=FALSE} because the latter takes a lot more time to compute than the former. 
 
 If we have a look at the object created by the function above, we get something fairly nasty:
 
@@ -716,7 +715,7 @@ seqStat(weevils)
 The minimum sequence length is 479 bp, while the maximum is 646. The mean and median lengths are 635 and 640 respectively, and we have one sequence that is below the threshold value of 500 bp.
 
 \subsection{Distance measures of identification success}
-The following metrics are all based on the pairwise distance matrix between sequences. This matrix can easily be created using the \fun{dist.dna()} function provided by \progname{ape}. The distance matrix can be calculated using various models of DNA evolution, ranging from striaght raw distances to complex models involving a lot of parameters. The standard model of evolution used in DNA barcoding studies is the Kimura 2-parameter model (K2P), which is one of the more simple models available. Conveniently, this is the default model used by \fun{dist.dna()}.
+The following metrics are all based on the pairwise distance matrix between sequences. This matrix can easily be created using the \fun{dist.dna()} function provided by \progname{Ape}. The distance matrix can be calculated using various models of DNA evolution, ranging from striaght raw distances to complex models involving a lot of parameters. The standard model of evolution used in DNA barcoding studies is the Kimura 2-parameter model (K2P), which is one of the more simple models available. Conveniently, this is the default model used by \fun{dist.dna()}.
 
 \begin{console}
 anoDist <- dist.dna(anoteropsis)
