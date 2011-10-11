@@ -5,12 +5,12 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Measures of identification accuracy}
 
-\description{}
+\description{Tests of barcoding efficacy using distance-based methods}
 
 \usage{
 meiersBestMatch(distobj, sppVector, threshold = 0.01)
 nearNeighbour(distobj, sppVector, names = FALSE)
-idBOLD(distobj, sppVector, threshold = 0.01, highThreshold = 0.05)}
+idBOLD(distobj, sppVector, threshold = 0.01)}
 
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -18,7 +18,6 @@ idBOLD(distobj, sppVector, threshold = 0.01, highThreshold = 0.05)}
   \item{sppVector}{Vector of species names. (see \code{\link{sppVector}})}
   \item{threshold}{Distance cutoff for identifications. Default of 0.01 (1\%)}
   \item{names}{Logical. Should the names of the nearest match be shown? Default of FALSE}
-  \item{highThreshold}{Distance cutoff for identifications. Default of 0.05 (5\%)}
 }
 
 \details{
@@ -69,7 +68,7 @@ meiersBestMatch(anoDist, anoSpp)
 meiersBestMatch(anoDist, anoSpp, threshold=0.005)
 nearNeighbour(anoDist, anoSpp)
 idBOLD(anoDist, anoSpp)
-idBOLD(anoDist, anoSpp, threshold=0.003, highThreshold=0.1)
+idBOLD(anoDist, anoSpp, threshold=0.003)
 
 data(dolomedes)
 doloDist <- dist.dna(dolomedes)
@@ -79,7 +78,7 @@ meiersBestMatch(doloDist, doloSpp)
 meiersBestMatch(doloDist, doloSpp, threshold=0.005)
 nearNeighbour(doloDist, doloSpp)
 idBOLD(doloDist, doloSpp)
-idBOLD(doloDist, doloSpp, threshold=0.003, highThreshold=0.1)
+idBOLD(doloDist, doloSpp, threshold=0.003)
 }
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the

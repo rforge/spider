@@ -5,10 +5,10 @@
 Boxplots across windows
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Calculates boxplots of genetic distances using sliding windows.
 }
 \usage{
-slideBoxplots(dat, width, spp, interval = 1)
+slideBoxplots(dat, width, spp, interval = 1, method = "nonCon")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -61,7 +61,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{slidingWindow}}, \code{\link{slideAnalyses}}, \code{\link{plotslidWin}}, \code{\link[graphics:boxplot]{boxplot}}
+\code{\link{slidingWindow}}, \code{\link{slideAnalyses}}, \code{\link{plot.slidWin}}, \code{\link[graphics:boxplot]{boxplot}}
 }
 \examples{
 data(dolomedes)
@@ -78,4 +78,3 @@ doloInterall <- slideBoxplots(dolomedes, 200, interval=10, doloSpp, method="inte
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{Sliding window}
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

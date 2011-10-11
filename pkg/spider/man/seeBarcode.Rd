@@ -52,4 +52,4 @@ apply(woodmouse[1:4,], MARGIN=1, FUN=seeBarcode)
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{Barcoding}
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{Utilities}

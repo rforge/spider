@@ -8,15 +8,18 @@ Plot a 'slidWin' object
 Graphical representation of the summary statistics derived from \code{\link{slideAnalyses}} and \code{\link{slideBoxplots}}
 }
 \usage{
-plot.slidWin(slidWin, outliers = FALSE)
+\method{plot}{slidWin}(x, outliers = FALSE, ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{slidWin}{
+  \item{x}{
 An object of class `slidWin'
 }
   \item{outliers}{
 Logical. When the results of \code{\link{slideBoxplots}} are being called, should the outliers be plotted? Default of FALSE.
+}
+\item{...}{
+Other arguments to be passed to \code{plot}.
 }
 }
 \details{
@@ -57,5 +60,4 @@ plot(doloBox)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{Sliding window}

@@ -5,7 +5,7 @@
 Intra and inter-specific distances 
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Separates a distance matrix into the inter- and intra-specific components.
 }
 \usage{
 sppDist(dat, spp)
@@ -24,10 +24,10 @@ This function can be used to produce histograms and other charts exploring the `
 }
 \value{
 A list with two elements
-\item{inter} A numeric vector containing ALL inter-specific pairwise distances
-\item{intra} A numeric vector containing ALL intra-specific pairwise distances
-
+\item{inter}{A numeric vector containing ALL inter-specific pairwise distances}
+\item{intra}{A numeric vector containing ALL intra-specific pairwise distances}
 }
+
 \references{
 %% ~put references to the literature/web site here ~
 }
@@ -55,5 +55,4 @@ sppDist(doloDist, doloSpp)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{Barcoding}

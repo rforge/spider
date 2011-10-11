@@ -1,5 +1,5 @@
 rankSlidWin <- 
-function(slidWin, criteria = "all" num = 10){
+function(slidWin, criteria = "all", num = 10){
 	revRank <- function(xx) (length(xx)+1) - rank(xx, ties.method="min")
 	measures <- c("position", "mean_distance", "monophyly", "clade_comparison", "clade_comp_shallow", "zero_noncon", "zero_distances", "above_threshold", "below_threshold")
 	#Remove objects not of interest

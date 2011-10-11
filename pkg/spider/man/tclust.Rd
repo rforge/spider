@@ -1,11 +1,13 @@
 \name{tclust}
+\alias{tclust}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Clustering by a threshold}
 
-\description{}
+\description{Clusters individuals within the threshold of each other.}
 
 \usage{
 tclust(distobj, threshold = 0.01)
+}
 
 %- maybe also 'usage' for other objects documented here.
 \arguments{

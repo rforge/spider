@@ -47,5 +47,6 @@ echo $contents; } ?>
 
 <p> The <strong>project summary page</strong> you can find <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/"><strong>here</strong></a>. </p>
 
+<p> A tutorial that gives an overview of the use of <strong>spider</strong> is available <a href="http://spider.r-forge.r-project.org/tutorial/tutorial.pdf">here</a>.
 </body>
 </html>

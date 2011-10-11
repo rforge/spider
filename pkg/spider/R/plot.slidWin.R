@@ -1,5 +1,6 @@
 plot.slidWin <- 
-function(slidWin, outliers = FALSE, ...){
+function(x, outliers = FALSE, ...){
+	slidWin <- x
 	distM <- function(){
 		plot(slidWin$pos_out, slidWin$dist_mean_out, xlab = "Position", ylab = "Mean distance", main="Mean distance of each window")
 		ylimzero <- range(slidWin$zero_out, slidWin$dat_zero_out, na.rm=TRUE)

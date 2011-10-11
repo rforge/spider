@@ -56,9 +56,9 @@ sppName <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), function(x) p
 idError(ddat, sppName)
 
 data(dolomedes)
-doloDat <- dist.dna(dolomedes)
+doloDist <- dist.dna(dolomedes)
 doloSpp <- substr(dimnames(dolomedes)[[1]], 1, 5)
-idError(doloDat, doloSpp)
+idError(doloDist, doloSpp)
 
 #Conduct the analysis over a range of values to determine the optimum threshold
 threshVal <- seq(0.001,0.02, by = 0.001)

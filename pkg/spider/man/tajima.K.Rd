@@ -5,35 +5,31 @@
 Calculate Tajima's K index of divergence
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Calculates Tajima's K index of divergence
 }
 \usage{
-tajima.K(x, prop = TRUE)
+tajima.K(DNAbin, prop = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{
-%%     ~~Describe \code{x} here~~
+  \item{DNAbin}{
+An object of class \code{DNAbin}
 }
   \item{prop}{
-%%     ~~Describe \code{prop} here~~
+Logical. Should the function report the proportion of diversity across the whole sequence? Default of TRUE
 }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-%%  ~Describe the value returned
-%%  If it is a LIST, use
-%%  \item{comp1 }{Description of 'comp1'}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
+A distance matrix
 }
 \references{
 %% ~put references to the literature/web site here ~
 }
 \author{
-%%  ~~who you are~~
+Samuel Brown	<s_d_j_brown@hotmail.com>
 }
 \note{
 %%  ~~further notes~~
@@ -42,21 +38,12 @@ tajima.K(x, prop = TRUE)
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{dist.dna}}
 }
-\examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 
-## The function is currently defined as
-function(x, prop = TRUE){
-   res <- mean(dist.dna(x, model="N"))
-   if(prop) res <- res/dim(x)[2]
-   res
-  }
+\examples{
+data(anoteropsis)
+tajima.K(anoteropsis)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+
+\keyword{Utilities}

@@ -1,7 +1,7 @@
 haploaccum<- function (dat, method = "random", permutations = 100, ...){
 
     if (is.list(dat)) dat <- as.matrix(dat)	# If seq dat is list, turn it matrix
-    if (length(grep("[-|?|r|y|m|k|w|s|b|d|h|v|n]", dat))>0)
+    i <- (length(grep("[-|?|r|y|m|k|w|s|b|d|h|v|n]", dat))>0)
         message("There are missing or ambiguous data, which may cause an overestimation of the number of haplotypes")
 
     seq_names<-as.vector(rownames(dat))	# Create a vector of seq name
@@ -42,7 +42,7 @@ haploaccum<- function (dat, method = "random", permutations = 100, ...){
 		z[unlist(attributes(obj)$index[i])[j],i]<- 1
 	}
     }
-    z <- z[, colSums(z) > 0, drop=F]
+    z <- z[, colSums(z) > 0, drop=FALSE]
     n <- nrow(z)
     h <- ncol(z)
     sequences <- 1:n

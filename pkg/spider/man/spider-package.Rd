@@ -29,13 +29,15 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 \references{
 ~~ Literature or other references for background information ~~
 }
-~~ Optionally other standard keywords, one per line, from file KEYWORDS in ~~
-~~ the R documentation directory ~~
+
+%~~ Optionally other standard keywords, one per line, from file KEYWORDS in ~~
+%~~ the R documentation directory ~~
 \keyword{ package }
 \seealso{
-~~ Optional links to other man pages, e.g. ~~
-\code{\link[ape:ape-package]{ape}} ~~
+
+\code{\link[ape:ape-package]{ape}}
 \code{\link[pegas:pegas-package]{pegas}}
+
 }
 \examples{
 }

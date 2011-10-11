@@ -5,8 +5,9 @@
 Nucleotide diagnostics for species alignments
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Determines the diagnostic nucleotides for each species given in \code{sppVector}.
 }
+
 \usage{
 nucDiag(DNAbin, sppVec)
 }
@@ -46,7 +47,3 @@ anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), function(x) pa
 
 nucDiag(anoteropsis, anoSpp)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

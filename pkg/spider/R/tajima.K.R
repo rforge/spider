@@ -1,7 +1,7 @@
 tajima.K <-
-function(x, prop = TRUE){
-   res <- mean(dist.dna(x, model="N"))
-   if(prop) res <- res/dim(x)[2]
+function(DNAbin, prop = TRUE){
+   res <- mean(dist.dna(DNAbin, model="N"))
+   if(prop) res <- res/dim(DNAbin)[2]
    res
 }
 

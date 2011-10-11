@@ -1,14 +1,15 @@
 \name{dataStat}
 \alias{dataStat}
-%- Also NEED an '\alias' for EACH other topic documented here.
+
 \title{
 Taxa statistics
 }
+
 \description{
 Returns the numbers of species, genera and individuals in the dataset.
 }
-\usage{
-seqStat(spp, gen, thresh)
+
+\usage{dataStat(spp, gen, thresh)
 }
 
 \arguments{
@@ -16,7 +17,7 @@ seqStat(spp, gen, thresh)
 Species vector (see \code{\link{sppVector}}).
 }
 
-\item{spp}{
+\item{gen}{
 Genus vector that defines the genera of each individual
 }
 
@@ -57,3 +58,4 @@ dataStat(sppName, genName)
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{Barcoding}
+\keyword{Utilities}

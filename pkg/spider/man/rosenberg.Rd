@@ -1,4 +1,5 @@
 \name{rosenberg}
+\alias{rosenberg}
 
 \title{Rosenberg's probability of reciprocal monophyly}
 
@@ -49,3 +50,5 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 	plot(doloTr)
 	nodelabels(round(doloLab, 3))
 }
+
+\keyword{Sampling}

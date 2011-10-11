@@ -1,4 +1,5 @@
 \name{polyBalance}
+\alias{polyBalance}
 
 \title{Balance of a phylogenetic tree with polytomies}
 
@@ -11,7 +12,7 @@
 }
 
 \details{
-The function extends \code{\link{ape:balance}} to allow the balance of a tree with polytomies to be calculated. When the tree is fully dichotomous, the result is identical to \code{\link{ape:balance}}.
+The function extends \code{\link{balance}} to allow the balance of a tree with polytomies to be calculated. When the tree is fully dichotomous, the result is identical to \code{\link{balance}}.
 
 }
 
@@ -34,7 +35,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{ape:balance}}
+\code{\link{balance}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 
@@ -48,4 +49,4 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{Barcoding}
+\keyword{Utilities}

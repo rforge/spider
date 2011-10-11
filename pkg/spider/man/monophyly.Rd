@@ -5,13 +5,13 @@
 \title{
 Species monophyly over a tree
 }
+
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Determines if the species given in \code{sppVector} form monophyletic groups on a given tree.
 }
+
 \usage{
 monophyly(phy, sppVector, pp = NA, singletonsMono = TRUE)
-}
-\usage{
 monophylyBoot(phy, sppVector, DNAbin, pp = NA, singletonsMono = TRUE, reps = 1000, thresh = 0.7, block = 3)
 }
 %- maybe also 'usage' for other objects documented here.
@@ -20,7 +20,7 @@ monophylyBoot(phy, sppVector, DNAbin, pp = NA, singletonsMono = TRUE, reps = 100
 Tree of interest.
 }
  \item{sppVector}{
- Species vector. See \code{\link{sppVector}}.
+ Species vector. See \code{\link{sppVector}}}.
   \item{pp}{
 Object of class prop.part. Assists in speeding up the function, if it has been called already.
 }
@@ -73,7 +73,7 @@ anoTree <- nj(dist.dna(anoteropsis))
 anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), function(x) paste(x[1], x[2], sep="_"))
 
 monophyly(anoTree, anoSpp)
-monophyly(anoTree, singletonsMono=FALSE)
+monophyly(anoTree, anoSpp, singletonsMono=FALSE)
 unique(anoSpp)
 
 data(woodmouse)
@@ -85,7 +85,3 @@ monophylyBoot(woodTree, woodSpp, woodmouse, thresh=0.9)
 unique(woodSpp)
 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

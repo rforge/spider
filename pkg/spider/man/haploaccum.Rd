@@ -1,4 +1,3 @@
-
 \name{haploaccum}
 \alias{haploaccum}
 
@@ -8,21 +7,12 @@
 \code{haploaccum} identifies the different haplotypes represented in a set of DNA sequences and creates haplotype accumulation curves.}
 
 \usage{haploaccum(dat, method = "random", permutations = 100, ...)
-  ## S3 method for class 'haplo.accum'
-  plot(x, add = FALSE, ci = 2, ci.type = c("bar","line","polygon"), col = par("fg"), ci.col = col, ci.lty = 1, ...)
 }
     
 \arguments{
   \item{dat}{A set of DNA sequences in an object of class ``DNAbin''}
   \item{method}{Method for haplotype accumulation. Method \code{``collector''} enters the sequences in the order that they appear in the sequence alignment and \code{``random''} adds the sequences in a random order.}
   \item{permutations}{Number of permutations for method \code{``random''}.}
-  \item{x}{A haploaccum object obtained from \code{haploaccum}}
-  \item{add}{Add graph to an existing graph.}
-  \item{ci}{Multiplier for the calculation of confidence intervals from standard deviation. \code{ci = 0} prevents the drawing of confidence intervals.}
-  \item{ci.type}{Type of confidence intervals: \code{``bar''} for vertical bars, \code{``line''} for lines, and \code{``polygon''} for a shaded area.}
-  \item{col}{Colour for curve line.}
-  \item{ci.col}{Colour for lines or shaded area when \code{``polygon''}.}
-  \item{ci.lty}{Line type for confidence interval lines or border of the \code{``polygon''}.}
   \item{...}{Other parameters to functions}
 }
 
@@ -41,7 +31,7 @@ An object of class "haplo.accum" with items:
 }
 
 \references{
-  Gotellli, N.J. \& Colwell, R.K. (2001). Quantifying biodiversity: procedures and pitfalls in measurement and comparison of species richness. \textit{Ecol. Lett.} 4, 379--391.
+  Gotellli, N.J. \& Colwell, R.K. (2001). Quantifying biodiversity: procedures and pitfalls in measurement and comparison of species richness. _Ecology Letters_ *4*, 379--391.
 }
 
 \author{
@@ -59,4 +49,6 @@ dolocurv <- haploaccum(doloHaplo, method = "random", permutations = 100)
 dolocurv
 plot(dolocurv)
 plot(dolocurv, add = FALSE, ci = 2, ci.type = "bar", col = "black", ci.col = "red", ci.lty = 1)
+}
 
+\keyword{Sampling}

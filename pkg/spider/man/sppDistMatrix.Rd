@@ -5,7 +5,7 @@
 Mean intra- and inter-specific distance matrix
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Creates a matrix giving the mean distances within and between species.
 }
 \usage{
 sppDistMatrix(dat, spp)
@@ -50,5 +50,4 @@ sppDistMatrix(doloDist, doloSpp)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{Barcoding}

@@ -5,7 +5,7 @@
 Sliding window analyses
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Wraps a number of measures used in sliding window analyses into one easy-to-use function.
 }
 \usage{
 slideAnalyses(dat, width, spp, interval = 1, distMeasures = TRUE, thresA = 0.2, thresB = 0.1, treeMeasures = FALSE)
@@ -37,21 +37,22 @@ Threshold to calculate the number of distance below. Default of 0.1
 Logical. Should tree-based measures be calculated? Default of FALSE
 }
 }
+
 \details{
 Distance measures include the following:
-\item{proportion of zero non-conspecific distances}
-\item{number of distances that are above and below the thresholds given}
-\item{number of zero-length distances}
-\item{overall mean distance}
+proportion of zero non-conspecific distances,
+number of distances that are above and below the thresholds given,
+number of zero-length distances,
+ and overall mean distance.
 
 Tree-based measures include the following: 
-\item{proportion of species that are monophyletic,}
-\item{proportion of clades that are identical between the NJ tree calculated for the window and the tree calculated for the full dataset,}
-\item{the above with \code{method="shallow"}.}
+proportion of species that are monophyletic,
+proportion of clades that are identical between the NJ tree calculated for the window and the tree calculated for the full dataset,
+ and the above with \code{method="shallow"}.
 
 Tree-based measures are a lot more time-intensive than distance measures. When dealing with lots of taxa and short window sizes, this part of the function can take hours.
-
 }
+
 \value{
 An object of class 'slidWin' which is a list containing the following elements:
 \item{win_mono_out}{Proportion of species that are monophyletic}
@@ -98,4 +99,3 @@ slideAnalyses(dolomedes, 200, interval=10, doloSpp, treeMeasures=TRUE)
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{Sliding window}
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

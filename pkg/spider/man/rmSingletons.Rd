@@ -5,7 +5,7 @@
 Identify and remove singletons 
 }
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+A utility to assist in the determination of species represented only by singletons.
 }
 \usage{
 rmSingletons(sppVector, exclude = TRUE)
@@ -13,7 +13,7 @@ rmSingletons(sppVector, exclude = TRUE)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{sppVector}{Vector of species names. (see \code{\link{sppVector}})}
-  \item{eradicate}{Logical. Should singletons be removed? Default of TRUE}
+  \item{exclude}{Logical. Should singletons be removed? Default of TRUE}
 }
 \details{
 When \code{exclude = TRUE} (the default), singletons are excluded and the vector returns the index of all non-singletons in the dataset. When \code{exclude = FALSE}, the indices of the singletons are presented.
@@ -53,5 +53,4 @@ rmSingletons(doloSpp, exclude=FALSE)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{Utilities}

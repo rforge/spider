@@ -1,18 +1,19 @@
 \name{read.BOLD}
+\alias{read.BOLD}
 \alias{search.BOLD}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Downloads DNA sequences from the Barcode of Life Database (BOLD)}
 
 \description{These functions allow DNA sequences to be downloaded from the Barcode of Life Database (BOLD).}
 
-\usage{search.BOLD(taxa)}
-\usage{read.BOLD(IDs)}
+\usage{search.BOLD(taxon)
+read.BOLD(IDs)}
 
 
 
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{taxa}{A character vector of the names of the taxa of interest}
+  \item{taxon}{A character vector of the names of the taxa of interest}
   \item{IDs}{A character vector containing BOLD process ID numbers}
 }
 
@@ -56,4 +57,4 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{Barcoding}
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{Datasets}% __ONLY ONE__ keyword per line

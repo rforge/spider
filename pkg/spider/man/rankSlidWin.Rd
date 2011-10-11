@@ -57,4 +57,3 @@ rankSlidWin(doloSlide, criteria="zero_distances")
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{Sliding window}
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line

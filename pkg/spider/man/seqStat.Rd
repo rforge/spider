@@ -5,7 +5,7 @@
 Sequence statistics
 }
 \description{
-
+Utility that produces a table giving summary statistics for a DNAbin object.
 }
 \usage{
 seqStat(DNAbin, thresh)
@@ -50,3 +50,4 @@ seqStat(anoteropsis)
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
 \keyword{Barcoding}
+\keyword{Utilities}

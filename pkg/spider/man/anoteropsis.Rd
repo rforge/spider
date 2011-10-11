@@ -10,6 +10,8 @@
 \format{A DNAbin object containing 33 sequences with a length of 409 base pairs}
 
 \source{
-Vink, C. J., and Paterson, A. M. (2003). Combined molecular and morphologi-
-cal phylogenetic analyses of the New Zealand wolf spider genus _Anoteropsis_
+Vink, C. J., and Paterson, A. M. (2003). Combined molecular and morphological phylogenetic analyses of the New Zealand wolf spider genus _Anoteropsis_
 (Araneae: Lycosidae). _Molecular Phylogenetics and Evolution_, *28* , 576-587.
+}
+
+\keyword{Datasets}

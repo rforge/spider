@@ -4,8 +4,9 @@
 \title{Population Aggregate Analysis}
 
 \description{
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+Conducts population aggregate analysis over a matrix of characters of interest.
 }
+
 \usage{paa(data, pop)}
 %- maybe also 'usage' for other objects documented here.
 
@@ -49,5 +50,4 @@ paa(dat, popn)
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{ ~kwd1 }
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
+\keyword{Morphology}
