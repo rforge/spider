@@ -8,6 +8,6 @@ rosenberg <- function(phy){
 	}
 	mat <- polyBalance(phy)
 	lab <- apply(mat, 1, function(x) RosenbergP_AB(x[1], x[2]))
-	as.vector(lab)
+	lab
 }
 

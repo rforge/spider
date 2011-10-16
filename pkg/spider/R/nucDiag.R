@@ -16,7 +16,7 @@ nucDiag <- function(DNAbin, sppVec){
 			li[[i]][j] <- siteCheck(sppSeqs[[i]], inform[j])
 		}
 	}
-	out <- lapply(li, function(x) which(!x))
+	out <- lapply(li, function(x) inform[which(!x)])
 	names(out) <- unique(sppVec)
 	out
 }

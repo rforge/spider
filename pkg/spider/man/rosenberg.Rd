@@ -12,11 +12,11 @@
 }
 
 \details{
-
+Because \code{ape} plots node labels in a different manner to the method in which they are stored, when plotting the node labels made by \code{rosenberg()}, make sure you state the \code{node} argument as shown in the examples below.
 }
 
 \value{
-A numeric vector corresponding to the node labels of 'phy'.
+A numeric vector with names giving the node numbers of \code{phy}.
 }
 
 \references{
@@ -34,7 +34,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{nodelabels}}
 }
 
 \examples{
@@ -42,13 +42,23 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 	anoTr <- nj(dist.dna(anoteropsis))
 	anoLab <- rosenberg(anoTr)
 	plot(anoTr)
-	nodelabels(round(anoLab,3))
+	nodelabels(round(anoLab,3), node=as.numeric(names(anoLab)))
 	
 	data(dolomedes)
 	doloTr <- nj(dist.dna(dolomedes))
-	doloLab <- rosenberg(doloTr)
+	doloRose <- rosenberg(doloTr)
 	plot(doloTr)
-	nodelabels(round(doloLab, 3))
+	nodelabels(round(doloRose, 3))
+	
+	#Colour circles for nodes with a probability < 0.005
+	doloNodes <- doloRose < 0.005
+	doloLabs <- doloRose
+	doloLabs[doloNodes] <- "blue"
+	doloLabs[!doloNodes] <- "red"
+	plot(doloTr, cex=0.7)
+	nodelabels(pch=21, bg=doloLabs, node=as.numeric(names(doloLabs)), cex=2)
+	legend(x=0.015, y=16.13, legend=c("significant", "not significant"), pch=21, pt.bg=c("blue", "red"), bty="n", pt.cex=2)
+
 }
 
 \keyword{Sampling}
