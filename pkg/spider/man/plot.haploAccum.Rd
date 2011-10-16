@@ -1,19 +1,19 @@
-\name{plot.haploaccum}
-\alias{plot.haploaccum}
+\name{plot.haploAccum}
+\alias{plot.haploAccum}
 
 \title{Plotting haplotype accumulation curves}
 
 \description{
-\code{haploaccum} identifies the different haplotypes represented in a set of DNA sequences and creates haplotype accumulation curves.
+\code{haploAccum} identifies the different haplotypes represented in a set of DNA sequences and creates haplotype accumulation curves.
 }
 
 
 \usage{
-\method{plot}{haploaccum}(x, add = FALSE, ci = 2, ci.type = c("bar","line","polygon"), col = par("fg"), ci.col = col, ci.lty = 1, xlab, ylab = x$method, ylim, ...)
+\method{plot}{haploAccum}(x, add = FALSE, ci = 2, ci.type = c("bar","line","polygon"), col = par("fg"), ci.col = col, ci.lty = 1, xlab, ylab = x$method, ylim, ...)
 }
     
 \arguments{
-  \item{x}{A haploaccum object obtained from \code{haploaccum}}
+  \item{x}{A haploAccum object obtained from \code{\link{haploAccum}}}
   \item{add}{Add graph to an existing graph.}
   \item{ci}{Multiplier for the calculation of confidence intervals from standard deviation. \code{ci = 0} prevents the drawing of confidence intervals.}
   \item{ci.type}{Type of confidence intervals: \code{"bar"} for vertical bars, \code{"line"} for lines, and \code{"polygon"} for a shaded area.}
@@ -27,7 +27,7 @@
 }
 
 \value{
-Plots graphs depending on the options given to \code{\link{haploaccum}}.
+Plots graphs depending on the options given to \code{\link{haploAccum}}.
 }
 
 \references{
@@ -41,7 +41,7 @@ Jagoba Malumbres-Olarte <j.malumbres.olarte@gmail.com>.
 \examples{
 data(dolomedes)
 doloHaplo <- dolomedes[sample(37, size = 200, replace = TRUE), ] #Generate multiple haplotypes
-dolocurv <- haploaccum(doloHaplo, method = "random", permutations = 100)
+dolocurv <- haploAccum(doloHaplo, method = "random", permutations = 100)
 dolocurv
 plot(dolocurv)
 plot(dolocurv, add = FALSE, ci = 2, ci.type = "bar", col = "black", ci.col = "red", ci.lty = 1)

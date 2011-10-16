@@ -1,13 +1,13 @@
-haploaccum<- function (dat, method = "random", permutations = 100, ...){
+haploAccum<- function (DNAbin, method = "random", permutations = 100, ...){
 
-    if (is.list(dat)) dat <- as.matrix(dat)	# If seq dat is list, turn it matrix
-    i <- (length(grep("[-|?|r|y|m|k|w|s|b|d|h|v|n]", dat))>0)
+    if (is.list(DNAbin)) DNAbin <- as.matrix(DNAbin)	# If seq DNAbin is list, turn it matrix
+    i <- (length(grep("[-|?|r|y|m|k|w|s|b|d|h|v|n]", DNAbin))>0)
         message("There are missing or ambiguous data, which may cause an overestimation of the number of haplotypes")
 
-    seq_names<-as.vector(rownames(dat))	# Create a vector of seq name
-    nms.dat <- deparse(substitute(dat))		# Create a character object from seq data
-    rownames(dat) <- NULL				# Remove row names
-    y <- apply(dat, 1, rawToChar)		# Translate sequences
+    seq_names<-as.vector(rownames(DNAbin))	# Create a vector of seq name
+    nms.dat <- deparse(substitute(DNAbin))		# Create a character object from seq DNAbina
+    rownames(DNAbin) <- NULL				# Remove row names
+    y <- apply(DNAbin, 1, rawToChar)		# Translate sequences
     n <- length(y)				# Number of sequences
     keep <- nhaplo <- 1L		# To remove?
     no <- list(1L)			# To remove?
@@ -28,7 +28,7 @@ haploaccum<- function (dat, method = "random", permutations = 100, ...){
             no[[nhaplo]] <- i
         }
     }
-    obj <- dat[keep, ]
+    obj <- DNAbin[keep, ]
     rownames(obj) <- as.character(as.roman(1:length(keep)))
     class(obj) <- c("haplotype", "DNAbin")
     attr(obj, "index") <- no
@@ -71,6 +71,6 @@ haploaccum<- function (dat, method = "random", permutations = 100, ...){
     })
     out <- list(call = match.call(), method = method, sequences = sequences,
                 n.haplotypes = haploaccum, sd = sdaccum, perm = perm)
-    class(out) <- "haploaccum"
+    class(out) <- "haploAccum"
     out
 }

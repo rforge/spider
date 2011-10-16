@@ -1,16 +1,16 @@
-\name{haploaccum}
-\alias{haploaccum}
+\name{haploAccum}
+\alias{haploAccum}
 
 \title{Haplotype accumulation curves}
 
 \description{
-\code{haploaccum} identifies the different haplotypes represented in a set of DNA sequences and creates haplotype accumulation curves.}
+\code{haploAccum} identifies the different haplotypes represented in a set of DNA sequences and creates haplotype accumulation curves.}
 
-\usage{haploaccum(dat, method = "random", permutations = 100, ...)
+\usage{haploAccum(DNAbin, method = "random", permutations = 100, ...)
 }
     
 \arguments{
-  \item{dat}{A set of DNA sequences in an object of class ``DNAbin''}
+  \item{DNAbin}{A set of DNA sequences in an object of class ``DNAbin''}
   \item{method}{Method for haplotype accumulation. Method \code{``collector''} enters the sequences in the order that they appear in the sequence alignment and \code{``random''} adds the sequences in a random order.}
   \item{permutations}{Number of permutations for method \code{``random''}.}
   \item{...}{Other parameters to functions}
@@ -45,7 +45,7 @@ This function is based on the functions \code{haplotype} (E. Paradis) from the p
 \examples{
 data(dolomedes)
 doloHaplo <- dolomedes[sample(37, size = 200, replace = TRUE), ] #Generate multiple haplotypes
-dolocurv <- haploaccum(doloHaplo, method = "random", permutations = 100)
+dolocurv <- haploAccum(doloHaplo, method = "random", permutations = 100)
 dolocurv
 plot(dolocurv)
 plot(dolocurv, add = FALSE, ci = 2, ci.type = "bar", col = "black", ci.col = "red", ci.lty = 1)

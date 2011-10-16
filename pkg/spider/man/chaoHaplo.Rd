@@ -35,7 +35,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{haploaccum}}
+\code{\link{haploAccum}}
 }
 \examples{
 data(dolomedes)
