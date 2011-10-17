@@ -20,18 +20,21 @@
 \BOOKMARK [3][-]{subsubsection.4.2.3}{collembola species vector}{subsection.4.2}
 \BOOKMARK [3][-]{subsubsection.4.2.4}{weevils species vector}{subsection.4.2}
 \BOOKMARK [2][-]{subsection.4.3}{Other useful functions for extracting names}{section.4}
-\BOOKMARK [1][-]{section.5}{Sliding windows}{}
-\BOOKMARK [2][-]{subsection.5.1}{The basic idea}{section.5}
-\BOOKMARK [2][-]{subsection.5.2}{Conducting analyses}{section.5}
-\BOOKMARK [2][-]{subsection.5.3}{The magic of slideAnalyses}{section.5}
-\BOOKMARK [2][-]{subsection.5.4}{Plots of boxes}{section.5}
-\BOOKMARK [1][-]{section.6}{Barcoding identification metrics}{}
-\BOOKMARK [2][-]{subsection.6.1}{Summary statistics}{section.6}
-\BOOKMARK [2][-]{subsection.6.2}{Distance measures of identification success}{section.6}
-\BOOKMARK [3][-]{subsubsection.6.2.1}{Nearest neighbour}{subsection.6.2}
-\BOOKMARK [3][-]{subsubsection.6.2.2}{BOLD identification criteria}{subsection.6.2}
-\BOOKMARK [3][-]{subsubsection.6.2.3}{Meier's best match}{subsection.6.2}
-\BOOKMARK [2][-]{subsection.6.3}{Species monophyly}{section.6}
-\BOOKMARK [2][-]{subsection.6.4}{Sensitivity analysis}{section.6}
-\BOOKMARK [2][-]{subsection.6.5}{Rosenberg's probability of reciprocal monophyly}{section.6}
+\BOOKMARK [1][-]{section.5}{DNA barcoding}{}
+\BOOKMARK [2][-]{subsection.5.1}{Summary statistics}{section.5}
+\BOOKMARK [2][-]{subsection.5.2}{Distance measures of identification success}{section.5}
+\BOOKMARK [3][-]{subsubsection.5.2.1}{Nearest neighbour}{subsection.5.2}
+\BOOKMARK [3][-]{subsubsection.5.2.2}{BOLD identification criteria}{subsection.5.2}
+\BOOKMARK [3][-]{subsubsection.5.2.3}{Meier's best match}{subsection.5.2}
+\BOOKMARK [3][-]{subsubsection.5.2.4}{Threshold optimisation}{subsection.5.2}
+\BOOKMARK [2][-]{subsection.5.3}{Tree-based measures}{section.5}
+\BOOKMARK [3][-]{subsubsection.5.3.1}{Species monophyly}{subsection.5.3}
+\BOOKMARK [3][-]{subsubsection.5.3.2}{Bootstrap monophyly}{subsection.5.3}
+\BOOKMARK [3][-]{subsubsection.5.3.3}{Rosenberg's probability of reciprocal monophyly}{subsection.5.3}
+\BOOKMARK [2][-]{subsection.5.4}{Singletons}{section.5}
+\BOOKMARK [1][-]{section.6}{Sliding windows}{}
+\BOOKMARK [2][-]{subsection.6.1}{The basic idea}{section.6}
+\BOOKMARK [2][-]{subsection.6.2}{Conducting analyses}{section.6}
+\BOOKMARK [2][-]{subsection.6.3}{The magic of slideAnalyses}{section.6}
+\BOOKMARK [2][-]{subsection.6.4}{Plots of boxes}{section.6}
 \BOOKMARK [1][-]{section.7}{Conclusion}{}

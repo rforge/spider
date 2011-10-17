@@ -87,7 +87,7 @@ This document is a tutorial on the use of some of the functions implemented in \
 
 \subsubsection{Species}
 \label{speciesDef}
-The term ``species'' will be used a lot in this document. The creators of the package are biologists, mostly working with DNA sequences in ecology, taxonomy and systematics, and so this term is naturally the one we feel most comfortable using. However, it is important to remember that ``species'' in this context is just an identifier for our groups of interest, and is not necessarily limited to biological species---it can	refer to any group, population or other form of cluster. 
+The term ``species'' will be used a lot in this document. The creators of the package are biologists, mostly working with DNA sequences in ecology, taxonomy and systematics, and so this term is naturally the one we feel most comfortable using. However, in the context of \progname{Spider} it is important to remember that ``species'' are just an identifying tag for our group of interest, and is not necessarily limited to biological species---it can	refer to any population, group, lineage or cluster of interest. 
 
 \subsubsection{R commands}
 Commands to be typed into the \progname{R} console are typeset in \texttt{\textcolor{blue}{blue typewriter}} font, while  \progname{R}'s output is typeset in \texttt{\textcolor{red}{red typewriter}} font. Functions mentioned in the text are typeset in \texttt{black typewriter} font.
@@ -149,7 +149,7 @@ testList$c[2,]
 ?sppVector
 \end{console}
 
-\progname{R} help pages have a justified reputation for being dense and overwhelming at first glance, but keep trying because most of the time (particularly for the base packages) the answer is in there. It's jolly difficult writing help pages, and my attempts at it renew my appreciation for what others have produced.
+\progname{R} help pages have a justified reputation for being dense and overwhelming at first glance, but keep trying because most of the time (particularly for the base packages) the answer is in there. It's jolly difficult writing help pages, and our attempts at it renew our appreciation for what others have produced.
 
 If any of \Spider's help pages fail to live up to standards, please send us an email, preferably with suggestions, and we'll update it accordingly.
 
@@ -247,7 +247,7 @@ This tells us a whole bunch of stuff. Starting from the top, the first line tell
 While the above datasets give us something to work on for the rest of the tutorial, what is a lot more interesting is working on your own datasets. To load your own datasets into \Spider, use the function \fun{read.dna()} supplied by \progname{Ape}. This function can read DNA sequence files encoded in the \href{http://cmgm.stanford.edu/phylip/formats.html#6}{\progname{Phylip}} sequential or interleaved formats, \progname{Clustal}, or (my preferred option) \progname{Fasta} format. To load sequences stored in a \progname{Fasta} formatted file called ``mySequences.fas'' in the ``R'' folder in your ``My Documents'', use the following commands:
 
 \begin{console}
-setwd("C:/My Documents/R/")
+setwd("C:\\My Documents\\R")
 dat <- read.dna("mySequences.fas", format="fasta")
 dat
 \end{console}
@@ -308,7 +308,7 @@ This code plots the sequences for 5 randomly sampled \fun{collembola} and one \f
 
 \subsection{Getting sequences from BOLD}
 \label{BOLD.section}
-The \href{http://www.barcodinglife.com}{Barcode of Life Data System (\progname{Bold})} is the data storage portal for a global endeavour to catalogue the living world, using short (around 650 bp) DNA sequences from standard gene regions (CITE). The bulk of this data comes from the mitochondrial gene region cytochrome \emph{c} oxidase I (COI). There are a lot of sequences in the database, but unfortunately only a small portion of them are currently made public. \spider contains functions for searching and downloading sequences from \progname{Bold}. The sequences being downloaded are from \scinm{Trigonopterus} weevils from northern New Guinea rainforest which show very high levels of diversity \citep{Ried.etal.2010,Ried.2010}
+The \href{http://www.barcodinglife.com}{Barcode of Life Data System (\progname{Bold})} is the data storage portal for a global endeavour to catalogue the living world, using short (around 650 bp) DNA sequences from standard gene regions \citep{Ratnasingham2007}. The bulk of this data comes from the mitochondrial gene region cytochrome \emph{c} oxidase I (COI). There are a lot of sequences in the database, but unfortunately only a small portion of them are currently made public. \spider contains functions for searching and downloading sequences from \progname{Bold}. We will download some sequences of \scinm{Trigonopterus} weevils from northern New Guinea rainforest that show high levels of diversity \citep{Ried.etal.2010,Ried.2010}
 
 \begin{console}
 nums <- search.BOLD("Trigonopterus")
@@ -492,11 +492,265 @@ The function \fun{read.BOLD()} has an \fun{attr()} slot in the same way that \fu
 \subsection{Other useful functions for extracting names}
 The above examples have made extensive use of a few of the \progname{R}'s key functions for manipulating character strings. Other functions worth knowing about include the \fun{grep()} family of functions, including \fun{gsub()}. These functions have the ability to search for patterns in strings, and the latter has the ability to make changes to the strings along the way. 
 
+
+
 %####################################
 %####################################
 %####################################
 
-\section{Sliding windows}
+
+
+\section{DNA barcoding}
+\progname{Spider} and R provide an ideal platform for manipulating and analysing DNA barcode data. DNA barcoding is a method of identifying of organisms using standard gene regions---particularly COI\footnote{the mitochondrial gene cytochrome \emph{c} oxidase I}---by comparing new sequences to a database of barcodes from identified and vouchered specimens. The method was first proposed by \citet{Her.etal.2003.barcoding} and has since become a global endeavour, with ongoing efforts to gather sequences and further develop the \progname{Bold} database (section \ref{BOLD.section}). Research into the utility of DNA barcoding for identification centres on determining the amount of sequence variation within and between species, and whether accurate determinations can be made. 
+
+Calculating how effectively the DNA barcodes are able to discriminate species is usually one of the key outputs of a DNA barcoding study. In theory, the best way to do this would be to create a barcode reference library, and then independently collect additional data to test it. However, more often reference libraries are created and tested using the same data in a simulated identification scenario. The assumption is that if more data were collected, they would have a similar success rate. Testing the data involves treating each individual as an unknown query in turn, using the fact that we already know the identity of the individual from its species vector. 
+
+
+\subsection{Summary statistics}
+\spider provides two functions for determining summary statistics from your data. The first---\fun{dataStat()}---calculates the number of species and genera in the dataset, as well as the number of individuals sampled in each species. Normally the genus vector (\fun{doloGen}) would be constructed in the same way as the species vectors (section \ref{species.vectors}), but here we already know there is only one genus so don't need to extract it from the taxon names.
+
+The second function---\fun{seqStat()}---determines sequence number and length, and reports the amount of missing data inferred from the commonly used symbols (``-, N, ?''). Except for ``N'', This function does not report ambiguous bases (e.g.\ ``R, Y, S, M'' etc)  as missing data, although they are treated as such by most other programs as well as \progname{Ape} functions such as \fun{dist.dna()}; here, we refer the user to \fun{is.ambig()}
+
+\begin{console}
+doloGen <- rep("Dolomedes", length(doloSpp))
+dataStat(doloSpp, doloGen)
+\end{console}
+
+\begin{Routput}
+ Genera Species     Min     Max  Median    Mean  Thresh 
+      1       4       2      16      10       9       1 
+\end{Routput}
+
+The output is fairly easy to interpret. In the \fun{dolomedes} dataset we have one genus and four species. The minimum number of individuals per species is two, while the maximum is 16. The median and mean number per species is 10 and 9 respectively. The ``\fun{thresh}'' value shows how many species have fewer individuals than the threshold (default of 5). In the \fun{dolomedes} dataset, we only have one species with less than 5 individuals representing it.
+
+Looking at the \fun{dolomedes} dataset with \fun{seqStat()} is boring---all the sequences are the same length, and there is no missing data. Therefore, we will have a look at the \fun{weevils} dataset:
+
+\begin{console}
+seqStat(weevils)
+\end{console}
+
+\begin{Routput}
+   Min    Max   Mean Median Thresh 
+   479    646    635    640      1
+\end{Routput}
+
+The minimum sequence length is 479 bp, while the maximum is 646. The mean and median lengths are 635 and 640 respectively, and we have one sequence that is below the default threshold value of 500 bp.
+
+
+\subsection{Distance measures of identification success}
+
+The following metrics are all based on the pairwise distance matrix between sequences. This matrix can easily be created using the \fun{dist.dna()} function provided by \progname{Ape}. The distance matrix can be calculated using various models of DNA evolution, ranging from straight raw distances, to complex models involving a lot of parameters. The standard model of evolution used in DNA barcoding studies is the Kimura 2-parameter model (K2P), which is one of the more simple models available. Conveniently, this is the default model used by \fun{dist.dna()}. It is also important when using \fun{dist.dna()}, to change the  \fun{pairwise.deletion} option to TRUE, otherwise all sites with any missing data will be deleted from all comparisons.
+
+\begin{console}
+anoDist <- dist.dna(anoteropsis, pairwise.deletion = TRUE)
+doloDist <- dist.dna(dolomedes, pairwise.deletion = TRUE)
+\end{console}
+
+\subsubsection{Nearest neighbour}
+The nearest neighbour criterion \fun{nearNeighbour()} simply finds the closest individual to the target, and returns the species index for that individual. If there is more than one individual that is closest to the target, the function returns the species index of the major component of the group. The default result is a logical vector that tells you if the nearest species index is the same as the individual being tested. If it is, the result is TRUE. If not, it's FALSE. Setting the \fun{names} argument to TRUE returns the name of the nearest match instead, and thus can be used to identify unknowns (subject to having tested the procedure previously of course!). The result is tabulated to ease interpretation.
+
+\begin{console}
+table(nearNeighbour(doloDist, doloSpp))
+\end{console}
+
+\begin{Routput}
+FALSE  TRUE 
+    1    36 
+\end{Routput}
+
+\subsubsection{BOLD identification criteria}% we changed this no? should be more options: true, false, ambig, no id ... % I also thought we removed the upper threshold as it is only for actually making an ID
+The function \fun{idBOLD()} mimics the ``\href{http://www.barcodinglife.com/views/idrequest.php}{species identification}'' method used by \progname{Bold}. \fun{idBOLD()} offers a threshold based criterion (default of 1\%), looking at all specimens within the threshold of the query. There are four possible outcomes for each identification query (i.e.\ specimen in the dataset): \fun{"correct"}---all matches within the threshold of the query are the same species; \fun{"incorrect"}---all matches within the threshold are different species to the query; \fun{"ambiguous"}---both correct and incorrect species are within the threshold; \fun{"no id"}---no matches were found to any individual within the threshold . 
+
+\begin{console}
+table(idBOLD(anoDist, anoSpp))
+\end{console}
+
+\begin{Routput}
+  correct incorrect     no id 
+       11         2        20 
+\end{Routput}
+
+\subsubsection{Meier's best match}
+Meier's best close match \citep{Meier.2006} is another distance-based analysis, similar to \fun{nearNeighbour()}, but it incorporates a threshold (default value of 1\%). Like \fun{idBOLD()}, the same four identification categories are given (\fun{"correct, incorrect, ambiguous, no id"}), but critically, this function only operates upon the single nearest-neighbour match, rather than all matches within the threshold (as with \fun{idBOLD()}). The ambiguous result would apply when there are more than one equally close match of different species. 
+
+%if there are no matches within this threshold, a result of \fun{"no id"} is given. If the nearest match is the same as the test individual, the result is \fun{"correct"}, if the nearest match is different, it is \fun{"incorrect"}. This test also gives us an extra degree of uncertainty, with a result of \fun{"ambiguous"} if there is more than one species closest to the test individual.
+
+\begin{console}
+table(meiersBestMatch(anoDist, anoSpp))
+\end{console}
+
+\begin{Routput}
+  correct incorrect     no id 
+       11         2        20 
+\end{Routput}
+
+
+\subsubsection{Threshold optimisation}
+While the 1\% threshold used by \progname{Bold} is often a good rule of thumb, it may not always be appropriate to every dataset, and identification success can often be increased if a better threshold given the data can be found  \citep{Meye.Paul.2005}.  The function \fun{idError()} provides the basis for this analysis. The function returns the number of positive identifications, the number of false negatives and the number of false positives at a given threshold. 
+
+\begin{console}
+idError(doloDist, doloSpp, thresh = 0.01)
+\end{console}
+
+\begin{Routput}
+     Thresh Pos False neg False pos
+[1,]   0.01  28         9         0
+\end{Routput}
+
+The threshold has a default of 0.01 (= 1\%), but can be changed as the user pleases. If the threshold is changed systematically, the optimum threshold value can be determined by minimising the false positive (no conspecific matches within threshold of query) and false negative identifications (non-conspecific species within threshold distance of query). The following code shows how to create a range of threshold values (here 0.1\% to 2\%), how to test these values, and how to plot the result (Figure \ref{sensitivity.fig}). If the data contain singleton species (i.e.\ one individual per species), it is important when running this optimisation analysis to remove these, as with \fun{idError()} a singleton will be a true negative, rather than a false positive identification; see \fun{rmSingletons()} for more details.
+
+\begin{console}
+threshVal <- seq(0.001,0.02, by = 0.001)
+sens <- lapply(threshVal, function(x) idError(doloDist, doloSpp, thresh = x))
+sensMat <- do.call(rbind, sens)
+barplot(t(sensMat)[3:4,], names.arg=paste((sensMat[,1]*100), "%"))
+\end{console}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=0.9\textwidth,trim= 3cm 0cm 3cm 0cm]{sensitivity2}
+	\caption{Barplot showing the false positive (light grey) and false negative (dark grey) rate of identification of \emph{Dolomedes} species as pre-set thresholds change.}
+	\label{sensitivity.fig}
+\end{figure}
+
+From the figure we can see that the optimum threshold for the \fun{dolomedes} dataset is between 0.5\% and 0.8\% K2P distance. By looking at \fun{sensMat}, we confirm that these thresholds have the highest number of positive identifications at 36, and that the default 1\% is way off the mark.
+
+\begin{Routput}
+      Thresh Pos False neg False pos
+ [1,]  0.001   0         0        37
+ [2,]  0.002  21         0        16
+ [3,]  0.003  31         0         6
+ [4,]  0.004  34         0         3
+ [5,]  0.005  36         0         1
+ [6,]  0.006  36         0         1
+ [7,]  0.007  36         0         1
+ [8,]  0.008  36         0         1
+ [9,]  0.009  33         4         0
+[10,]  0.010  28         9         0
+\end{Routput}
+
+\subsection{Tree-based measures}
+
+\subsubsection{Species monophyly}
+
+The species monophyly criterion determines if each species is monophyletic over a neighbour-joining (NJ) phylogram (tree). It uses a fairly simple definition of monophyly---search for clades with the same number of tips as there are species members, and see if they match. Singletons (species represented by only one individual) cause a headache. Obviously, they are either always or never monophyletic depending on your point of view. The way that \fun{monophyly()} gets around this problem is by getting the user to tell it what the point of view should be. The default is TRUE---singletons are monophyletic.
+
+First we need to make our tree and ensure the labels are the same as the species vector. Then we can test for monophyly:
+
+\begin{console}
+anoTr <- nj(anoDist)
+anoTr$tip.label <- anoSpp
+monophyly(anoTr, anoSpp)
+table(monophyly(anoTr, anoSpp))
+\end{console}
+
+\begin{Routput}
+ [1]  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[13]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+
+FALSE  TRUE 
+    1    21
+\end{Routput}
+
+The species are ordered in the same way as \fun{unique(anoSpp)}, so this output tells us that \scinm{Anoteropsis adumbrata} is not monophyletic on this tree. However, if you've looked at the \fun{anoteropsis} dataset at all, you'll know that there are a number of singletons in this dataset. When we change the default behaviour to consider singletons as FALSE, we get a rather different picture.
+
+\begin{console}
+monophyly(anoTr, anoSpp, singletonsMono=FALSE)
+table(monophyly(anoTr, anoSpp, singletonsMono=FALSE))
+\end{console}
+
+\begin{Routput}
+ [1] FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
+[13]  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE
+
+FALSE  TRUE 
+   16     6 
+\end{Routput}
+
+\subsubsection{Bootstrap monophyly}
+
+We also provide an extension to the measure of monophyly, by incorporating the bootstrap support measure. Here we use the \fun{monophylyBoot()} function with the following options: minimum of 70\% bootstrap support for a correct identification, 1000 replications, and codon based resampling for protein coding loci. 
+
+Like many bootstrap analyses it can be lengthy to complete, and may also significantly reduce the proportion of successful identifications. We can see this from our \emph{Anoteropsis} data; there is not a single correct identification!
+
+Because the monophyly functions work on the species, rather than individual level, the third line of code rescales the result reported in terms of the number of individuals per species---i.e., if a species is monophyletic, then all its members are also. This takes into account sampling per species, and makes the result more comparable with the individual-query distance-based methods described above.
+
+\begin{console}
+monoBoot <- monophylyBoot(anoTr, anoSpp, anoteropsis, 
+singletonsMono = FALSE, reps = 1000, thresh = 0.7, block = 3)
+table(monoBoot[match(anoSpp, unique(anoSpp))], useNA = "ifany")
+\end{console}
+
+\begin{Routput}
+FALSE 
+   33
+\end{Routput}
+
+\subsubsection{Rosenberg's probability of reciprocal monophyly}
+Frequently we get excited about a specimen being different from other samples we have. Rosenberg's probability of reciprocal monophyly offers a measure to temper our excitement by bringing the sampling regime into the picture \citep{Rosenberg2007}. Rosenberg states: ``especially for small samples, an observation of monophyly for a set of lineages---even if strongly supported statistically---does not necessarily indicate that the lineages are from a distinctive group. Here I develop a test of the null hypothesis that monophyly is a chance outcome of random branching''. This is a particularly useful function for investigating support for cryptic species.
+
+To carry out the test, a neighbour joining tree is required (\fun{anoTr}), but note that depending on the topology, sometimes the tree will have to be rooted first with \progname{Ape}'s \fun{root()} command. We then can plot colours on all the nodes that are significant to the $\alpha = 0.05$ level according to Rosenberg's random model, but this significance level can be changed \citep{Rosenberg2007}. We see in Figure \ref{rosenbergs.fig}, that very few of the nodes are red (significantly monophyletic), indicating that monophyly of some species may be due to chance, and that further sampling is required. 
+
+\begin{console}
+anoRos <- rosenberg(anoTr)
+anoNodes <- anoRos < 0.05
+anoLabs <- anoRos
+anoLabs[anoNodes] <- "red"
+anoLabs[!anoNodes] <- "grey"
+plot(anoTr, cex=0.7)
+nodelabels(pch=21, bg=anoLabs, node=as.numeric(names(anoLabs)), cex=2)
+\end{console}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=1\textwidth, trim=3cm 1cm 3cm 0cm]{rosenbergs}
+	\caption{Rosenberg's probability of reciprocal monophyly for  \emph{Anoteropsis} spp. Red nodes are significant to $\alpha = 0.05$.}
+	\label{rosenbergs.fig}
+\end{figure}
+
+\subsection{Singletons}
+
+As mentioned already, singletons (a species represented by only one individual) can be a problem for barcoding analyses \citep{Lim2011}. When treating each individual as an identification query, a singleton will not have a match available in the dataset, so will either result in an ``incorrect'' or ``no identification''---not a good result. Until databases have complete taxon coverage, singletons are likely to occur, and a real unknown specimen has a chance of not having a conspecific represented in the reference library. If your data contain a number of singleton species, it is worth additionally analysing it with the singletons removed. This will give a better identification success rate, and may be more representative of how the data may behave once fully sampled.
+
+\spider can effectively deal with the singleton issue, using the \fun{rmSingletons()} function. First, we can find out how many singletons are in the data. The \fun{exclude = FALSE} option reports these singletons, and this can be compared to the number of species in the dataset.
+
+\begin{console}
+length(rmSingletons(anoSpp, exclude = FALSE))
+length(unique(anoSpp))
+\end{console}
+
+
+\begin{Routput}
+[1] 15
+[1] 22
+\end{Routput}
+
+
+We can see that 15 of the 22 species in the dataset are singletons. Next, we can exclude these singletons and only look at species with multiple individuals. To illustrate, we will repeat the analysis of \fun{meiersBestMatch()} with both singletons included and excluded. It is important to note that the singletons are not actually removed from the analysis, they are just excluded from the results; this means the singleton individuals are still available as potential mis-matches for other species.
+
+\begin{console}
+excl <- rmSingletons(anoSpp, exclude = TRUE)
+mbm <- meiersBestMatch(anoDist, anoSpp)
+table(mbm[excl], useNA = "ifany")
+table(meiersBestMatch(anoDist, anoSpp))
+\end{console}
+
+\begin{Routput}
+  correct incorrect     no id 
+       11         1         6 
+
+  correct incorrect     no id 
+       11         2        20 
+\end{Routput}
+
+We see here a huge improvement in identification success with singletons omitted (top output); there's one less ``incorrect'', and 14 fewer ``no identifications''.
+
+
+%####################################
+%####################################
+%####################################
+
+\section{Sliding windows} 
 
 \subsection{The basic idea}
 The principle of sliding window analysis is fairly simple---a DNA alignment is divided up into multiple smaller fragments throughout the length of the region in question. Measures of diversity \citep{Roe.Sper.2007} or questions of phylogenetic character conflict \citep{Crui.2011} can then be explored.
@@ -552,14 +806,14 @@ If we plot the results of \fun{anoGC}, we get Figure \ref{slidWin.fig}.
 \end{figure}
 
 \subsection{The magic of \fun{slideAnalyses}}
-A number of the most useful analyses for determining the optimum region for designing mini-barcodes \citep{Meus.etal.2008} have been implemented in the \fun{slideAnalyses()} function. This function does the whole shebang from creating the windows, to conducting the analyses. The result is a massive list detailing the data from each window. Take note that this is our first glimpse of ``species vectors'' in action:
+A number of the most useful analyses for determining the optimum region for designing mini-barcodes \citep{Meus.etal.2008} have been implemented in the \fun{slideAnalyses()} function. This function does the whole shebang from creating the windows, to conducting the analyses. The result is a massive list detailing the data from each window. %Take note that this is our first glimpse of ``species vectors'' in action:
 
 \begin{console}
 anoAna <- slideAnalyses(anoteropsis, 50, anoSpp, interval="codons", 
 distMeasures=TRUE, treeMeasures=TRUE)
 \end{console}
 
-First up: the arguments. \fun{anoteropsis} is our \fun{DNAbin} object containing our sequences, ``50'' is the desired width of the windows in question. \fun{anoSpp} is our species vector, \fun{"codons"} is a fancy way of getting an interval of 3 between our windows, \fun{distMeasures=TRUE} indicates that we want to calculate metrics based on a Kimura 2-parameter distances matrix for each window, and \fun{treeMeasures=TRUE} indicates that we want to calculate metrics based on a neighbour-joining tree from the distance matrix above. The default is that \fun{distMeasures=TRUE} and \fun{treeMeasures=FALSE} because the latter takes a lot more time to compute than the former. 
+First up: the arguments. \fun{anoteropsis} is our \fun{DNAbin} object containing our sequences, ``50'' is the desired width of the windows in question. \fun{anoSpp} is our species vector, \fun{"codons"} is a fancy way of getting an interval of 3 between our windows, \fun{distMeasures=TRUE} indicates that we want to calculate metrics based on a Kimura 2-parameter distance matrix for each window, and \fun{treeMeasures=TRUE} indicates that we want to calculate metrics based on a neighbour-joining tree monophyly from the distance matrix above. The default is that \fun{distMeasures=TRUE} and \fun{treeMeasures=FALSE} because the latter takes a lot more time to compute than the former. 
 
 If we have a look at the object created by the function above, we get something fairly nasty:
 
@@ -588,10 +842,12 @@ List of 16
  - attr(*, "class")= chr "slidWin"
 \end{Routput}
 
+% RUPERT: I think we need a bit more explanation of some of these?
+% might need to explain what a non-conspecific distance is?
 \verb|win_mono_out| is the proportion of species that are monophyletic. The closer to 1 this number gets, the more species are monophyletic.
 \verb|comp_depth| and \verb|comp_depth_out| compare the clades of the trees in the window to the trees made from the full dataset. The difference is that \verb|comp_depth_out| considers only the clades that are closer to the tips of the tree than the median node depth, while \verb|comp_out| looks at all of them.
 \verb|pos_out| is the position of each window (in bp) from the start of the sequence. Occasionally, trees might not be able to be made if there is too much missing data, and \verb|pos_tr_out| records the position of windows from which trees were made.
-\verb|noncon_out| gives the proportion of non-conspecific distances that are 0 i.e. no difference between species. Ideally, this number would be 0.
+\verb|noncon_out| gives the proportion of non-conspecific distances that are 0, i.e., no difference between species. Ideally, this number would be 0 (where every species could be differentiated from one another).
 \verb|thres_above_out| and \verb|thres_below_out| are the numbers of cells with distances above and below given thresholds (\verb|thresA| and \verb|thresB|). It is best if these numbers are maximised and minimised respectively.
 \verb|zero_out| is the proportion of cells in the distance matrix which have a distance of 0, and can be compared with \verb|dat_zero_out| which is the same proportion in the full dataset. The closer \verb|zero_out| is to \verb|dat_zero_out|, the better.
 \verb|dist_mean_out| is the mean of the distance matrix. Usually, it is best if this number is large.
@@ -605,13 +861,13 @@ plot(anoAna)
 
 \begin{figure}[tbp]
 	\includegraphics[width=\textwidth]{slideAnalyses}
-	\caption{Results of several analyses across the COI sequences of \emph{Anoteropsis} spp. See text for more details.}
+	\caption{Results of several analyses across the COI sequences of \emph{Anoteropsis} spp. See text for more details.}%RUPERT: the "comp" figure has too much text!
 	\label{slideAnalyses.fig}
 \end{figure}
 
 Starting at the top left of Figure \ref{slideAnalyses.fig}, we have the plot of the mean distance (\verb|dist_mean_out|). We see that this is at its greatest at the 200 bp position, and at its lowest around 150 bp. Next one down the column, we have the proportion of zero cells in the distance matrix (\verb|zero_out|). Once again, this is minimised around 200 bp and is at its highest at 150 bp. The unbroken horizontal line crossing the y-axis at 0 is the proportion of zero cells in the distance matrix created from the full dataset (\verb|dat_zero_out|). At the bottom of the first column, we have the number of cells above and below the thresholds (\verb|thres_above_out| and \verb|thres_below_out|). The two metrics meet their maximum and minimum respectively at (surprise, surprise!) 200 bp. The top right plot displays the proportion of zero non-conspecific distances, which find their minimum at 200 bp, but is greatest (a scary 0.8) around 100 bp. The middle right plot shows the proportion of clades that are identical between the windows and the full dataset. Black nodes comprise all clades, while the blue ones are a subset making up the shallower clades. In this example they're mixed up with each other, due to the fact that this dataset has few representatives of each species. For datasets including lots of conspecific individuals, there is greater separation between the blue and the black points. As we've come to expect though, both measures are pretty high at 200 bp and low at 140 bp. Finally, at the bottom right we have the proportion of species that are monophyletic. Unlike previous measures, it appears that the 50 bp mark is best (though 200 bp is fairly respectable), but 140 is still in the doldrums. All in all, these plots consistently indicate that the best region for creating 50 bp mini-barcodes is around the 200 bp mark.
 
-The information can also be shown as a table that ranks the windows, showing by default the top 10 windows :
+The information can also be shown as a table that ranks the windows, showing by default the top 10 windows:
 
 \begin{console}
 rankSlidWin(anoAna)
@@ -642,10 +898,10 @@ rankSlidWin(anoAna)
 73   0.1818182     0.02462121               1             312
 \end{Routput}
 
-It shows the same conclusion that we drew from the graphical representation of the data, namely that the windows around the 200 mark are particularly good by most of the criteria. The default behaviour of \fun{rankSlidWin()} is that it returns the best summed over all critera, but other criteria can be used to rank the windows. See the help page of \fun{rankSlidWin()} for more details.
+It shows the same conclusion that we drew from the graphical representation of the data, namely that the windows around the 200 bp mark are particularly good by most of the criteria. The default behaviour of \fun{rankSlidWin()} is that it returns the best summed over all critera, but other criteria can be used to rank the windows. See the help page of \fun{rankSlidWin()} for more details.
 
 \subsection{Plots of boxes}
-Another way of looking at the variation across the sequence is by plotting boxplots that show the distribution of pairwise genetic distances of each window. This can be done by using the function \fun{slideBoxplots()}. This function has three methods that be used. \fun{"overall"} shows a single boxplot that represents the whole distance matrix, \fun{"interAll"} separates the distances into intra- and inter-specific distances and plots a boxplot of each. This differs from \fun{"nonCon"} (the default) in that \fun{"nonCon"} restricts the inter-specific distances to only the nearest non-conspecific distance for each individual in the dataset.
+Another way of looking at the variation across the sequences is by plotting boxplots that show the distribution of pairwise genetic distances of each window. This can be done by using the function \fun{slideBoxplots()}. This function has three methods that be used. \fun{"overall"} shows a single boxplot that represents the whole distance matrix, \fun{"interAll"} separates the distances into intra- and inter-specific distances and plots a boxplot of each. This differs from \fun{"nonCon"} (the default) in that \fun{"nonCon"} restricts the inter-specific distances to only the nearest non-conspecific distance for each individual in the dataset.
 
 \begin{console}
 anoBox <- slideBoxplots(anoteropsis, 50, anoSpp, interval="codons", 
@@ -661,9 +917,9 @@ plot(anoBox)
 \end{figure}
 
 
-When plotted, this function produces the graphic shown in Figure \ref{slideBoxplots.fig}. Unfortunately, there is very little difference between the intra and inter-specific distances at the 50 bp window size. Even the windows around the 200 bp position show significant overlap between the two measures, showing that there is no `barcoding gap' with this size of DNA fragment length.
+When plotted, this function produces the graphic shown in Figure \ref{slideBoxplots.fig}. Unfortunately, there is very little difference between the intra and inter-specific distances at the 50 bp window size. Even the windows around the 200 bp position display significant overlap between the two measures, showing that there is no ``barcoding gap'' with this size of DNA fragment.
 
-To look at a more conventional example of the `barcoding gap' we can have a look at the \fun{weevils} dataset (Figure \ref{weevilsBox.fig}):
+To look at a more conventional example of the barcoding gap we can have a look at the \fun{weevils} dataset (Figure \ref{weevilsBox.fig}):
 
 \begin{console}
 weevilsBox <- slideBoxplots(weevils, 50, weevilSpp1, interval="codons", 
@@ -674,157 +930,9 @@ plot(weevilsBox)
 \begin{figure}[p]
 	\centering
 	\includegraphics[width=0.9\textwidth]{weevilsBox}
-	\caption{Boxplots showing the distribution of the nearest non-conspecific (orange) and intraspecific (blue) distances across the COI sequences of \emph{Trigonopterus} spp.}
+	\caption{Boxplots showing the distribution of the nearest non-conspecific (orange) and intraspecific (blue) distances across the COI sequences of \emph{Trigonopterus} spp.\ weevils}
 	\label{weevilsBox.fig}
 \end{figure}
-
-%####################################
-%####################################
-%####################################
-
-
-\section{Barcoding identification metrics}
-DNA barcoding is a method of identification of organisms that involves sequencing  standard gene regions (particularly the mitochondrial gene cytochrome \emph{c} oxidase I (COI)) and comparing these sequences to a database of sequences from identified specimens. The method was first proposed by \citet{Her.etal.2003.barcoding} and has since become a global endeavour, with ongoing efforts to gather sequences and build the database, culminating in BOLD, which we encountered in Section \ref{BOLD.section}. Research into the utility of DNA barcoding in different taxa centres on determining the amount of sequence variation within and between species and whether accurate determinations can be made. 
-
-\subsection{Summary statistics}
-\spider provides two functions for determining summary statistics from your data. The first (\fun{dataStat()}) calculates the number of species and genera in the dataset, while the second (\fun{seqStat()})determines sequence number and length.
-
-\begin{console}
-doloGen <- rep("Dolomedes", length(doloSpp))
-dataStat(doloSpp, doloGen)
-\end{console}
-
-\begin{Routput}
- Genera Species     Min     Max  Median    Mean  Thresh 
-      1       4       2      16      10       9       1 
-\end{Routput}
-
-The output is fairly easy to interpret. In the \fun{dolomedes} dataset we have one genus and four species. The minimum number of individuals per species is two, while the maximum is 16. The median and mean number per species is 10 and 9 respectively. The ``\fun{thresh}'' value shows how many species have fewer individuals than the threshold (default of 5). In the \fun{dolomedes} dataset, we only have one species with less than 5 individuals representing it.
-
-Looking at the \fun{dolomedes} dataset with \fun{seqStat()} is boring---all the sequences are the same length. Therefore, we will have a look at the \fun{weevils} dataset:
-
-\begin{console}
-seqStat(weevils)
-\end{console}
-
-\begin{Routput}
-   Min    Max   Mean Median Thresh 
-   479    646    635    640      1
-\end{Routput}
-
-The minimum sequence length is 479 bp, while the maximum is 646. The mean and median lengths are 635 and 640 respectively, and we have one sequence that is below the threshold value of 500 bp.
-
-\subsection{Distance measures of identification success}
-The following metrics are all based on the pairwise distance matrix between sequences. This matrix can easily be created using the \fun{dist.dna()} function provided by \progname{Ape}. The distance matrix can be calculated using various models of DNA evolution, ranging from striaght raw distances to complex models involving a lot of parameters. The standard model of evolution used in DNA barcoding studies is the Kimura 2-parameter model (K2P), which is one of the more simple models available. Conveniently, this is the default model used by \fun{dist.dna()}.
-
-\begin{console}
-anoDist <- dist.dna(anoteropsis)
-doloDist <- dist.dna(dolomedes)
-\end{console}
-
-\subsubsection{Nearest neighbour}
-The nearest neighbour criterion (\fun{nearNeighbour()} simply finds the closest individual to the target, and returns the species index for that individual. If there is more than one individual that is closest to the target, the function returns the species index of the major component of the group. The default result is a logical vector that tells you if the nearest species index is the same as the individual being tested. If it is, the result is TRUE. If not, it's FALSE. Setting the \fun{names} argument to TRUE returns the name of the nearest match instead, and thus can be used to identify unknowns (subject to having tested the procedure previously of course!). 
-
-\begin{console}
-nearNeighbour(doloDist, doloSpp)
-\end{console}
-
-\begin{Routput}
- [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-[13]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-[25]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE
-[37]  TRUE
-\end{Routput}
-
-\subsubsection{BOLD identification criteria}
-The function \fun{idBOLD()} mimics the ``\href{http://www.barcodinglife.com/views/idrequest.php}{species identification}'' method used by BOLD. The process is as follows: two thresholds are given. If only one species is within the lower threshold, the function outputs TRUE. If more than one species is within that threshold, the function outputs FALSE. If there are no matches within the higher threshold, the result is NA. The default thresholds are 0.01 and 0.05 (1\% and 5\%). 
-
-\begin{console}
-idBOLD(anoDist, anoSpp)
-\end{console}
-
-\begin{Routput}
- [1]    NA    NA FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE FALSE
-[13] FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE  TRUE
-[25] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE FALSE
-\end{Routput}
-
-\subsubsection{Meier's best match}
-Meier's best close match \citep{Meier.2006} is the most conservative of the distance-based analyses, with a default threshold value of 0.01. If there are no matches within this threshold, a result of \fun{"no id"} is given. If the nearest match is the same as the test individual, the result is \fun{"correct"}, if the nearest match is different, it is \fun{"incorrect"}. This test also gives us an extra degree of uncertainty, with a result of \fun{"ambiguous"} if there is more than one species closest to the test individual.
-
-\begin{console}
-meiersBestMatch(anoDist, anoSpp)
-\end{console}
-
-\begin{Routput}
- [1] "no id"     "no id"     "no id"     "no id"     "incorrect" "no id"    
- [7] "no id"     "no id"     "correct"   "correct"   "no id"     "no id"    
-[13] "no id"     "no id"     "incorrect" "no id"     "correct"   "no id"    
-[19] "no id"     "correct"   "no id"     "no id"     "correct"   "correct"  
-[25] "no id"     "no id"     "no id"     "no id"     "no id"     "correct"  
-[31] "correct"   "correct"   "no id" 
-\end{Routput}
-
-\subsection{Species monophyly}
-The species monophyly criterion determines if each species is monophyletic over the tree given in the function. It uses a fairly simple definition of monophyly---search for clades with the same number of tips as there are species members, and see if they match. Singletons (species represented by only one individual) cause a headache. Obviously, they are either always or never monophyletic depending on your point of view. The way that \fun{monophyly()} gets around this problem is by getting the user to tell it what the point of view should be. The default is TRUE---singletons are monophyletic.
-
-First we need to make our tree and ensure the labels are the same as the species vector. Then we can test for monophyly:
-
-\begin{console}
-anoTr <- nj(anoDist)
-anoTr$tip.label <- anoSpp
-monophyly(anoTr)
-\end{console}
-
-\begin{Routput}
- [1]  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-[13]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-\end{Routput}
-
-The species are ordered in the same way as \fun{unique(anoSpp)}, so this output tells us that \scinm{Anoteropsis adumbrata} is not monophyletic on this tree. However, if you've looked at the \fun{anoteropsis} dataset at all, you'll know that there are a number of singletons in this dataset. When we change the default behaviour to consider singletons as FALSE, we get a rather different picture.
-
-\begin{console}
-monophyly(anoTr, singletonsMono=FALSE)
-\end{console}
-
-\begin{Routput}
- [1] FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE
-[13]  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE
-\end{Routput}
-
-\subsection{Sensitivity analysis}
-Sensitivity analysis is a method for determining the optimum threshold for any given taxon \citep{Meye.Paul.2005}. It does this by using the varying rates of false positives and false negatives when the identification accuracy is assessed at different thresholds. The function \fun{idError()} provides the basis for this analysis. 
-
-\begin{console}
-idError(doloDist, doloSpp)
-\end{console}
-
-\begin{Routput}
-     Thresh Pos False neg False pos
-[1,]   0.01  25        12         0
-\end{Routput}
-
-The function returns the number of positive identifications, the number of false negatives and the number of false positives at a given threshold. The threshold has a default of 0.01, but can be changed as the user pleases. If the threshold is changed systematically, the optimum threshold value can be determined. The following code shows how to create a range of threshold values, how to test these values, and how to plot the result (Figure \ref{sensitivity.fig}):
-
-\begin{console}
-threshVal <- seq(0.001,0.02, by = 0.001)
-sens <- lapply(threshVal, function(x) idError(doloDist, doloSpp, thresh = x))
-sensMat <- do.call(rbind, sens)
-barplot(t(sensMat)[3:4,], names.arg=sensMat[,1])
-\end{console}
-
-\begin{figure}[p]
-	\centering
-	\includegraphics[width=0.9\textwidth]{sensitivity}
-	\caption{Barplots showing the false positive (light grey) and false negative (dark grey) rate of identification of \emph{Dolomedes} species as the threshold changes.}
-	\label{sensitivity.fig}
-\end{figure}
-
-From the figure we can see that the optimum threshold for the \fun{dolomedes} dataset is between 0.004 and 0.007. 
-
-
-\subsection{Rosenberg's probability of reciprocal monophyly}
-Frequently we get excited about a specimen being different from other samples we have. Rosenberg's probability of reciprocal monophyly offers a measure to temper our excitement by bringing sampling into the picture. 
 
 %####################################
 %####################################
@@ -837,6 +945,6 @@ As the package matures, it is hoped that \spider will be a valuable addition to 
 
 
 
-\bibliography{/home/sam/Documents/References/references}
+\bibliography{tutorial_references}
 
 \end{document}
