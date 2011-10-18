@@ -585,7 +585,7 @@ table(meiersBestMatch(anoDist, anoSpp))
 \end{Routput}
 
 
-\subsubsection{Threshold optimisation}
+\subsubsection{Threshold optimisation} %% do we need to add the "localMinima" function? comes out with same result?
 While the 1\% threshold used by \progname{Bold} is often a good rule of thumb, it may not always be appropriate to every dataset, and identification success can often be increased if a better threshold given the data can be found  \citep{Meye.Paul.2005}.  The function \fun{idError()} provides the basis for this analysis. The function returns the number of positive identifications, the number of false negatives and the number of false positives at a given threshold. 
 
 \begin{console}
@@ -628,6 +628,56 @@ From the figure we can see that the optimum threshold for the \fun{dolomedes} da
  [9,]  0.009  33         4         0
 [10,]  0.010  28         9         0
 \end{Routput}
+
+An experimental new function for optimising threshold values is \fun{localMinima()}. This method creates a density object from the distance matrix, and then infers where a dip in the density of genetic distances indicates the transition between intra- and inter-specific distances. A key advantage of this method, is that unlike \fun{idError()}, this method does not require prior knowledge of species identity to get an indication of potential threshold values.
+
+Here \fun{localMinima()} suggests a threshold of 0.7\%, which is entirely consistent with the results above using \fun{idError()}. We would like to note, however, that \fun{localMinima()} has not yet been fully tested, but has so far yielded reliable results. We recommend further exploration of the method.
+
+\begin{console}
+doloThresh <- localMinima(doloDist)
+doloThresh$localMinima[1] *100
+plot(doloThresh)
+\end{console}
+
+\begin{Routput}
+[1] 0.7154469
+\end{Routput}
+
+
+\subsubsection{The barcoding gap}
+
+The ``barcoding gap'' \citep{Meye.Paul.2005} is an important concept in DNA barcoding. It is the assumption that the amount of genetic variation within species is smaller than the amount of variation between species. This allows the two to be distinguished. As pointed out by \citet{Meier2008}, the barcode gap should be calculated using the smallest, rather than the mean interspecific distances. \spider generates two statistics for each individual in the dataset, the furthest intraspecific distance among its own species---\fun{maxInDist()} and the closest, non-conspecific (i.e., interspecific distance)---\fun{nonConDist()}. Note that the distances are converted to percentages (multiply by 100).
+
+\begin{console}
+inter <- nonConDist(anoDist, anoSpp) *100
+intra <- maxInDist(anoDist, anoSpp) *100
+length(which(inter-intra <= 0))
+\end{console}
+
+\begin{Routput}
+[1] 3
+\end{Routput}
+
+When there is no barcode gap, this is shown by a zero or negative difference when the maximum intraspecific distance (\fun{intra}) is subtracted from the minimum interspecific distance (\fun{inter}). When we use \fun{length()} and \fun{which()} to ask how many times this occurred in our dataset, we find that this was the case on three occasions.
+
+What we may also want to do, is provide a graphical representation of the barcode gap so we can see exactly how big the differences are (Figure \ref{barcode_gap.fig}). The following code provides a very informative and pretty figure, but more importantly it gives us a tantalising glimpse into R's potential for data manipulation and plotting. 
+
+% do we need to explain some of this code?
+\begin{console}
+bnd <- cbind(data.frame(inter, intra))
+ord <- bnd[order(bnd$inter),]
+plot(ord$inter, type="n", ylab="Percent K2P distance", xlab="Individual")
+segCol <- rep("gray50", length(ord$inter))
+segCol[ord$inter-ord$intra < 0] <- "red"
+segments(x0=1:length(ord$inter), y0=ord$inter, y1=ord$intra, col=segCol, lwd=6)
+\end{console}
+
+\begin{figure}[p]
+	\centering
+	\includegraphics[width=0.7\textwidth,trim= 3cm 0cm 3cm 0cm]{barcode_gap}
+	\caption{Lineplot of the barcode gap for the 33 \emph{Anoteropsis} spp. For each individual in the dataset, the grey lines represent the furthest intraspecific distance (bottom of line value), and the closest interspecific distance (top of line value). The red lines show where this relationship is reversed, and the closest non-conspecific is actually closer to the query than its nearest conspecific, i.e., the situation where there is no barcoding gap.}
+	\label{barcode_gap.fig}
+\end{figure}
 
 \subsection{Tree-based measures}
 
