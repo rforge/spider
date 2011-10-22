@@ -1,7 +1,7 @@
-nucDiag <- function(DNAbin, sppVec){
+nucDiag <- function(DNAbin, sppVector){
 	DNAbin <- as.matrix(DNAbin)
 	inform <- seg.sites(DNAbin)
-	sppSeqs <- lapply(unique(sppVec), function(x) which(sppVec == x))
+	sppSeqs <- lapply(unique(sppVector), function(x) which(sppVector == x))
 	
 	siteCheck <- function(spp, site){
 		res <- as.character(DNAbin[spp, site]) %in% as.character(DNAbin[-spp, site])
@@ -17,6 +17,6 @@ nucDiag <- function(DNAbin, sppVec){
 		}
 	}
 	out <- lapply(li, function(x) inform[which(!x)])
-	names(out) <- unique(sppVec)
+	names(out) <- unique(sppVector)
 	out
 }

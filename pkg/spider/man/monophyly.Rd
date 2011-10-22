@@ -17,12 +17,12 @@ monophylyBoot(phy, sppVector, DNAbin, pp = NA, singletonsMono = TRUE, reps = 100
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{phy}{
-Tree of interest.
+A tree of class `phylo'.
 }
  \item{sppVector}{
  Species vector. See \code{\link{sppVector}}}.
   \item{pp}{
-Object of class prop.part. Assists in speeding up the function, if it has been called already.
+Object of class `prop.part'. Assists in speeding up the function, if it has been called already. Default of NA, calling \code{\link{prop.part}} internally.
 }
   \item{singletonsMono}{
 Logical. Should singletons (i.e. only a single specimen representing that species) be treated as monophyletic? Default of TRUE. Possible values of FALSE and NA
@@ -38,10 +38,10 @@ An object of class 'DNAbin'. Required for calculating bootstrap values.
 }
 }
 \details{
-"monophyly" determines if each species is monophyletic. "monophylyBoot" incorporates a bootstrap test to determine the support for this monophyly. Species with a bootstrap support lower than 'thresh' are recorded as FALSE.
+\code{monophyly} determines if each species is monophyletic. \code{monophylyBoot} incorporates a bootstrap test to determine the support for this monophyly. Species with a bootstrap support lower than 'thresh' are recorded as FALSE.
 }
 \value{
-A logical vector, stating if each species is monophyletic.
+A logical vector, stating if each species is monophyletic. Values correspond to the species order given by \code{unique(sppVector)}.
 }
 \references{
 %% ~put references to the literature/web site here ~
@@ -56,7 +56,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{prop.part}}
 }
 \examples{
 set.seed(16)
@@ -75,6 +75,10 @@ anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), function(x) pa
 monophyly(anoTree, anoSpp)
 monophyly(anoTree, anoSpp, singletonsMono=FALSE)
 unique(anoSpp)
+
+#To get score for each individual
+anoMono <- monophyly(anoTree, anoSpp)
+anoMono[match(anoSpp, unique(anoSpp))]
 
 data(woodmouse)
 woodTree <- nj(dist.dna(woodmouse))

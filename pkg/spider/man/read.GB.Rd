@@ -5,7 +5,7 @@
 Download sequences from Genbank with metadata
 }
 \description{
-Downloads sequences associated with the given accession numbers into a DNAbin class
+Downloads sequences associated with the given accession numbers into a `DNAbin' class
 }
 \usage{
 read.GB(access.nb, seq.names = access.nb, species.names = TRUE, gene = TRUE, access = TRUE, as.character = FALSE)
@@ -28,7 +28,7 @@ Logical. Should the name of the gene region be downloaded? Default of TRUE
 Logical. Should the accession number be downloaded? Default of TRUE
 }
   \item{as.character}{
-Logical. Should the sequences be returned as character vector? Default of FALSE, function returns sequences as a 'DNAbin' object.
+Logical. Should the sequences be returned as character vector? Default of FALSE, function returns sequences as a `DNAbin' object.
 }
 }
 \details{
@@ -50,21 +50,20 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link[ape:read.GenBank]{read.GenBank}}
+\code{\link{read.GenBank}}
 }
 \examples{
-## Not Run
+\dontrun{
+read.GB("AY059961")
 
-#read.GB("AY059961")
+#Download the sequences making data(anoteropsis) from Genbank
+nums <- 59961:59993
+seqs <- paste("AY0", nums, sep="")
+dat <- read.GB(seqs)
 
-##Download the sequences making data(anoteropsis) from Genbank
-#nums <- 59961:59993
-#seqs <- paste("AY0", nums, sep="")
-#dat <- read.GB(seqs)
-
-#attr(dat, "species")
-#attr(dat, "gene")
-#attr(dat, "accession_num")
+attr(dat, "species")
+attr(dat, "gene")
+attr(dat, "accession_num")}
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

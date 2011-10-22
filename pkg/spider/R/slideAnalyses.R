@@ -1,9 +1,9 @@
 slideAnalyses <-
-function(dat, width, spp, interval = 1, distMeasures = TRUE, thresA = 0.2, thresB = 0.1, treeMeasures = FALSE){
+function(DNAbin, sppVector, width, interval = 1, distMeasures = TRUE, treeMeasures = FALSE){
 	#Produce distance matrix, number of zero cells of full sequence
 	boxplot_out <-FALSE
-	dat <- as.matrix(dat)
-	dimnames(dat)[[1]] <- spp
+	dat <- as.matrix(DNAbin)
+	dimnames(dat)[[1]] <- sppVector
 	datd <- dist.dna(dat, pairwise.deletion = TRUE)
 	dat_zero_out <- sum(as.numeric(datd == 0))/length(datd)
 	#Create the windows
@@ -16,9 +16,14 @@ function(dat, width, spp, interval = 1, distMeasures = TRUE, thresA = 0.2, thres
 		dist_mean_out <- sapply(win_dist, mean) 
 		#Number of zero cells
 		zero_out <- sapply(win_dist, function(y) sum(as.numeric(y == 0))/length(y))
-		#Threshold measures
-		thres_above_out <- sapply(win_dist, function(x) sum( as.numeric(x >= thresA) ) )
-		thres_below_out <- sapply(win_dist, function(x) sum( as.numeric(x <= thresB) ) )
+		##################
+		#Threshold measures REMOVED
+		#thres_above_out <- sapply(win_dist, function(x) sum( as.numeric(x >= thresA) ) )
+		#thres_below_out <- sapply(win_dist, function(x) sum( as.numeric(x <= thresB) ) )
+		##################
+		#Diagnostic nucleotides 
+		nd_out <- slideNucDiag(DNAbin, sppVector, width, interval)
+		nd_out <- colSums(nd_out)
 		#Nearest non-conspecific distance
 		noncon_out <- sapply(win_dist, function(x) nonConDist(x, propZero = TRUE))
 		
@@ -35,7 +40,7 @@ function(dat, width, spp, interval = 1, distMeasures = TRUE, thresA = 0.2, thres
 		comp_out <- sapply(win_tr, function(x) tree.comp(dat_tr, x))
 		comp_depth_out <- sapply(win_tr, function(x) tree.comp(dat_tr, x, method="shallow"))
 		#Monophyly
-		win_mono <- lapply(win_tr, function(x) monophyly(x, spp))
+		win_mono <- lapply(win_tr, function(x) monophyly(x, sppVector))
 		win_mono_out <- sapply(win_mono, function(x) length(which(x))/length(x))
 		}
 rm(list = ls()[!ls() %in% c(ls(pattern="_out"), ls(pattern="res"))])

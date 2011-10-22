@@ -8,14 +8,15 @@ function(x, outliers = FALSE, ...){
 			abline(h=slidWin$dat_zero_out)
 		thres_main <- paste("Number of cells above ", slidWin$thresA, " (black) and below ", slidWin$thresB, " (blue)", sep="")
 		ylimthres <- range(slidWin$thres_above_out, slidWin$thres_below_out, na.rm=TRUE)
-		plot(slidWin$pos_out, slidWin$thres_above_out, ylim = ylimthres, xlab = "Position", ylab = "Number of cells", main = thres_main)
-			points(slidWin$pos_out, slidWin$thres_below_out, col = "blue")
+		#plot(slidWin$pos_out, slidWin$thres_above_out, ylim = ylimthres, xlab = "Position", ylab = "Number of cells", main = thres_main)
+			#points(slidWin$pos_out, slidWin$thres_below_out, col = "blue")
+		plot(slidWin$pos_out, slidWin$nd_out, xlab = "Position", ylab = "Number", main = "Combined number of diagnostic nucleotides", type="l")
 		plot(slidWin$pos_out, slidWin$noncon_out, xlab = "Position", ylab = "Proportion", main = "Proportion of zero non-conspecific distances")
 	}
 
 	distT <- function(){
 		ylimcomp <- range(slidWin$comp_out, slidWin$comp_depth_out, na.rm=TRUE)
-		plot(slidWin$pos_tr_out, slidWin$comp_out, ylim = ylimcomp, xlab = "Position", ylab = "Proportion", main="Proportion of identical clades between trees derived from the full dataset and each window.\nBlack points are uncorrected for node depth.\nBlue points show the proportion of identical shallow clades")
+		plot(slidWin$pos_tr_out, slidWin$comp_out, ylim = ylimcomp, xlab = "Position", ylab = "Proportion", main="Proportion of identical clades\nbetween trees derived from the full dataset and each window.\nBlack points are uncorrected for node depth.\nBlue points show the proportion of identical shallow clades")
 			points(slidWin$pos_tr_out, slidWin$comp_depth_out, col="blue")
 		plot(slidWin$pos_tr_out, slidWin$win_mono_out, xlab = "Position", ylab = "Proportion of monophyly", main = "Proportion of species that are monophyletic")
 	}

@@ -5,7 +5,7 @@
 Sequence statistics
 }
 \description{
-Utility that produces a table giving summary statistics for a DNAbin object.
+Utility that produces a table giving summary statistics for a `DNAbin' object.
 }
 \usage{
 seqStat(DNAbin, thresh)
@@ -13,7 +13,7 @@ seqStat(DNAbin, thresh)
 
 \arguments{
   \item{DNAbin}{
-Alignment of class 'DNAbin'
+Alignment of class `DNAbin'
 }
   \item{thresh}{
 Threshold sequence length. Default of 500 (minimum length for official DNA barcodes).

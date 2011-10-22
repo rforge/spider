@@ -1,4 +1,4 @@
-meiersBestMatch <- function(distobj, sppVector, threshold = 0.01){
+bestCloseMatch <- function(distobj, sppVector, threshold = 0.01){
 	distobj <- as.matrix(distobj)
 	diag(distobj) <- NA
 	output <- rep(NA, length(sppVector))

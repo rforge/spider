@@ -3,7 +3,7 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Check a DNA alignment for missing data}
 
-\description{This functions counts the number of bases in an alignment that are coded as one of the missing bases (i.e. '?' and 'N'). Optionally, gaps (coded as '-') can be considered missing.}
+\description{This functions counts the number of bases in an alignment that are coded as one of the missing bases (i.e. '?' and 'N'). By default, gaps (coded as '-') are also considered missing.}
 
 \usage{checkDNA(DNAbin, gapsAsMissing = TRUE)}
 
@@ -11,11 +11,11 @@
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{DNAbin}{A DNA alignment of class 'DNAbin'}
-  \item{gapsAsMissing}{Logical. Should gaps (coded as '-') be considered missing bases?}
+  \item{gapsAsMissing}{Logical. Should gaps (coded as '-') be considered missing bases? Default of TRUE}
 }
 
 \details{
-This function utilises the the bit-level coding scheme developed by Emmanuel Paradis and described in :::::
+
 }
 
 \value{

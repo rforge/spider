@@ -1,15 +1,15 @@
 tree.comp <-
-function (x, y, method = "prop") {
-	x <- unroot(x)
-	y <- unroot(y)
-	nx <- length(x$tip.label)
-	bp1 <- .Call("bipartition", x$edge, nx, x$Nnode, PACKAGE = "ape")
-	bp1 <- lapply(bp1, function(xx) sort(x$tip.label[xx]))
-	ny <- length(y$tip.label)
-	bp2.tmp <- .Call("bipartition", y$edge, ny, y$Nnode, PACKAGE = "ape")
-	bp2 <- lapply(bp2.tmp, function(xx) sort(y$tip.label[xx]))
-	bp2.comp <- lapply(bp2.tmp, function(xx) setdiff(1:ny, xx))
-	bp2.comp <- lapply(bp2.comp, function(xx) sort(y$tip.label[xx]))
+function (phy1, phy2, method = "prop") {
+	phy1 <- unroot(phy1)
+	phy2 <- unroot(phy2)
+	nphy1 <- length(phy1$tip.label)
+	bp1 <- .Call("bipartition", phy1$edge, nphy1, phy1$Nnode, PACKAGE = "ape")
+	bp1 <- lapply(bp1, function(xx) sort(phy1$tip.label[xx]))
+	nphy2 <- length(phy2$tip.label)
+	bp2.tmp <- .Call("bipartition", phy2$edge, nphy2, phy2$Nnode, PACKAGE = "ape")
+	bp2 <- lapply(bp2.tmp, function(xx) sort(phy2$tip.label[xx]))
+	bp2.comp <- lapply(bp2.tmp, function(xx) setdiff(1:nphy2, xx))
+	bp2.comp <- lapply(bp2.comp, function(xx) sort(phy2$tip.label[xx]))
 	q1 <- length(bp1)
 	q2 <- length(bp2)
 	p <- 0
@@ -23,7 +23,7 @@ function (x, y, method = "prop") {
             }
 	}
 	if(method == "shallow"){
-	    shallow <- which(node.depth(x)[node.depth(x) > 1] <= median(node.depth(x)[node.depth(x) > 1]))
+	    shallow <- which(node.depth(phy1)[node.depth(phy1) > 1] <= median(node.depth(phy1)[node.depth(phy1) > 1]))
 	    p2 <- 0
 		for (i in shallow) {
 		    for (j in 1:q2) {

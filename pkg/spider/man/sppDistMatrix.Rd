@@ -8,14 +8,14 @@ Mean intra- and inter-specific distance matrix
 Creates a matrix giving the mean distances within and between species.
 }
 \usage{
-sppDistMatrix(dat, spp)
+sppDistMatrix(distobj, sppVector)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{dat}{
+  \item{distobj}{
 A distance matrix
 }
-  \item{spp}{
+  \item{sppVector}{
 The species vector (see \code{\link{sppVector}})
 }
 }
@@ -23,7 +23,7 @@ The species vector (see \code{\link{sppVector}})
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-A square matrix with dimensions length(spp). It contains the mean intra specific distances down the diagonal, and the mean pairwise distance between the species in the triangles. The two triangles are identical. 
+A square matrix with dimensions \code{length(sppVector)}. It contains the mean intra specific distances down the diagonal, and the mean pairwise distance between the species in the triangles. The two triangles are identical. 
 }
 \references{
 %% ~put references to the literature/web site here ~

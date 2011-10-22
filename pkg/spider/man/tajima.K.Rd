@@ -5,7 +5,7 @@
 Calculate Tajima's K index of divergence
 }
 \description{
-Calculates Tajima's K index of divergence
+Calculates Tajima's K index of divergence.
 }
 \usage{
 tajima.K(DNAbin, prop = TRUE)
@@ -13,7 +13,7 @@ tajima.K(DNAbin, prop = TRUE)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{DNAbin}{
-An object of class \code{DNAbin}
+An object of class `DNAbin'.
 }
   \item{prop}{
 Logical. Should the function report the proportion of diversity across the whole sequence? Default of TRUE

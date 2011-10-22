@@ -5,23 +5,23 @@
 Tree comparisons
 }
 \description{
-Compares the composition of clades between two trees.
+Compares the clades between two trees.
 }
 
 \usage{
-tree.comp(x, y, method = "prop")
+tree.comp(phy1, phy2, method = "prop")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x, y}{
-Trees to compare
+  \item{phy1, phy2}{
+Trees of class `phylo' to compare. 
 }
   \item{method}{
 one of the following options:
-		'prop'---returns the proportion of clades that are the same between the two trees
-		'PH85'---returns the topological distance of Penny and Hendy (1985).
-		'shallow'---returns the proportion of shallow clades (clades of node depth < median node depth) that are the same between the two trees
-default of `prop'
+		\code{"prop"}---returns the proportion of clades that are the same between the two trees
+		\code{"PH85"}---returns the topological distance of Penny and Hendy (1985).
+		\code{"shallow"}---returns the proportion of shallow clades (clades of node depth < median node depth) that are the same between the two trees
+default of \code{"prop"}
 }
 }
 \details{
@@ -29,16 +29,16 @@ This function is a modification of the \code{\link{dist.topo}} function in \code
 
 It is important that the tip labels of the two trees are the same. If the tip labels are different between the two trees, the method will not recognise any similarity between them.
 
-This function does not take into account difference in branch length. The "score" method in \code{\link{dist.topo}} does this if desired.
+This function does not take into account difference in branch length. The \code{"score"} method in \code{\link{dist.topo}} does this if desired.
 }
 \value{
 Numeric vector of length 1. 
 
-If method = "prop", the number is the proportion of nodes between the two trees that contain the same tips. Higher number represents greater similarity. If it is 1, the trees are identical. If 0, the trees have no similarity whatsoever. 
+If \code{method = "prop"}, the number is the proportion of nodes between the two trees that contain the same tips. Higher number represents greater similarity. If it is 1, the trees are identical. If 0, the trees have no similarity whatsoever. 
 
-PH85 is the Penny and Hendy (1985) distance. This measure is the default of \code{\link{dist.topo}}. In this measure, the smaller the number, the closer the trees are. If the trees are identical, this results in 0.
+\code{"PH85"} is the Penny and Hendy (1985) distance. This measure is the default of \code{\link{dist.topo}}. In this measure, the smaller the number, the closer the trees are. If the trees are identical, this results in 0.
 
-When method = "shallow", only those nodes tipwards of the median node depth are taken into account. This will not be useful for small trees, but may be helpful with larger datasets.
+When \code{method = "shallow"}, only those nodes tipwards of the median node depth are taken into account. This will not be useful for small trees, but may be helpful with larger datasets.
 
 }
 \references{

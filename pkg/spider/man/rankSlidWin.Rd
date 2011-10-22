@@ -16,7 +16,7 @@ rankSlidWin(slidWin, criteria="all", num = 10)
 An object of class `slidWin', made using \code{\link{slideAnalyses}}
 }
   \item{criteria}{
-Name of criteria to sort by. Can be any of the following: \code{"position", "mean_distance", "monophyly", "clade_comparison", "clade_comp_shallow", "zero_noncon", "zero_distances", "above_threshold", "below_threshold"} or \code{"all"}. Default of \code{"all"}
+Name of criteria to sort by. Can be any of the following: \code{"position", "mean_distance", "monophyly", "clade_comparison", "clade_comp_shallow", "zero_noncon", "zero_distances", "diag_nuc"} or \code{"all"}. Default of \code{"all"}
 }
   \item{num}{
 Number of windows to return. Default of 10. 
@@ -48,7 +48,7 @@ data(dolomedes)
 doloDist <- dist.dna(dolomedes)
 doloSpp <- substr(dimnames(dolomedes)[[1]], 1, 5)
 
-doloSlide <- slideAnalyses(dolomedes, 200, interval=10, doloSpp, treeMeasures=TRUE)
+doloSlide <- slideAnalyses(dolomedes, doloSpp, 200, interval=10, treeMeasures=TRUE)
 
 rankSlidWin(doloSlide)
 rankSlidWin(doloSlide, criteria="zero_distances")

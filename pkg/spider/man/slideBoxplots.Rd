@@ -8,21 +8,21 @@ Boxplots across windows
 Calculates boxplots of genetic distances using sliding windows.
 }
 \usage{
-slideBoxplots(dat, width, spp, interval = 1, method = "nonCon")
+slideBoxplots(DNAbin, sppVector, width, interval = 1, method = "nonCon")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{dat}{
-A DNA alignment of class 'DNAbin'
+  \item{DNAbin}{
+A DNA alignment of class `DNAbin'.
+}
+  \item{sppVector}{
+A species vector (see \code{\link{sppVector}}).
 }
   \item{width}{
-Width of windows
-}
-  \item{spp}{
-A species vector (see \code{\link{sppVector}}
+Width of windows.
 }
   \item{interval}{
-Distance between each window in number of base pairs. Default of 1. Giving the option of 'codons' sets the size to 3.
+Distance between each window in number of base pairs. Default of 1. Giving the option of \code{"codons"} sets the size to 3.
 }
   \item{method}{
 Options of \code{"overall", "interAll"} or \code{"nonCon"} (the default)
@@ -68,12 +68,14 @@ data(dolomedes)
 doloDist <- dist.dna(dolomedes)
 doloSpp <- substr(dimnames(dolomedes)[[1]], 1, 5)
 
-doloNonCon <- slideBoxplots(dolomedes, 200, interval=10, doloSpp)
+doloNonCon <- slideBoxplots(dolomedes, doloSpp, 200, interval=10)
+plot(doloNonCon)
 
-doloOverall <- slideBoxplots(dolomedes, 200, interval=10, doloSpp, method="overall")
+doloOverall <- slideBoxplots(dolomedes, doloSpp, 200, interval=10, method="overall")
+plot(doloOverall)
 
-doloInterall <- slideBoxplots(dolomedes, 200, interval=10, doloSpp, method="interAll")
-
+doloInterall <- slideBoxplots(dolomedes, doloSpp, 200, interval=10, method="interAll")
+plot(doloInterall)
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.

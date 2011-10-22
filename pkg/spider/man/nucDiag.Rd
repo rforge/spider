@@ -9,14 +9,14 @@ Determines the diagnostic nucleotides for each species given in \code{sppVector}
 }
 
 \usage{
-nucDiag(DNAbin, sppVec)
+nucDiag(DNAbin, sppVector)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{DNAbin}{
 An object of class 'DNAbin'.
 }
-  \item{sppVec}{
+  \item{sppVector}{
 The species vector (see \code{\link{sppVector}}).
 }
 }

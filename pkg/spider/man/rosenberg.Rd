@@ -8,11 +8,11 @@
 \usage{rosenberg(phy)}
 
 \arguments{
-  \item{phy}{an object of class '"phylo"'.}
+  \item{phy}{A tree of class `phylo'.}
 }
 
 \details{
-Because \code{ape} plots node labels in a different manner to the method in which they are stored, when plotting the node labels made by \code{rosenberg()}, make sure you state the \code{node} argument as shown in the examples below.
+Because \code{ape} plots node labels in a different manner to the method in which they are stored, when plotting the node labels made by \code{rosenberg()}, make sure the \code{node} argument is given as shown in the examples below.
 }
 
 \value{
@@ -20,7 +20,7 @@ A numeric vector with names giving the node numbers of \code{phy}.
 }
 
 \references{
-Rosenberg, N. A. (2007). Statistical tests for taxonomic distinctiveness from observations of monophyly. _Evolution_, *61* (2), 317-323.
+Rosenberg, N. A. (2007). Statistical tests for taxonomic distinctiveness from observations of monophyly. _Evolution_ *61* (2), 317-323.
 }
 
 \author{

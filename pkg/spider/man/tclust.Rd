@@ -11,7 +11,7 @@ tclust(distobj, threshold = 0.01)
 
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{distobj}{A distance object (usually from dist.dna()).}
+  \item{distobj}{A distance object (usually from \code{\link{dist.dna}}).}
   \item{threshold}{Distance cutoff for identifications. Default of 0.01 (1\%)}
 }
 

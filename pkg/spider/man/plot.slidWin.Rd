@@ -41,7 +41,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{slideAnalyses}}
+\code{\link{slideAnalyses}}, 
 \code{\link{slideBoxplots}}
 }
 \examples{
@@ -49,13 +49,14 @@ data(dolomedes)
 doloDist <- dist.dna(dolomedes)
 doloSpp <- substr(dimnames(dolomedes)[[1]], 1, 5)
 
-doloSlide <- slideAnalyses(dolomedes, 200, interval=10, doloSpp, treeMeasures=TRUE)
+doloSlide <- slideAnalyses(dolomedes,  doloSpp, 200, interval=10, treeMeasures=TRUE)
 
 plot(doloSlide)
 
-doloBox <- slideBoxplots(dolomedes, 200, interval=10, doloSpp, method="overall")
+doloBox <- slideBoxplots(dolomedes,  doloSpp, 200, interval=10, method="overall")
 
 plot(doloBox)
+plot(doloBox, outliers=TRUE)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

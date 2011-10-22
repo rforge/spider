@@ -17,16 +17,16 @@ read.BOLD(IDs)}
   \item{IDs}{A character vector containing BOLD process ID numbers}
 }
 
-\details{search.BOLD facilitates the retrieval of BOLD process identification numbers for any given taxon.
+\details{\code{search.BOLD} facilitates the retrieval of BOLD process identification numbers for any given taxon.
 
-read.BOLD downloads the sequences associated with the process identification numbers.
+\code{read.BOLD} downloads the sequences associated with the process identification numbers.
 
 }
 
 \value{
-search.BOLD returns a character vector giving the process identification numbers of the specimens found by the search.
+\code{search.BOLD} returns a character vector giving the process identification numbers of the specimens found by the search.
 
-read.BOLD returns an object of class `DNAbin'. This object has the attributes "species", "accession_num", and "gene". 
+\code{read.BOLD} returns an object of class `DNAbin'. This object has the attributes "species", "accession_num", and "gene". 
 }
 
 \references{
@@ -49,9 +49,9 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 }
 
 \examples{
-#NOT RUN
-#nn <- search.BOLD("Pisauridae")
-#read.BOLD(nn)
+\dontrun{
+nn <- search.BOLD("Pisauridae")
+read.BOLD(nn)}
 }
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the

@@ -17,7 +17,7 @@
 }
 
 \details{
-Haplotype accumulation curves can be used to assess haplotype diversity in an area or compare different populations, or to evaluate sampling effort. \code{``random''} calculates the mean accumulated number of haplotypes and its standard deviation through random permutations (subsampling of sequences), similar to the method to produce rarefaction curves (Gotelli and Colwell 2001).\
+Haplotype accumulation curves can be used to assess haplotype diversity in an area or compare different populations, or to evaluate sampling effort. \code{``random''} calculates the mean accumulated number of haplotypes and its standard deviation through random permutations (subsampling of sequences), similar to the method to produce rarefaction curves (Gotelli and Colwell 2001).
 }
 
 \value{
@@ -31,7 +31,7 @@ An object of class "haplo.accum" with items:
 }
 
 \references{
-  Gotellli, N.J. \& Colwell, R.K. (2001). Quantifying biodiversity: procedures and pitfalls in measurement and comparison of species richness. _Ecology Letters_ *4*, 379--391.
+  Gotellli, N.J. & Colwell, R.K. (2001). Quantifying biodiversity: procedures and pitfalls in measurement and comparison of species richness. _Ecology Letters_ *4*, 379--391.
 }
 
 \author{

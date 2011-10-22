@@ -8,7 +8,7 @@
 \usage{polyBalance(phy)}
 
 \arguments{
-  \item{phy}{an object of class '"phylo"'.}
+  \item{phy}{A tree of class `phylo'.}
 }
 
 \details{

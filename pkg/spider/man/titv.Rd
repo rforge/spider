@@ -8,12 +8,12 @@ Number of pairwise transitions and transversions in an alignment
 Calculates the number of pairwise transitions and transversions between sequences
 }
 \usage{
-titv(dat)
+titv(DNAbin)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{dat}{
-A DNA alignment of class DNAbin
+  \item{DNAbin}{
+A DNA alignment of class `DNAbin'
 }
 }
 \details{

@@ -1,7 +1,7 @@
 titv <-
-function(dat){
-mat<-as.matrix(dat)
-res<-matrix(NA, ncol=dim(mat)[1], nrow=dim(mat)[1], dimnames=list(x=names(dat), y=names(dat)))
+function(DNAbin){
+mat<-as.matrix(DNAbin)
+res<-matrix(NA, ncol=dim(mat)[1], nrow=dim(mat)[1], dimnames=list(x=names(DNAbin), y=names(DNAbin)))
 for(i in 1:(dim(mat)[1] - 1)){
 for(j in (i+1):dim(mat)[1]){
 vec<-as.numeric(mat[i,])+as.numeric(mat[j,])-8

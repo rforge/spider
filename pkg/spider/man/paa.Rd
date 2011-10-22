@@ -7,12 +7,12 @@
 Conducts population aggregate analysis over a matrix of characters of interest.
 }
 
-\usage{paa(data, pop)}
+\usage{paa(data, sppVector)}
 %- maybe also 'usage' for other objects documented here.
 
 \arguments{
   \item{data}{A data matrix with columns as characters  and rows as individual}
-  \item{pop}{A vector of length dim(data)[1] giving the population of each individual}
+  \item{sppVector}{The species vector. See \code{\link{sppVector}}}
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~

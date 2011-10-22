@@ -17,7 +17,7 @@ An object of class `DNAbin'
 }
 }
 \details{
-The function assumes a large number of specimens have been sampled.
+The function assumes a large number of specimens have been sampled and that duplicate haplotypes have not been removed. Interpretation becomes difficult when more than one species is included in the dataset.
 }
 \value{
 An integer giving the estimated total number of haplotypes in the population.

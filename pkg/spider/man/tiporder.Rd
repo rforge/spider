@@ -15,10 +15,9 @@ tiporder(phy)
 
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{phy}{Tree of interest}
+  \item{phy}{A tree of class `phylo'.}
 }
 \details{
-"monophyly" determines if each species is monophyletic. "monophylyBoot" incorporates a bootstrap test to determine the support for this monophyly. Species with a bootstrap support lower than 'thresh' are recorded as FALSE.
 }
 \value{
 A character vector giving the names of the tip in the order of their position on the tree. The order is that from top to bottom when the tree is plotted with \code{direction = "rightwards"}

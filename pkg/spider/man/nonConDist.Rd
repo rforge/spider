@@ -6,22 +6,19 @@
 Nearest non-conspecific and maximum intra-specific distances
 }
 \description{
-These functions give the distances to the nearest non-conspecific and furthest conspecific representatives for each individual in the dataset respectively.
+These functions give the distances to the nearest non-conspecific and furthest conspecific representatives for each individual in the dataset.
 }
 \usage{
-nonConDist(dat, spp, propZero = FALSE)
-}
-
-\usage{
-maxInDist(dat, spp, propZero = FALSE)
+nonConDist(distobj, sppVector, propZero = FALSE)
+maxInDist(distobj, sppVector, propZero = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 
 \arguments{
-  \item{dat}{
+  \item{distobj}{
 Distance matrix
 }
-  \item{spp}{
+  \item{sppVector}{
 Species vector (see \code{\link{sppVector}}). Default of NULL
 }
   \item{propZero}{
@@ -29,7 +26,9 @@ Logical. TRUE gives the proportion of zero non-conspecific distances
 }
 }
 \details{
-\code{spp} needs to be given if the names of the individuals in the distance matrix do not satisfy the requirements for a species vector.
+\code{nonConDist} returns the minimum inter-specific distance for each individual.
+
+\code{maxInDist} returns the maximum intra-specific distance for each individual.
 
 These two functions can be used to create an alternative version of the `barcoding gap'.
 }
@@ -56,24 +55,27 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 }
 \examples{
 data(anoteropsis)
-ddat <- dist.dna(anoteropsis)
-sppName <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), function(x) paste(x[1], x[2], sep="_"))
+anoDist <- dist.dna(anoteropsis)
+anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), function(x) paste(x[1], x[2], sep="_"))
 
-nonConDist(ddat, sppName)
-nonConDist(ddat, sppName, propZero=TRUE)
+nonConDist(anoDist, anoSpp)
+nonConDist(anoDist, anoSpp, propZero=TRUE)
 
-maxInDist(ddat, sppName)
-maxInDist(ddat, sppName, propZero=TRUE)
-
-#Names of the distance matrix is the species vector
-names(anoteropsis) <- sppName
-ddat2 <- dist.dna(anoteropsis)
-nonConDist(ddat2)
+maxInDist(anoDist, anoSpp)
+maxInDist(anoDist, anoSpp, propZero=TRUE)
 
 #Barcoding gap
-inter <- nonConDist(ddat, sppName)
-intra <- maxInDist(ddat, sppName)
+inter <- nonConDist(anoDist, anoSpp)
+intra <- maxInDist(anoDist, anoSpp)
 hist(inter-intra)
+
+#An alternative way of plotting the gap
+bnd <- cbind(data.frame(inter, intra))
+ord <- bnd[order(bnd$inter),]
+plot(ord$inter, type="n", ylab="Percent K2P distance", xlab="Individual")
+segCol <- rep("gray50", length(ord$inter))
+segCol[ord$inter-ord$intra < 0] <- "red"
+segments(x0=1:length(ord$inter), y0=ord$inter, y1=ord$intra, col=segCol, lwd=6)
 
 
 }

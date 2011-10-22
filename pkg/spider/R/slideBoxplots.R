@@ -1,9 +1,9 @@
 slideBoxplots <-
-function(dat, width, spp, interval = 1, method="nonCon"){
+function(DNAbin, sppVector, width, interval = 1, method="nonCon"){
 	#Produce distance matrix, number of zero cells of full sequence
 	boxplot_out <- TRUE
-	dat <- as.matrix(dat)
-	dimnames(dat)[[1]] <- spp
+	dat <- as.matrix(DNAbin)
+	dimnames(dat)[[1]] <- sppVector
 	datd <- dist.dna(dat, pairwise.deletion = TRUE)
 	#Create the windows
 	win <- slidingWindow(dat, width-1, interval = interval)
@@ -16,13 +16,13 @@ function(dat, width, spp, interval = 1, method="nonCon"){
 	}
 	if(method == "interAll"){
 		#Boxplots of intra- and inter-specific distances
-		spp_dist <- lapply(win_dist, function(x) sppDist(x, spp))
+		spp_dist <- lapply(win_dist, function(x) sppDist(x, sppVector))
 		bp_InterSpp_out <- lapply(spp_dist, function(x) boxplot(x$inter, plot=FALSE))
 		bp_IntraSpp_out <- lapply(spp_dist, function(x) boxplot(x$intra, plot=FALSE))
 	}
 	if(method == "nonCon"){
 		#Boxplots of closest non-conspecific distance
-		spp_dist <- lapply(win_dist, function(x) sppDist(x, spp))
+		spp_dist <- lapply(win_dist, function(x) sppDist(x, sppVector))
 		bp_IntraSpp_out <- lapply(spp_dist, function(x) boxplot(x$intra, plot=FALSE))
 		spp_nonCon <- lapply(win_dist, nonConDist)
 		bp_InterSpp_out <- lapply(spp_nonCon, function(x) boxplot(x, plot=FALSE))

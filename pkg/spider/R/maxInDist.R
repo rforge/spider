@@ -1,7 +1,7 @@
 maxInDist <- 
-function(dat, spp = NULL, propZero = FALSE){
-    dat <- as.matrix(dat)
-    if(length(spp) > 0) dimnames(dat)[[1]] <- spp
+function(distobj, sppVector = NULL, propZero = FALSE){
+    dat <- as.matrix(distobj)
+    if(length(sppVector) > 0) dimnames(dat)[[1]] <- sppVector
     conSpecDists <- list()
     for (i in 1:length(dimnames(dat)[[1]])) {
         conSpec <- dimnames(dat)[[1]] == dimnames(dat)[[1]][i]

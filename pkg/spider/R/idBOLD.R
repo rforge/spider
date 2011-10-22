@@ -3,6 +3,7 @@ idBOLD <- function(distobj, sppVector, threshold = 0.01){
 	diag(distobj) <- NA
 	output <- rep(NA, length(sppVector))
 	aa <- apply(distobj, MARGIN=2, FUN=function(x) which(x < threshold))
+	if(is.matrix(aa)) aa <- c(unname(as.data.frame(aa))) else aa
 	bb <- lapply(aa, function(x) unique(sppVector[x]))
 	cc <- sppVector == bb
 	dd <- sapply(1:length(sppVector), function(x) sppVector[x] %in% bb[[x]])

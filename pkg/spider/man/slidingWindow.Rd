@@ -9,23 +9,23 @@ Creates windows of a specified width along a DNA alignment.
 }
 
 \usage{
-slidingWindow(align, width, interval = 1)
+slidingWindow(DNAbin, width, interval = 1)
 }
 %- maybe also 'usage' for other objects documented here.
 
 \arguments{
-  \item{align}{A DNA alignment of class 'DNAbin'}
+  \item{DNAbin}{A DNA alignment of class `DNAbin'}
   \item{width}{Width of each window}
-  \item{interval}{Numeric or option of "codons". This sets interval between windows. Default of 1. Setting the option to "codons" gives an interval of 3.}
+  \item{interval}{Numeric or option of \code{"codons"}. This sets interval between windows. Default of 1. Setting the option to "codons" gives an interval of 3.}
 }
 \details{
 Sliding window analyses are often used to determine the variability along sequences. This can be useful for investigating if there is evidence for recombination, developing shorter genetic markers, or for determining variation of genetic diversity within a gene.
 Result is a list of DNA alignments. The list has length of the DNA alignment minus the width.
-The window covered by each alignment can be retreived with attr(x, "window")
+The window covered by each alignment can be retreived with \code{attr(x, "window")}
 
 }
 
-\value{A list of 'DNAbin' objects, with each alignment being 'width' bases in length}
+\value{A list of `DNAbin' objects, with each alignment being \code{width} bases in length}
 
 \references{
 %% ~put references to the literature/web site here ~

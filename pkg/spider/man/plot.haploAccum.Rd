@@ -4,7 +4,7 @@
 \title{Plotting haplotype accumulation curves}
 
 \description{
-\code{haploAccum} identifies the different haplotypes represented in a set of DNA sequences and creates haplotype accumulation curves.
+Plots the accumulation curves calculated by \code{\link{haploAccum}}.
 }
 
 
@@ -13,7 +13,7 @@
 }
     
 \arguments{
-  \item{x}{A haploAccum object obtained from \code{\link{haploAccum}}}
+  \item{x}{A `haploAccum' object obtained from \code{\link{haploAccum}}}
   \item{add}{Add graph to an existing graph.}
   \item{ci}{Multiplier for the calculation of confidence intervals from standard deviation. \code{ci = 0} prevents the drawing of confidence intervals.}
   \item{ci.type}{Type of confidence intervals: \code{"bar"} for vertical bars, \code{"line"} for lines, and \code{"polygon"} for a shaded area.}
@@ -31,7 +31,7 @@ Plots graphs depending on the options given to \code{\link{haploAccum}}.
 }
 
 \references{
-  Gotellli, N.J. \& Colwell, R.K. (2001). Quantifying biodiversity: procedures and pitfalls in measurement and comparison of species richness. _Ecology Letters_ *4*, 379--391.
+  Gotellli, N.J. & Colwell, R.K. (2001). Quantifying biodiversity: procedures and pitfalls in measurement and comparison of species richness. _Ecology Letters_ *4* 379--391.
 }
 
 \author{

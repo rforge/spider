@@ -9,16 +9,16 @@ Taxa statistics
 Returns the numbers of species, genera and individuals in the dataset.
 }
 
-\usage{dataStat(spp, gen, thresh)
+\usage{dataStat(sppVector, genVector, thresh)
 }
 
 \arguments{
-  \item{spp}{
+  \item{sppVector}{
 Species vector (see \code{\link{sppVector}}).
 }
 
-\item{gen}{
-Genus vector that defines the genera of each individual
+\item{genVector}{
+Genus vector that defines the genera of each individual, created in a similar manner to the species vector.
 }
 
   \item{thresh}{
@@ -27,7 +27,7 @@ Threshold for adequate individual/species number. Default of 5.
 }
 
 \details{
-
+The value \code{NULL} can be passed to \code{gen} if genera are not of interest in the dataset.
 }
 
 \value{
