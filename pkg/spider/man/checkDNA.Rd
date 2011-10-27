@@ -10,7 +10,7 @@
 
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{DNAbin}{A DNA alignment of class 'DNAbin'}
+  \item{DNAbin}{A DNA alignment of class `DNAbin'}
   \item{gapsAsMissing}{Logical. Should gaps (coded as '-') be considered missing bases? Default of TRUE}
 }
 
@@ -19,7 +19,7 @@
 }
 
 \value{
-A numeric vector giving the number of missing bases in each alignment
+A numeric vector giving the number of missing bases in each sequence of the alignment.
 }
 
 \references{

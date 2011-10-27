@@ -8,7 +8,8 @@ Sliding window analyses
 Wraps a number of measures used in sliding window analyses into one easy-to-use function.
 }
 \usage{
-slideAnalyses(DNAbin, sppVector, width, interval = 1, distMeasures = TRUE, treeMeasures = FALSE)
+slideAnalyses(DNAbin, sppVector, width, interval = 1, 
+	distMeasures = TRUE, treeMeasures = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -41,7 +42,7 @@ number of zero-length distances,
 
 Tree-based measures include the following: 
 proportion of species that are monophyletic,
-proportion of clades that are identical between the NJ tree calculated for the window and the tree calculated for the full dataset,
+proportion of clades that are identical between the neighbour joining tree calculated for the window and the tree calculated for the full dataset,
  and the above with \code{method="shallow"}.
 
 Tree-based measures are a lot more time-intensive than distance measures. When dealing with lots of taxa and short window sizes, this part of the function can take hours.
@@ -49,19 +50,19 @@ Tree-based measures are a lot more time-intensive than distance measures. When d
 
 \value{
 An object of class 'slidWin' which is a list containing the following elements:
-\item{win_mono_out}{Proportion of species that are monophyletic}
-\item{comp_out}{Proportion of clades that are identical between the NJ tree calculated for the window and the tree calculated for the full dataset}
-\item{comp_depth_out}{Proportion of shallow clades that are identical}
-\item{pos_tr_out}{Index of window position for tree-based analyses}
-\item{noncon_out}{Proportion of zero non-conspecific distances}
-\item{nd_out}{The sum of diagnostic nucleotides for each species}
-\item{zero_out}{The number of zero-length distances}
-\item{dist_mean_out}{Overall mean distance}
-\item{pos_out}{Index of window position}
-\item{dat_zero_out}{Number of zero inter-specific distances in the full dataset}
-\item{boxplot_out}{Always FALSE. Required for \code{plot.slidwin}}
-\item{distMeasures}{Value of argument. Required for \code{plot.slidwin}}
-\item{treeMeasures}{Value of argument. Required for \code{plot.slidwin}}
+\item{win_mono_out}{Proportion of species that are monophyletic.}
+\item{comp_out}{Proportion of clades that are identical between the NJ tree calculated for the window and the tree calculated for the full dataset.}
+\item{comp_depth_out}{Proportion of shallow clades that are identical.}
+\item{pos_tr_out}{Index of window position for tree-based analyses.}
+\item{noncon_out}{Proportion of zero non-conspecific distances.}
+\item{nd_out}{The sum of diagnostic nucleotides for each species.}
+\item{zero_out}{The number of zero-length distances.}
+\item{dist_mean_out}{Overall mean distance.}
+\item{pos_out}{Index of window position.}
+\item{dat_zero_out}{Number of zero inter-specific distances in the full dataset.}
+\item{boxplot_out}{Always FALSE. Required for \code{plot.slidwin}.}
+\item{distMeasures}{Value of argument. Required for \code{plot.slidwin}.}
+\item{treeMeasures}{Value of argument. Required for \code{plot.slidwin}.}
 
 }
 \references{

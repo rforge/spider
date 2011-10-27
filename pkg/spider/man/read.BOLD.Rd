@@ -17,9 +17,9 @@ read.BOLD(IDs)}
   \item{IDs}{A character vector containing BOLD process ID numbers}
 }
 
-\details{\code{search.BOLD} facilitates the retrieval of BOLD process identification numbers for any given taxon.
+\details{\code{search.BOLD} retrieves BOLD process identification numbers for any given taxon using BOLD's eSearch system.
 
-\code{read.BOLD} downloads the sequences associated with the process identification numbers.
+\code{read.BOLD} downloads the sequences associated with the process identification numbers using the eFetch web service offered by BOLD to enable batch retrieval of records.
 
 }
 
@@ -29,8 +29,15 @@ read.BOLD(IDs)}
 \code{read.BOLD} returns an object of class `DNAbin'. This object has the attributes "species", "accession_num", and "gene". 
 }
 
+\section{Warning}{
+On 26 Oct 2011, attempting to access records using the eFetch system through a web browser results in an error, saying that eFetch and eSearch are offline for maintainance. To test if the services are running, copy and paste the following URL into a web browser: 
+http://services.boldsystems.org/eFetch.php?record_type=specimen&id_type=sampleid&ids=DQ116162&return_type=xml
+}
+
 \references{
-%% ~put references to the literature/web site here ~
+BOLD web services:
+http://services.boldsystems.org/
+
 }
 
 \author{

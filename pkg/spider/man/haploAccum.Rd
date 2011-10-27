@@ -10,10 +10,10 @@
 }
     
 \arguments{
-  \item{DNAbin}{A set of DNA sequences in an object of class ``DNAbin''}
-  \item{method}{Method for haplotype accumulation. Method \code{``collector''} enters the sequences in the order that they appear in the sequence alignment and \code{``random''} adds the sequences in a random order.}
-  \item{permutations}{Number of permutations for method \code{``random''}.}
-  \item{...}{Other parameters to functions}
+  \item{DNAbin}{A set of DNA sequences in an object of class `DNAbin'.}
+  \item{method}{Method for haplotype accumulation. Method \code{"collector"} enters the sequences in the order that they appear in the sequence alignment and \code{"random"} adds the sequences in a random order.}
+  \item{permutations}{Number of permutations for method \code{"random"}.}
+  \item{...}{Other parameters to functions.}
 }
 
 \details{
@@ -21,13 +21,13 @@ Haplotype accumulation curves can be used to assess haplotype diversity in an ar
 }
 
 \value{
-An object of class "haplo.accum" with items:
+An object of class `haploAccum' with items:
   \item{call}{Function call.}
   \item{method}{Method for accumulation.}
   \item{sequences}{Number of analysed sequences.}
   \item{n.haplotypes}{Accumulated number of haplotypes corresponding to each number of sequences.}                                      
-  \item{sd}{The standard deviation of the haplotype accumulation curve. Estimated through permutations for \code{method = ``random''} and \code{NULL} for \code{method = ``collector''}.}
-  \item{perm}{Results of the permutations for \code{method = ``random''}.}
+  \item{sd}{The standard deviation of the haplotype accumulation curve. Estimated through permutations for \code{method = "random"} and \code{NULL} for \code{method = "collector"}.}
+  \item{perm}{Results of the permutations for \code{method = "random"}.}
 }
 
 \references{
@@ -44,11 +44,13 @@ This function is based on the functions \code{haplotype} (E. Paradis) from the p
 
 \examples{
 data(dolomedes)
-doloHaplo <- dolomedes[sample(37, size = 200, replace = TRUE), ] #Generate multiple haplotypes
+#Generate multiple haplotypes
+doloHaplo <- dolomedes[sample(37, size = 200, replace = TRUE), ] 
 dolocurv <- haploAccum(doloHaplo, method = "random", permutations = 100)
 dolocurv
 plot(dolocurv)
-plot(dolocurv, add = FALSE, ci = 2, ci.type = "bar", col = "black", ci.col = "red", ci.lty = 1)
+plot(dolocurv, add = FALSE, ci = 2, ci.type = "bar", col = "black", 
+	ci.col = "red", ci.lty = 1)
 }
 
 \keyword{Sampling}

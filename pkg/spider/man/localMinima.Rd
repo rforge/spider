@@ -15,13 +15,13 @@ localMinima(distobj)
 }
 
 \details{
-This function is based on the concept of the "barcoding gap", where a dip in the density of genetic distances indicates the transition between intra- and inter-specific distances. Understanding your data is vital to correctly interpreting the output of this function, but as a start, the first local minimum is often a good place to start
+This function is based on the concept of the barcoding gap, where a dip in the density of genetic distances indicates the transition between intra- and inter-specific distances. Understanding your data is vital to correctly interpreting the output of this function, but as a start, the first local minimum is often a good place to start.
 
 The value of this function is that it does not require prior knowledge of species identity to get an indication of potential threshold values.
 }
 
 \value{
-An object of class "density", which is a list containing the values calculated by \code{\link{density}}. The element \code{localMinima} has been added, which contains the values of the local minima of the density plot.
+An object of class `density', which is a list containing the values calculated by \code{\link{density}}. The element \code{localMinima} has been added, which contains the values of the local minima of the density plot.
 }
 
 \author{

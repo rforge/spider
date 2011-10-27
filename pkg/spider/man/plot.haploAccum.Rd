@@ -9,11 +9,12 @@ Plots the accumulation curves calculated by \code{\link{haploAccum}}.
 
 
 \usage{
-\method{plot}{haploAccum}(x, add = FALSE, ci = 2, ci.type = c("bar","line","polygon"), col = par("fg"), ci.col = col, ci.lty = 1, xlab, ylab = x$method, ylim, ...)
+\method{plot}{haploAccum}(x, add = FALSE, ci = 2, ci.type = c("bar","line","polygon"), 
+	col = par("fg"), ci.col = col, ci.lty = 1, xlab, ylab = x$method, ylim, ...)
 }
     
 \arguments{
-  \item{x}{A `haploAccum' object obtained from \code{\link{haploAccum}}}
+  \item{x}{A `haploAccum' object obtained from \code{\link{haploAccum}}.}
   \item{add}{Add graph to an existing graph.}
   \item{ci}{Multiplier for the calculation of confidence intervals from standard deviation. \code{ci = 0} prevents the drawing of confidence intervals.}
   \item{ci.type}{Type of confidence intervals: \code{"bar"} for vertical bars, \code{"line"} for lines, and \code{"polygon"} for a shaded area.}
@@ -23,7 +24,7 @@ Plots the accumulation curves calculated by \code{\link{haploAccum}}.
   \item{xlab}{Label for the X-axis.}
   \item{ylab}{Label for the Y-axis.}
   \item{ylim}{Y-axis limits.}
-  \item{...}{Other parameters to pass to plot}
+  \item{...}{Other parameters to pass to plot.}
 }
 
 \value{
@@ -40,11 +41,13 @@ Jagoba Malumbres-Olarte <j.malumbres.olarte@gmail.com>.
 
 \examples{
 data(dolomedes)
-doloHaplo <- dolomedes[sample(37, size = 200, replace = TRUE), ] #Generate multiple haplotypes
+#Generate multiple haplotypes
+doloHaplo <- dolomedes[sample(37, size = 200, replace = TRUE), ] 
 dolocurv <- haploAccum(doloHaplo, method = "random", permutations = 100)
 dolocurv
 plot(dolocurv)
-plot(dolocurv, add = FALSE, ci = 2, ci.type = "bar", col = "black", ci.col = "red", ci.lty = 1)
+plot(dolocurv, add = FALSE, ci = 2, ci.type = "bar", col = "black", ci.col = "red", 
+	ci.lty = 1)
 }
 
 \keyword{Sampling}

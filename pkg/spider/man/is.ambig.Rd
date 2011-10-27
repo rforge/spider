@@ -15,11 +15,11 @@ is.ambig(DNAbin)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{DNAbin}{
-A DNA alignment of class `DNAbin'
+A DNA alignment of class `DNAbin'.
 }
 }
 \details{
-Ambiguous bases are bases that have been coded with any of the IUPAC DNA codes that are not A, C, G, or T. Missing data are bases that have been coded with "-", "?" or "N".
+Ambiguous bases are bases that have been coded with any of the Union of Pure and Applied Chemistry (IUPAC) DNA codes that are not A, C, G, or T. Missing data are bases that have been coded with "-", "?" or "N".
 }
 \value{
 A logical vector containing TRUE if ambiguous bases or missing data are present, FALSE if not. Does not differentiate between the two classes of data.
@@ -43,6 +43,8 @@ A logical vector containing TRUE if ambiguous bases or missing data are present,
 \examples{
 data(woodmouse)
 is.ambig(woodmouse)
+#Columns with ambiguous bases
+which(is.ambig(woodmouse))
 }
 
 \keyword{Utilities}

@@ -50,9 +50,12 @@ Rupert Collins <rupertcollins@gmail.com>
 }
 \examples{
 data(anoteropsis)
-sppName <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), function(x) paste(x[1], x[2], sep="_"))
-genName <-  sapply(strsplit(sppName, split="_"), function(x) x[1])
-dataStat(sppName, genName)
+#Species vector
+anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), 
+	function(x) paste(x[1], x[2], sep="_"))
+#Genus vector
+anoGen <-  sapply(strsplit(anoSpp, split="_"), function(x) x[1])
+dataStat(anoSpp, anoGen)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

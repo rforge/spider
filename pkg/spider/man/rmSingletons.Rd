@@ -12,7 +12,7 @@ rmSingletons(sppVector, exclude = TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{sppVector}{Vector of species names. (see \code{\link{sppVector}})}
+  \item{sppVector}{Vector of species names. (see \code{\link{sppVector}}).}
   \item{exclude}{Logical. Should singletons be removed? Default of TRUE}
 }
 \details{
@@ -39,7 +39,8 @@ Returns a numeric vector giving the indices of the selected individuals.
 \examples{
 data(anoteropsis)
 anoDist <- dist.dna(anoteropsis)
-anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), function(x) paste(x[1], x[2], sep="_"))
+anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), 
+	function(x) paste(x[1], x[2], sep="_"))
 
 rmSingletons(anoSpp)
 rmSingletons(anoSpp, exclude=FALSE)

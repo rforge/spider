@@ -1,10 +1,14 @@
 monophylyBoot <- 
-function (phy, sppVector, DNAbin, pp = NA, singletonsMono = TRUE, reps = 1000, thresh = 0.7, block = 3) 
+function (phy, sppVector, DNAbin, thresh = 0.7, reroot = TRUE, pp = NA, singletonsMono = TRUE, reps = 1000, block = 3) 
 {
     res <- list()
     xxx <- lapply(unique(sppVector), function(y) which(sppVector == 
         y))
-    boot <- boot.phylo(phy, DNAbin, function(x) nj(dist.dna(x)), B = reps, block = block)/reps
+    if(reroot){
+	testTr <- nj(dist.dna(DNAbin))
+	nodeRoot <- testTr$edge[which(testTr$edge.length == max(testTr$edge.length)), 2]
+	boot <- boot.phylo(phy, DNAbin, function(x) root(nj(dist.dna(x)), node = nodeRoot, resolve.root=TRUE), B = reps, block = block)/reps
+	} else boot <- boot.phylo(phy, DNAbin, function(x) nj(dist.dna(x)), B = reps, block = block)/reps
     sppTab <- sapply(xxx, length)
     singletons <- which(sppTab == 1)
     nonSingletons <- which(sppTab != 1)
@@ -29,5 +33,7 @@ function (phy, sppVector, DNAbin, pp = NA, singletonsMono = TRUE, reps = 1000, t
     out[defNon] <- FALSE
     out[singletons] <- singletonsMono
     out[bootCheck < thresh] <- FALSE
-    out
+    store <- list(results= out, BSvalues = boot)
+    print(out)
+    invisible(store)
 }

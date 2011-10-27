@@ -16,13 +16,13 @@ maxInDist(distobj, sppVector, propZero = FALSE)
 
 \arguments{
   \item{distobj}{
-Distance matrix
+Distance matrix.
 }
   \item{sppVector}{
-Species vector (see \code{\link{sppVector}}). Default of NULL
+Species vector (see \code{\link{sppVector}}). Default of NULL.
 }
   \item{propZero}{
-Logical. TRUE gives the proportion of zero non-conspecific distances 
+Logical. TRUE gives the proportion of zero distances.
 }
 }
 \details{
@@ -30,13 +30,13 @@ Logical. TRUE gives the proportion of zero non-conspecific distances
 
 \code{maxInDist} returns the maximum intra-specific distance for each individual.
 
-These two functions can be used to create an alternative version of the `barcoding gap'.
+These two functions can be used to create a version of the barcoding gap.
 }
 
 \value{
-if propZero=FALSE, a numeric vector giving the distance of the closest non-conspecific individual (\code{nonConDist}) or the most distant conspecific individual (\code{maxInDist}).
+If \code{propZero=FALSE}, a numeric vector giving the distance of the closest non-conspecific individual (\code{nonConDist}) or the most distant conspecific individual (\code{maxInDist}).
 
-if propZero=TRUE, a single number giving the proportion of zero distances. 
+If \code{propZero=TRUE}, a single number giving the proportion of zero distances. 
 }
 \references{
 %% ~put references to the literature/web site here ~
@@ -56,7 +56,8 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 \examples{
 data(anoteropsis)
 anoDist <- dist.dna(anoteropsis)
-anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), function(x) paste(x[1], x[2], sep="_"))
+anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), 
+	function(x) paste(x[1], x[2], sep="_"))
 
 nonConDist(anoDist, anoSpp)
 nonConDist(anoDist, anoSpp, propZero=TRUE)

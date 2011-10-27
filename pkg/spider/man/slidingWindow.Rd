@@ -14,8 +14,8 @@ slidingWindow(DNAbin, width, interval = 1)
 %- maybe also 'usage' for other objects documented here.
 
 \arguments{
-  \item{DNAbin}{A DNA alignment of class `DNAbin'}
-  \item{width}{Width of each window}
+  \item{DNAbin}{A DNA alignment of class `DNAbin'.}
+  \item{width}{Width of each window.}
   \item{interval}{Numeric or option of \code{"codons"}. This sets interval between windows. Default of 1. Setting the option to "codons" gives an interval of 3.}
 }
 \details{
@@ -59,7 +59,8 @@ length(win3)
 
 win4 <- slidingWindow(woodmouse, width = 15)
 length(win4)
-attr(win4, "window")
+attr(win4[[1]], "window")
+attr(win4[[2]], "window")
 }
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the

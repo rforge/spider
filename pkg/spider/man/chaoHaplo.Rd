@@ -23,7 +23,7 @@ The function assumes a large number of specimens have been sampled and that dupl
 An integer giving the estimated total number of haplotypes in the population.
 }
 \references{
-%% ~put references to the literature/web site here ~
+Vink, C. J., McNeill, M. R., Winder, L. M., Kean, J. M., and Phillips, C. B. (2011). PCR analyses of gut contents of pasture arthropods. In: Paddock to PCR: Demystifying Molecular Technologies for Practical Plant Protection (eds. Ridgway, H. J., Glare, T. R., Wakelin, S. A., O'Callaghan, M.), pp. 125-134. New Zealand Plant Protection Society, Lincoln.
 }
 \author{
 Samuel Brown <s_d_j_brown@hotmail.com>
@@ -39,7 +39,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 }
 \examples{
 data(dolomedes)
-#Create some haplotypes
+#Create dataset with multiple copies of Dolomedes haplotypes
 doloSamp <- dolomedes[sample(16, 100, replace=TRUE, prob=c(0.85, rep(0.01, 15))), ]
 
 chaoHaplo(doloSamp)

@@ -5,7 +5,7 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Measures of identification accuracy}
 
-\description{Tests of barcoding efficacy using distance-based methods}
+\description{Tests of barcoding efficacy using distance-based methods.}
 
 \usage{
 bestCloseMatch(distobj, sppVector, threshold = 0.01)
@@ -16,14 +16,14 @@ idBOLD(distobj, sppVector, threshold = 0.01)}
 \arguments{
   \item{distobj}{A distance object (usually from \code{\link{dist.dna}}).}
   \item{sppVector}{Vector of species names. See \code{\link{sppVector}}.}
-  \item{threshold}{Distance cutoff for identifications. Default of 0.01 (1\%)}
-  \item{names}{Logical. Should the names of the nearest match be shown? Default of FALSE}
+  \item{threshold}{Distance cutoff for identifications. Default of 0.01 (1\%).}
+  \item{names}{Logical. Should the names of the nearest match be shown? Default of FALSE.}
 }
 
 \details{
-\code{bestCloseMatch} conducts the "best close match" analysis of Meier et al. (2006). 
+\code{bestCloseMatch} conducts the "best close match" analysis of Meier et al. (2006). When the threshold is large, this analysis will return essentially the same result as \code{nearNeighbour}.
 
-\code{nearNeighbour} finds the closest individual and returns if their names are the same (TRUE) or different (FALSE). If \code{names = TRUE}, the name of the closest individual is returned.
+\code{nearNeighbour} finds the closest individual and returns if their names are the same (TRUE) or different (FALSE). If \code{names = TRUE}, the name of the closest individual is returned. Ties are decided by majority rule.
 
 \code{idBOLD} conducts a threshold-based analysis, similar to that conducted by the "Identify Specimen" tool provided by the Barcode of Life Database (\code{http://www.boldsystems.org/views/idrequest.php}).
 }

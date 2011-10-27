@@ -8,24 +8,25 @@ Download sequences from Genbank with metadata
 Downloads sequences associated with the given accession numbers into a `DNAbin' class
 }
 \usage{
-read.GB(access.nb, seq.names = access.nb, species.names = TRUE, gene = TRUE, access = TRUE, as.character = FALSE)
+read.GB(access.nb, seq.names = access.nb, species.names = TRUE, gene = TRUE, 
+	access = TRUE, as.character = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{access.nb}{
-A character vector giving the GenBank accession numbers to download
+A character vector giving the GenBank accession numbers to download.
 }
   \item{seq.names}{
-A character vector giving the names to give to each sequence. Defaults to "accession number | species name"
+A character vector giving the names to give to each sequence. Defaults to "accession number | species name".
 }
   \item{species.names}{
-Logical. Should species names be downloaded? Default of TRUE
+Logical. Should species names be downloaded? Default of TRUE.
 }
   \item{gene}{
-Logical. Should the name of the gene region be downloaded? Default of TRUE
+Logical. Should the name of the gene region be downloaded? Default of TRUE.
 }
   \item{access}{
-Logical. Should the accession number be downloaded? Default of TRUE
+Logical. Should the accession number be downloaded? Default of TRUE.
 }
   \item{as.character}{
 Logical. Should the sequences be returned as character vector? Default of FALSE, function returns sequences as a `DNAbin' object.
