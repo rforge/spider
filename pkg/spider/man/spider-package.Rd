@@ -10,30 +10,32 @@ Spider: SPecies IDentity and Evolution in R, is an R package implementing a numb
 
 The complete list of functions can be displayed with \code{library(help=spider)}.
 
-More information on spider can be found at \code{http://spider.r-forge.r-project.org}.
+More information, including a tutorial on the use of spider can be found at \code{http://spider.r-forge.r-project.org}.
 }
 
 \details{
 \tabular{ll}{
 Package: \tab spider\cr
 Type: \tab Package\cr
-Version: \tab 1.0-5\cr
-Date: \tab 2011-09-06\cr
+Version: \tab 1.1-0\cr
+Date: \tab 2011-11-06\cr
 License: \tab GPL\cr
 LazyLoad: \tab yes\cr
 }
 
-DNA barcoding functions:
-\code{\link{nearNeighbour}}, \code{\link{idBOLD}}, \code{\link{nearNeighbour}}, \code{\link{threshOpt}}.
+A few of the key functions provided by spider: 
 
-Sliding window functions:
-\code{\link{slidingWindow}}, \code{\link{slideAnalyses}}, \code{\link{slideBoxplots}}
+DNA barcoding:
+\code{\link{bestCloseMatch}}, \code{\link{nearNeighbour}}, \code{\link{threshID}}, \code{\link{threshOpt}}.
+
+Sliding window:
+\code{\link{slidingWindow}}, \code{\link{slideAnalyses}}, \code{\link{slideBoxplots}}.
 
 Nucleotide diagnostics:
-\code{\link{nucDiag}}
+\code{\link{nucDiag}}.
 
 Morphological techniques:
-\code{\link{paa}}
+\code{\link{paa}}.
 }
 \author{
 Samuel Brown, Rupert Collins, Stephane Boyer, Marie-Caroline Lefort, Jagoba Malumbres-Olarte, Cor Vink, Rob Cruickshank
@@ -51,8 +53,7 @@ Brown S. D. J., Collins R. A., Boyer S., Lefort M.-C., Malumbres-Olarte J., Vink
 \seealso{
 
 \code{\link[ape:ape-package]{ape}}, 
-\code{\link[pegas:pegas-package]{pegas}}
-
+\code{\link[pegas:pegas-package]{pegas}}.
 }
 \examples{
 }

@@ -1,4 +1,4 @@
-idBOLD <- function(distobj, sppVector, threshold = 0.01){
+threshID <- function(distobj, sppVector, threshold = 0.01){
 	distobj <- as.matrix(distobj)
 	diag(distobj) <- NA
 	output <- rep(NA, length(sppVector))

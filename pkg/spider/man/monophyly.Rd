@@ -12,8 +12,8 @@ Determines if the species given in \code{sppVector} form monophyletic groups on 
 
 \usage{
 monophyly(phy, sppVector, pp = NA, singletonsMono = TRUE)
-monophylyBoot(phy, sppVector, DNAbin, thresh = 0.7, reroot=TRUE, pp = NA, singletonsMono = TRUE, 
-	reps = 1000, block = 3)
+monophylyBoot(phy, sppVector, DNAbin, thresh = 0.7, reroot=TRUE, 
+    pp = NA, singletonsMono = TRUE, reps = 1000, block = 3)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -43,7 +43,7 @@ An object of class 'DNAbin'. Required for calculating bootstrap values.
 \details{
 \code{monophyly} determines if each species is monophyletic. \code{monophylyBoot} incorporates a bootstrap test to determine the support for this monophyly. Species with a bootstrap support lower than \code{"thresh"} are recorded as FALSE. 
 
-Rerooting is done on the longest edge in the tree returned by \code{nj(dist.dna(DNAbin))}.
+Rerooting is done on the longest internal edge in the tree returned by \code{nj(dist.dna(DNAbin))}.
 }
 \value{
 \code{monophyly} returns a logical vector, stating if each species is monophyletic. Values correspond to the species order given by \code{unique(sppVector)}.
@@ -65,7 +65,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{prop.part}}, \code{\link{root}}, \code{\link{boot.phylo}}
+\code{\link{prop.part}}, \code{\link{root}}, \code{\link{boot.phylo}}.
 }
 \examples{
 #Random trees
@@ -81,7 +81,8 @@ monophyly(tr2, spp2)
 #Empirical data
 data(anoteropsis)
 anoTree <- nj(dist.dna(anoteropsis))
-anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), function(x) paste(x[1], x[2], sep="_"))
+anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), 
+    function(x) paste(x[1], x[2], sep="_"))
 
 monophyly(anoTree, anoSpp)
 monophyly(anoTree, anoSpp, singletonsMono=FALSE)
@@ -94,9 +95,14 @@ anoMono[match(anoSpp, unique(anoSpp))]
 data(woodmouse)
 woodTree <- nj(dist.dna(woodmouse))
 woodSpp <- c("D", "C", "C", "A", "A", "E", "A", "F", "C", "F", "E", "D", "A", "A", "E")
-monophyly(woodTree, woodSpp)
-monophylyBoot(woodTree, woodSpp, woodmouse)
-monophylyBoot(woodTree, woodSpp, woodmouse, thresh=0.9)
 unique(woodSpp)
+monophyly(woodTree, woodSpp)
+woodMono <- monophylyBoot(woodTree, woodSpp, woodmouse)
+woodMono$results
+woodMono$BSvalues
+
+monophylyBoot(woodTree, woodSpp, woodmouse, reroot = FALSE)
+monophylyBoot(woodTree, woodSpp, woodmouse, thresh = 0.9, reroot = FALSE)
+
 
 }

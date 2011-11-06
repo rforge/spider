@@ -5,7 +5,7 @@
 Species Vectors
 }
 \description{
-A vector that gives an identity to the individuals in various analyses
+A vector that gives an identity to the individuals in various analyses.
 }
 \details{
 Species vectors are the key concept behind a lot of \code{spider}'s functionality. They are the method used to group data from individuals into species. It is important to note that "species" in this context can mean any cluster (real or otherwise) that is of interest. Populations, demes, subspecies and genera could be the taxa segregated by "species vectors".
@@ -47,7 +47,7 @@ doloSpp <- substr(dimnames(dolomedes)[[1]], 1, 5)
 data(anoteropsis)
 #Anoteropsis species vector
 anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), 
-	function(x) paste(x[1], x[2], sep="_"))
+    function(x) paste(x[1], x[2], sep="_"))
 
 
 }

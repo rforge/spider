@@ -2,10 +2,10 @@
 \alias{titv}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Number of pairwise transitions and transversions in an alignment
+Number of pairwise transitions and transversions in an alignment.
 }
 \description{
-Calculates the number of pairwise transitions and transversions between sequences
+Calculates the number of pairwise transitions and transversions between sequences.
 }
 \usage{
 titv(DNAbin)
@@ -13,14 +13,14 @@ titv(DNAbin)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{DNAbin}{
-A DNA alignment of class `DNAbin'
+A DNA alignment of class `DNAbin'.
 }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-A square matrix with dimensions of length(dat). The upper triangle contains the number of transversions. The lower triangle contains the number of transitions.
+A square matrix with dimensions of \code{length(dat)}. The upper triangle contains the number of transversions. The lower triangle contains the number of transitions.
 }
 \references{
 %% ~put references to the literature/web site here ~
@@ -53,8 +53,8 @@ ti <- subs[lower.tri(subs)]
 
 #Saturation plot
 doloDist <- dist.dna(dolomedes)
-plot(doloDist, ti, type="p", pch=19, col="blue", 
-	main="Saturation plot of number of transitions and transversions \nagainst K2P distance. Red: transversions. Blue: transitions")
+plot(doloDist, ti, type="p", pch=19, col="blue", main="Saturation plot of number of transitions and transversions\n
+    against K2P distance. Red: transversions. Blue: transitions")
 points(doloDist, tv, pch=19, col="red")
 
 

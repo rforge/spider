@@ -13,9 +13,9 @@ function(DNAbin, sppVector, width, interval = 1, distMeasures = TRUE, treeMeasur
 	#Distance metrics
 	if(distMeasures){
 		#Mean of distance matrix
-		dist_mean_out <- sapply(win_dist, mean) 
+		dist_mean_out <- sapply(win_dist, function(x) mean(x, na.rm=TRUE)) 
 		#Number of zero cells
-		zero_out <- sapply(win_dist, function(y) sum(as.numeric(y == 0))/length(y))
+		zero_out <- sapply(win_dist, function(y) sum(as.numeric(y == 0), na.rm=TRUE)/length(y))
 		##################
 		#Threshold measures REMOVED
 		#thres_above_out <- sapply(win_dist, function(x) sum( as.numeric(x >= thresA) ) )
@@ -25,7 +25,7 @@ function(DNAbin, sppVector, width, interval = 1, distMeasures = TRUE, treeMeasur
 		nd_out <- slideNucDiag(DNAbin, sppVector, width, interval)
 		nd_out <- colSums(nd_out)
 		#Nearest non-conspecific distance
-		noncon_out <- sapply(win_dist, function(x) nonConDist(x, propZero = TRUE))
+		noncon_out <- sapply(win_dist, function(x) nonConDist(x, propZero = TRUE, rmNA=TRUE))
 		
 	}
 	if(treeMeasures){

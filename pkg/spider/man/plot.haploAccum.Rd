@@ -10,7 +10,8 @@ Plots the accumulation curves calculated by \code{\link{haploAccum}}.
 
 \usage{
 \method{plot}{haploAccum}(x, add = FALSE, ci = 2, ci.type = c("bar","line","polygon"), 
-	col = par("fg"), ci.col = col, ci.lty = 1, xlab, ylab = x$method, ylim, ...)
+    col = par("fg"), ci.col = col, ci.lty = 1, xlab, ylab = "Haplotypes", ylim,  
+    main = paste(x$method, "method of haplotype accumulation", sep=" "), ...)
 }
     
 \arguments{
@@ -24,11 +25,12 @@ Plots the accumulation curves calculated by \code{\link{haploAccum}}.
   \item{xlab}{Label for the X-axis.}
   \item{ylab}{Label for the Y-axis.}
   \item{ylim}{Y-axis limits.}
+  \item{main}{Title of the plot.}
   \item{...}{Other parameters to pass to plot.}
 }
 
 \value{
-Plots graphs depending on the options given to \code{\link{haploAccum}}.
+Plots a haplotype accumulation curve and confidence intervals depending on the options given to \code{\link{haploAccum}}.
 }
 
 \references{
@@ -44,10 +46,10 @@ data(dolomedes)
 #Generate multiple haplotypes
 doloHaplo <- dolomedes[sample(37, size = 200, replace = TRUE), ] 
 dolocurv <- haploAccum(doloHaplo, method = "random", permutations = 100)
-dolocurv
+
 plot(dolocurv)
-plot(dolocurv, add = FALSE, ci = 2, ci.type = "bar", col = "black", ci.col = "red", 
-	ci.lty = 1)
+plot(dolocurv, add = FALSE, ci = 2, ci.type = "polygon", col = "blue", ci.col = "red", 
+    ci.lty = 1)
 }
 
 \keyword{Sampling}

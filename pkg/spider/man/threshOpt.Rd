@@ -13,7 +13,7 @@ threshOpt(distobj, sppVector, threshold)
 
 \arguments{
   \item{distobj}{
-Distance matrix
+Distance matrix.
 }
 
 \item{sppVector}{
@@ -30,7 +30,7 @@ When run over a range of thresholds, this function allows the optimisation of th
 }
 
 \value{
-A table giving the threshold and number of positive identifications, false negatives and false positives.
+A table giving the threshold and number of negative and positive identifications, number of false negatives and false positives, and cumulative error.
 }
 \references{
 Meyer, C. P., and Paulay, G. (2005). DNA barcoding: error rates based on
@@ -47,12 +47,13 @@ Rupert Collins <rupertcollins@gmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{localMinima}}
+\code{\link{localMinima}}.
 }
 \examples{
 data(anoteropsis)
 anoDist <- dist.dna(anoteropsis)
-anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), function(x) paste(x[1], x[2], sep="_"))
+anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), 
+    function(x) paste(x[1], x[2], sep="_"))
 threshOpt(anoDist, anoSpp)
 
 data(dolomedes)
@@ -64,8 +65,10 @@ threshOpt(doloDist, doloSpp)
 threshVal <- seq(0.001,0.02, by = 0.001)
 opt <- lapply(threshVal, function(x) threshOpt(doloDist, doloSpp, thresh = x))
 optMat <- do.call(rbind, opt)
-barplot(t(optMat)[3:4,], names.arg=optMat[,1], xlab="Threshold values", ylab="Cumulative error")
-legend(x = 2.5, y = 29, legend = c("False positives", "False negatives"), fill = c("grey75", "grey25"))
+barplot(t(optMat)[4:5,], names.arg=optMat[,1], xlab="Threshold values", 
+    ylab="Cumulative error")
+legend(x = 2.5, y = 29, legend = c("False positives", "False negatives"), 
+    fill = c("grey75", "grey25"))
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

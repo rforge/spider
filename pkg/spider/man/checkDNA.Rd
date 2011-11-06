@@ -10,8 +10,8 @@
 
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{DNAbin}{A DNA alignment of class `DNAbin'}
-  \item{gapsAsMissing}{Logical. Should gaps (coded as '-') be considered missing bases? Default of TRUE}
+  \item{DNAbin}{A DNA alignment of class `DNAbin'.}
+  \item{gapsAsMissing}{Logical. Should gaps (coded as '-') be considered missing bases? Default of TRUE.}
 }
 
 \details{
@@ -41,9 +41,9 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 }
 
 \examples{
-data(woodmouse)
-checkDNA(woodmouse)
-checkDNA(woodmouse, gapsAsMissing=FALSE)
+data(anoteropsis)
+checkDNA(anoteropsis)
+checkDNA(anoteropsis, gapsAsMissing=FALSE)
 }
 
 \keyword{Utilities}

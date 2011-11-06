@@ -13,10 +13,10 @@ sppDistMatrix(distobj, sppVector)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{distobj}{
-A distance matrix
+A distance matrix.
 }
   \item{sppVector}{
-The species vector (see \code{\link{sppVector}})
+The species vector (see \code{\link{sppVector}}).
 }
 }
 \details{

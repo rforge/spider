@@ -12,19 +12,19 @@ sppDist(distobj, sppVector)
 
 \arguments{
   \item{distobj}{
-A distance matrix
+A distance matrix.
 }
   \item{sppVector}{
-The species vector (see \code{\link{sppVector}})
+The species vector (see \code{\link{sppVector}}).
 }
 }
 \details{
 This function can be used to produce histograms and other charts exploring the `barcode gap', such as in the examples below.
 }
 \value{
-A list with two elements
-\item{inter}{A numeric vector containing ALL inter-specific pairwise distances}
-\item{intra}{A numeric vector containing ALL intra-specific pairwise distances}
+A list with two elements:
+\item{inter}{A numeric vector containing ALL inter-specific pairwise distances.}
+\item{intra}{A numeric vector containing ALL intra-specific pairwise distances.}
 }
 
 \references{
@@ -40,7 +40,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{sppDistMatrix}}
+\code{\link{sppDistMatrix}}.
 }
 \examples{
 data(dolomedes)

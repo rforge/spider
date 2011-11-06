@@ -5,7 +5,7 @@
 Sliding nucleotide diagnostics
 }
 \description{
-Calculates the number of diagnostic basepairs in sliding windows.
+Calculates the number of diagnostic nucleotides in sliding windows.
 }
 \usage{
 slideNucDiag(DNAbin, sppVector, width, interval = 1)
@@ -13,13 +13,13 @@ slideNucDiag(DNAbin, sppVector, width, interval = 1)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{DNAbin}{
-A DNA alignment of class `DNAbin'
+A DNA alignment of class `DNAbin'.
 }
   \item{sppVector}{
-Species vector (see \code{\link{sppVector}})
+Species vector (see \code{\link{sppVector}}).
 }
   \item{width}{
-Desired width of windows in number of base pairs
+Desired width of windows in number of base pairs.
 }
   \item{interval}{
 Distance between each window in number of base pairs. Default of 1. Giving the option of \code{"codons"} sets the size to 3.
@@ -27,11 +27,11 @@ Distance between each window in number of base pairs. Default of 1. Giving the o
 }
 
 \details{
-Determines the number of diagnostic nucleotides in each window
+Determines the number of diagnostic nucleotides for each species in each window.
 }
 
 \value{
-A matrix giving the number of diagnostic basepairs for each species (rows) in each window (columns).
+A matrix giving the number of diagnostic nucleotides for each species (rows) in each window (columns).
 }
 \references{
 %% ~put references to the literature/web site here ~
@@ -46,19 +46,26 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{slideAnalyses}}, \code{\link{slideBoxplots}}, \code{\link{slidingWindow}}
+\code{\link{slideAnalyses}}, \code{\link{slideBoxplots}}, \code{\link{slidingWindow}}.
 }
 \examples{
 data(dolomedes)
 doloSpp <- substr(dimnames(dolomedes)[[1]], 1, 5)
 
-slideNucDiag(dolomedes, doloSpp, 200, interval=3)
+slideNucDiag(dolomedes, doloSpp, 200, interval = 3)
 
-slidND <- slideNucDiag(dolomedes, doloSpp, 200, interval=3)
+slidND <- slideNucDiag(dolomedes, doloSpp, 200, interval = 3)
+
 #Number of basepairs for each species
-matplot(t(slidND), type="l")
+matplot(t(slidND), type = "l")
+
+#Number of basepairs for a single species
+plot(slidND[4, ], type = "l")
+
 #Total number of basepairs per window
-plot(colSums(slidND), type="l")
+plot(colSums(slidND), type = "l")
+
+
 }
 
 \keyword{Sliding window}

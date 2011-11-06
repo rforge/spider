@@ -13,7 +13,7 @@ chaoHaplo(DNAbin)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{DNAbin}{
-An object of class `DNAbin'
+An object of class `DNAbin'.
 }
 }
 \details{

@@ -13,8 +13,8 @@ read.BOLD(IDs)}
 
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{taxon}{A character vector of the names of the taxa of interest}
-  \item{IDs}{A character vector containing BOLD process ID numbers}
+  \item{taxon}{A character vector of the names of the taxa of interest.}
+  \item{IDs}{A character vector containing BOLD process ID numbers.}
 }
 
 \details{\code{search.BOLD} retrieves BOLD process identification numbers for any given taxon using BOLD's eSearch system.
@@ -30,13 +30,14 @@ read.BOLD(IDs)}
 }
 
 \section{Warning}{
-On 26 Oct 2011, attempting to access records using the eFetch system through a web browser results in an error, saying that eFetch and eSearch are offline for maintainance. To test if the services are running, copy and paste the following URL into a web browser: 
-http://services.boldsystems.org/eFetch.php?record_type=specimen&id_type=sampleid&ids=DQ116162&return_type=xml
+On 26 Oct 2011, attempts to access records using the eFetch system through a web browser resulted in an error, saying that eFetch and eSearch are offline for maintainance. To test if these services are running, check the following URL in a web browser: 
+
+\url{http://services.boldsystems.org/eFetch.php?record_type=specimen&id_type=sampleid&ids=DQ116162&return_type=xml}
 }
 
 \references{
 BOLD web services:
-http://services.boldsystems.org/
+\url{http://services.boldsystems.org/}.
 
 }
 
@@ -51,14 +52,16 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{read.GB}}
+\code{\link{read.GB}}.
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 
 \examples{
 \dontrun{
 nn <- search.BOLD("Pisauridae")
-read.BOLD(nn)}
+pisaurid <- read.BOLD(nn)
+
+write.dna(pisaurid, "filename.fas", format="fasta")}
 }
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the

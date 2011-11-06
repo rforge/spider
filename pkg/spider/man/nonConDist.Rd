@@ -9,8 +9,8 @@ Nearest non-conspecific and maximum intra-specific distances
 These functions give the distances to the nearest non-conspecific and furthest conspecific representatives for each individual in the dataset.
 }
 \usage{
-nonConDist(distobj, sppVector, propZero = FALSE)
-maxInDist(distobj, sppVector, propZero = FALSE)
+nonConDist(distobj, sppVector, propZero = FALSE, rmNA = FALSE)
+maxInDist(distobj, sppVector, propZero = FALSE, rmNA = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 
@@ -23,6 +23,9 @@ Species vector (see \code{\link{sppVector}}). Default of NULL.
 }
   \item{propZero}{
 Logical. TRUE gives the proportion of zero distances.
+}
+  \item{rmNA}{
+Logical. TRUE ignores missing values in the distance matrix. Default of FALSE
 }
 }
 \details{
@@ -57,7 +60,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 data(anoteropsis)
 anoDist <- dist.dna(anoteropsis)
 anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), 
-	function(x) paste(x[1], x[2], sep="_"))
+    function(x) paste(x[1], x[2], sep="_"))
 
 nonConDist(anoDist, anoSpp)
 nonConDist(anoDist, anoSpp, propZero=TRUE)

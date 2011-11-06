@@ -13,7 +13,7 @@ seqStat(DNAbin, thresh)
 
 \arguments{
   \item{DNAbin}{
-Alignment of class `DNAbin'
+Alignment of class `DNAbin'.
 }
   \item{thresh}{
 Threshold sequence length. Default of 500 (minimum length for official DNA barcodes).
@@ -25,7 +25,7 @@ Threshold sequence length. Default of 500 (minimum length for official DNA barco
 }
 
 \value{
-A table giving the minimum, maximum, mean and median sequence lengths, and the number of sequences below the given threshold
+A table giving the minimum, maximum, mean and median sequence lengths, and the number of sequences with lengths below the given threshold.
 }
 \references{
 %% ~put references to the literature/web site here ~

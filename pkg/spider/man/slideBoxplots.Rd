@@ -25,7 +25,7 @@ Width of windows.
 Distance between each window in number of base pairs. Default of 1. Giving the option of \code{"codons"} sets the size to 3.
 }
   \item{method}{
-Options of \code{"overall", "interAll"} or \code{"nonCon"} (the default)
+Options of \code{"overall", "interAll"} or \code{"nonCon"} (the default).
 }
 }
 \details{
@@ -38,15 +38,15 @@ Giving \code{method="nonCon"} calculates boxplots for the inter- and intra-speci
 \value{
 A list with 
 
- \item{treeMeasures}{Logical. Tree measures calculated? Always FALSE}
- \item{distMeasures}{Logical. Distance measures calculated? Always FALSE}
- \item{bp_out}{If \code{method="overall"}, contains the boxplot objects of each window}
- \item{bp_InterSpp_out}{If \code{method!="overall"}, contains the boxplot objects of the interspecific distances of each window}
- \item{bp_IntraSpp_out}{If \code{method!="overall"}, contains the boxplot objects of the intraspecific distances of each window}
- \item{bp_range_out}{range of y-axis values}
- \item{pos_out}{x-axis values}
- \item{boxplot_out}{Logical. Boxplots calculated? Always TRUE}
- \item{method}{The method used for calculating boxplots. \code{"overall", "interAll"} or \code{"nonCon"}}
+ \item{treeMeasures}{Logical. Tree measures calculated? Always FALSE.}
+ \item{distMeasures}{Logical. Distance measures calculated? Always FALSE.}
+ \item{bp_out}{If \code{method="overall"}, contains the boxplot objects of each window.}
+ \item{bp_InterSpp_out}{If \code{method!="overall"}, contains the boxplot objects of the interspecific distances of each window.}
+ \item{bp_IntraSpp_out}{If \code{method!="overall"}, contains the boxplot objects of the intraspecific distances of each window.}
+ \item{bp_range_out}{range of y-axis values.}
+ \item{pos_out}{x-axis values.}
+ \item{boxplot_out}{Logical. Boxplots calculated? Always TRUE.}
+ \item{method}{The method used for calculating boxplots. \code{"overall", "interAll"} or \code{"nonCon"}.}
 }
 \references{
 %% ~put references to the literature/web site here ~
@@ -61,7 +61,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{slidingWindow}}, \code{\link{slideAnalyses}}, \code{\link{plot.slidWin}}, \code{\link[graphics:boxplot]{boxplot}}
+\code{\link{boxplot}}, \code{\link{plot.slidWin}}, \code{\link{slideAnalyses}}, \code{\link{slidingWindow}}.
 }
 \examples{
 data(dolomedes)

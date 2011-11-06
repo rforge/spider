@@ -9,27 +9,27 @@ Wraps a number of measures used in sliding window analyses into one easy-to-use 
 }
 \usage{
 slideAnalyses(DNAbin, sppVector, width, interval = 1, 
-	distMeasures = TRUE, treeMeasures = FALSE)
+    distMeasures = TRUE, treeMeasures = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{DNAbin}{
-A DNA alignment of class `DNAbin'
+A DNA alignment of class `DNAbin'.
 }
   \item{sppVector}{
-Species vector (see \code{\link{sppVector}})
+Species vector (see \code{\link{sppVector}}).
 }
   \item{width}{
-Desired width of windows in number of base pairs
+Desired width of windows in number of nucleotides.
 }
   \item{interval}{
-Distance between each window in number of base pairs. Default of 1. Giving the option of 'codons' sets the size to 3.
+Distance between each window in number of nucleotides. Default of 1. Giving the option of 'codons' sets the size to 3.
 }
   \item{distMeasures}{
-Logical. Should distance measures be calculated? Default of TRUE
+Logical. Should distance measures be calculated? Default of TRUE.
 }
   \item{treeMeasures}{
-Logical. Should tree-based measures be calculated? Default of FALSE
+Logical. Should tree-based measures be calculated? Default of FALSE.
 }
 }
 
@@ -43,9 +43,11 @@ number of zero-length distances,
 Tree-based measures include the following: 
 proportion of species that are monophyletic,
 proportion of clades that are identical between the neighbour joining tree calculated for the window and the tree calculated for the full dataset,
- and the above with \code{method="shallow"}.
+ and the latter with \code{method="shallow"}.
 
-Tree-based measures are a lot more time-intensive than distance measures. When dealing with lots of taxa and short window sizes, this part of the function can take hours.
+Tree-based measures are a lot more time-intensive than distance measures. When dealing with lots of taxa and short windows, this part of the function can take hours.
+
+Both distance and tree measures are calculated from a K2P distance matrix created from the data with the option \code{pairwise.deletion = TRUE}. When sequences with missing data are compared with other sequences, a \code{NA} distance results. These are ignored in the calculation of \code{slideAnalyses} distance metrics. However, the tree measures cannot cope with this missing data, and so no result is returned for windows where some sequences solely contain missing data.
 }
 
 \value{
@@ -57,12 +59,12 @@ An object of class 'slidWin' which is a list containing the following elements:
 \item{noncon_out}{Proportion of zero non-conspecific distances.}
 \item{nd_out}{The sum of diagnostic nucleotides for each species.}
 \item{zero_out}{The number of zero-length distances.}
-\item{dist_mean_out}{Overall mean distance.}
+\item{dist_mean_out}{Overall mean K2P distance of each window.}
 \item{pos_out}{Index of window position.}
 \item{dat_zero_out}{Number of zero inter-specific distances in the full dataset.}
-\item{boxplot_out}{Always FALSE. Required for \code{plot.slidwin}.}
-\item{distMeasures}{Value of argument. Required for \code{plot.slidwin}.}
-\item{treeMeasures}{Value of argument. Required for \code{plot.slidwin}.}
+\item{boxplot_out}{Always FALSE. Required for \code{\link{plot.slidWin}}.}
+\item{distMeasures}{Value of argument. Required for \code{\link{plot.slidWin}}.}
+\item{treeMeasures}{Value of argument. Required for \code{\link{plot.slidWin}}.}
 
 }
 \references{
@@ -78,7 +80,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{plot.slidWin}}, \code{\link{rankSlidWin}}, \code{\link{slideNucDiag}}
+\code{\link{dist.dna}}, \code{\link{plot.slidWin}}, \code{\link{rankSlidWin}}, \code{\link{slideNucDiag}}.
 }
 \examples{
 data(dolomedes)

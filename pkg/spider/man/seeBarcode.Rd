@@ -10,8 +10,8 @@
 
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{seq}{A single seqence of class 'DNAbin'}
-  \item{col}{A character vector of length 4 giving colours to represent A, G, C and T respectively}
+  \item{seq}{A single sequence of class `DNAbin'.}
+  \item{col}{A character vector of length 4 giving colours to represent A, G, C and T respectively.}
 }
 
 \details{
@@ -46,7 +46,8 @@ par(mar=c(0.5, 0, 0.5, 0))
 data(woodmouse)
 seeBarcode(woodmouse[1,])
 seeBarcode(woodmouse[1,], col=c("pink", "orange", "steelblue", "yellow"))
-apply(woodmouse[1:4,], MARGIN=1, FUN=seeBarcode)
+seeBarcode(woodmouse[1,], col=c("black", "white", "white", "black"))
+apply(woodmouse[1:3,], MARGIN=1, FUN=seeBarcode)
 }
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the

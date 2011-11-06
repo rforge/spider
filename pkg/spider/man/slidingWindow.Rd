@@ -19,13 +19,14 @@ slidingWindow(DNAbin, width, interval = 1)
   \item{interval}{Numeric or option of \code{"codons"}. This sets interval between windows. Default of 1. Setting the option to "codons" gives an interval of 3.}
 }
 \details{
-Sliding window analyses are often used to determine the variability along sequences. This can be useful for investigating if there is evidence for recombination, developing shorter genetic markers, or for determining variation of genetic diversity within a gene.
-Result is a list of DNA alignments. The list has length of the DNA alignment minus the width.
-The window covered by each alignment can be retreived with \code{attr(x, "window")}
+Sliding window analyses are often used to determine the variability along sequences. This can be useful for investigating whether there is evidence for recombination, developing shorter genetic markers, or for determining variation within a gene. 
+
+Analyses can be conducted on each window using \code{\link{lapply}}.
 
 }
 
-\value{A list of `DNAbin' objects, with each alignment being \code{width} bases in length}
+\value{A list of `DNAbin' objects, with each alignment being \code{width} bases in length. The list has length of the DNA alignment minus the width. The positions covered by each window can be retreived with \code{attr(x, "window")}.
+}
 
 \references{
 %% ~put references to the literature/web site here ~
@@ -41,8 +42,9 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{slideAnalyses}}
-\code{\link{slideBoxplots}}
+\code{\link{lapply}}, 
+\code{\link{slideAnalyses}}, 
+\code{\link{slideBoxplots}}.
 }
 
 \examples{

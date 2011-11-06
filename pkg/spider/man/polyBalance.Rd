@@ -35,8 +35,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{balance}}
-%% ~~objects to See Also as \code{\link{help}}, ~~~
+\code{\link{balance}}.
 }
 
 \examples{

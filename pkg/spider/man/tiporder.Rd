@@ -2,11 +2,11 @@
 \alias{tiporder}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Orders tip labels by their position on the tree
+Orders tip labels by their position on the tree.
 }
 
 \description{
-Orders the labels of a tree by their position on it.
+Provides an ordered vector of tip labels, corresponding to their position on the tree.
 }
 
 \usage{
@@ -20,7 +20,7 @@ tiporder(phy)
 \details{
 }
 \value{
-A character vector giving the names of the tip in the order of their position on the tree. The order is that from top to bottom when the tree is plotted with \code{direction = "rightwards"}
+A character vector giving the names of the tip in the order of their position on the tree. The order is that from top to bottom when the tree is plotted with \code{direction = "rightwards"}.
 }
 \references{
 %% ~put references to the literature/web site here ~

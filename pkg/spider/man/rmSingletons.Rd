@@ -2,10 +2,10 @@
 \alias{rmSingletons}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Identify and remove singletons 
+Detect and remove singletons
 }
 \description{
-A utility to assist in the location of species represented only by singletons.
+A utility to detect and remove of species represented only by singletons.
 }
 \usage{
 rmSingletons(sppVector, exclude = TRUE)
@@ -13,7 +13,7 @@ rmSingletons(sppVector, exclude = TRUE)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{sppVector}{Vector of species names. (see \code{\link{sppVector}}).}
-  \item{exclude}{Logical. Should singletons be removed? Default of TRUE}
+  \item{exclude}{Logical. Should singletons be removed? Default of TRUE.}
 }
 \details{
 When \code{exclude = TRUE} (the default), singletons are excluded and the vector returns the index of all non-singletons in the dataset. When \code{exclude = FALSE}, the indices of the singletons are presented.
@@ -40,7 +40,7 @@ Returns a numeric vector giving the indices of the selected individuals.
 data(anoteropsis)
 anoDist <- dist.dna(anoteropsis)
 anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), 
-	function(x) paste(x[1], x[2], sep="_"))
+    function(x) paste(x[1], x[2], sep="_"))
 
 rmSingletons(anoSpp)
 rmSingletons(anoSpp, exclude=FALSE)

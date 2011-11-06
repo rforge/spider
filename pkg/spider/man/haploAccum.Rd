@@ -4,7 +4,8 @@
 \title{Haplotype accumulation curves}
 
 \description{
-\code{haploAccum} identifies the different haplotypes represented in a set of DNA sequences and creates haplotype accumulation curves.}
+\code{haploAccum} identifies the different haplotypes represented in a set of DNA sequences and performs the calculations for plotting haplotype accumulations curves (see \code{\link{plot.haploAccum}}).
+}
 
 \usage{haploAccum(DNAbin, method = "random", permutations = 100, ...)
 }
@@ -49,8 +50,6 @@ doloHaplo <- dolomedes[sample(37, size = 200, replace = TRUE), ]
 dolocurv <- haploAccum(doloHaplo, method = "random", permutations = 100)
 dolocurv
 plot(dolocurv)
-plot(dolocurv, add = FALSE, ci = 2, ci.type = "bar", col = "black", 
-	ci.col = "red", ci.lty = 1)
 }
 
 \keyword{Sampling}

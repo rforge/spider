@@ -35,7 +35,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{dist.dna}}, \code{\link{density}}
+\code{\link{dist.dna}}, \code{\link{density}}.
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 

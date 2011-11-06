@@ -6,7 +6,8 @@ function (phy, sppVector, DNAbin, thresh = 0.7, reroot = TRUE, pp = NA, singleto
         y))
     if(reroot){
 	testTr <- nj(dist.dna(DNAbin))
-	nodeRoot <- testTr$edge[which(testTr$edge.length == max(testTr$edge.length)), 2]
+	maxInt <- max(testTr$edge.length[testTr$edge[,2] > length(testTr$tip.label)])
+	nodeRoot <- testTr$edge[which(testTr$edge.length == maxInt), 2]
 	boot <- boot.phylo(phy, DNAbin, function(x) root(nj(dist.dna(x)), node = nodeRoot, resolve.root=TRUE), B = reps, block = block)/reps
 	} else boot <- boot.phylo(phy, DNAbin, function(x) nj(dist.dna(x)), B = reps, block = block)/reps
     sppTab <- sapply(xxx, length)

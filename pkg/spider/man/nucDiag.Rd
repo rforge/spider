@@ -24,10 +24,11 @@ The species vector (see \code{\link{sppVector}}).
 
 }
 \value{
-A list giving the pure, private diagnostic nucleotides for each of the species represented in the species vector.
+A list giving the pure, private diagnostic nucleotides (i.e. those nucleotides that are fixed within species and different from all other species) for each species in the species vector. A result of \code{integer(0)} indicates there are no diagnostic nucleotides for those species.
 }
 \references{
-%% ~put references to the literature/web site here ~
+Sarkar, I., Planet, P., & DeSalle, R. (2008). CAOS software for use in character-
+based DNA barcoding. _Molecular Ecology Resources_ *8* 1256-1259
 }
 \author{
 Samuel Brown <s_d_j_brown@hotmail.com>
@@ -47,4 +48,9 @@ anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"),
 	function(x) paste(x[1], x[2], sep="_"))
 
 nucDiag(anoteropsis, anoSpp)
+
+#To view the nucleotide values 
+anoNuc <- nucDiag(anoteropsis, anoSpp)
+as.character(anoteropsis[ ,anoNuc[[1]][1] ])
+
 }

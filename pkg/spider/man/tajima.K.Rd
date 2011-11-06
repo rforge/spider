@@ -16,17 +16,19 @@ tajima.K(DNAbin, prop = TRUE)
 An object of class `DNAbin'.
 }
   \item{prop}{
-Logical. Should the function report the proportion of diversity across the whole sequence? Default of TRUE
+Logical. Should the function report the number of substitutions per nucleotide? Default of TRUE.
 }
 }
 \details{
 %%  ~~ If necessary, more details than the description above ~~
 }
 \value{
-A distance matrix
+A vector of length 1. If \code{prop = FALSE}, the mean number of substitutions between any two sequences is returned. If \code{prop = TRUE} (the default), this number is returned as the mean number of substitutions per nucleotide (i.e. the above divided by the length of the sequences).
 }
 \references{
-%% ~put references to the literature/web site here ~
+Tajima, F. (1983). Evolutionary relationship of DNA sequences in finite
+populations. _Genetics_ *105*, 437-460.
+
 }
 \author{
 Samuel Brown	<s_d_j_brown@hotmail.com>
@@ -38,12 +40,13 @@ Samuel Brown	<s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{dist.dna}}
+\code{\link{dist.dna}}.
 }
 
 \examples{
 data(anoteropsis)
 tajima.K(anoteropsis)
+tajima.K(anoteropsis, prop = FALSE)
 }
 
 \keyword{Utilities}

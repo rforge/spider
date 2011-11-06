@@ -2,14 +2,14 @@
 \alias{read.GB}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Download sequences from Genbank with metadata
+Download sequences from Genbank with metadata.
 }
 \description{
-Downloads sequences associated with the given accession numbers into a `DNAbin' class
+Downloads sequences associated with the given accession numbers into a `DNAbin' class.
 }
 \usage{
 read.GB(access.nb, seq.names = access.nb, species.names = TRUE, gene = TRUE, 
-	access = TRUE, as.character = FALSE)
+    access = TRUE, as.character = FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -36,7 +36,7 @@ Logical. Should the sequences be returned as character vector? Default of FALSE,
 This function is a modification of \code{\link[ape:ape-package]{read.GenBank}} to include metadata with each sequence. Additional data currently implemented are the species names and the gene region from which sequences were derived.
 }
 \value{
-A 'DNAbin' object with the following attributes: \code{"species"}, \code{"gene"}, and \code{"accession_num"}
+A 'DNAbin' object with the following attributes: \code{"species"}, \code{"gene"}, and \code{"accession_num"}.
 }
 \references{
 %% ~put references to the literature/web site here ~
@@ -51,7 +51,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{read.GenBank}}
+\code{\link{read.GenBank}}.
 }
 \examples{
 \dontrun{

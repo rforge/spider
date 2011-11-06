@@ -1,8 +1,7 @@
-
 plot.haploAccum <-
     function(x, add = FALSE, ci = 2, ci.type = c("bar","line","polygon"), 
              col = par("fg"), ci.col = col, ci.lty = 1, xlab,
-             ylab = x$method, ylim, ...)
+             ylab = "Haplotypes", ylim, main = paste(x$method, "method of haplotype accumulation", sep=" "), ...)
 {
     xaxvar <- x[["sequences"]]
     if (missing(xlab)) xlab <- "Sequences"
