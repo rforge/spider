@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.9.6)  7 NOV 2011 17:19
+This is pdfTeX, Version 3.1415926-2.3-1.40.12 (TeX Live 2011) (format=pdflatex 2011.9.6)  9 NOV 2011 09:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -314,9 +314,9 @@ Overfull \hbox (3.34274pt too wide) in paragraph at lines 562--563
  []
 
 
-Overfull \hbox (2.76819pt too wide) in paragraph at lines 574--575
-\OT1/cmr/m/n/10 1%). Like \OT1/cmtt/m/n/10 idBOLD()\OT1/cmr/m/n/10 , the same f
-our iden-ti-fi-ca-tion cat-e-gories are given (\OT1/cmtt/m/n/10 "correct,
+Overfull \hbox (2.2486pt too wide) in paragraph at lines 574--575
+\OT1/cmr/m/n/10 (\OT1/cmtt/m/n/10 "correct, incorrect, ambiguous, no id"\OT1/cm
+r/m/n/10 ), but crit-i-cally, this func-tion only
  []
 
 [15] <sensitivity2.pdf, id=321, 736.7525pt x 589.20125pt>
@@ -326,14 +326,14 @@ File: sensitivity2.pdf Graphic file (type pdf)
 Package pdftex.def Info: sensitivity2.pdf used on input line 611.
 (pdftex.def)             Requested size: 310.4979pt x 323.1986pt.
  [16] [17 <./sensitivity2.pdf>] [18]
-<barcode_gap.pdf, id=346, 433.62pt x 433.62pt>
+<barcode_gap.pdf, id=347, 433.62pt x 433.62pt>
 File: barcode_gap.pdf Graphic file (type pdf)
  <use barcode_gap.pdf>
 Package pdftex.def Info: barcode_gap.pdf used on input line 677.
 (pdftex.def)             Requested size: 241.49895pt x 398.33315pt.
  [19]
 [20 <./barcode_gap.pdf>] [21]
-<rosenbergs.pdf, id=370, 649.42625pt x 649.42625pt>
+<rosenbergs.pdf, id=371, 649.42625pt x 649.42625pt>
 File: rosenbergs.pdf Graphic file (type pdf)
  <use rosenbergs.pdf>
 Package pdftex.def Info: rosenbergs.pdf used on input line 756.
@@ -345,7 +345,7 @@ Overfull \hbox (7.9293pt too wide) in paragraph at lines 840--841
 cross the \OT1/cmtt/m/n/10 anoteropsis
  []
 
-<slidWin.pdf, id=399, 361.35pt x 361.35pt>
+<slidWin.pdf, id=400, 361.35pt x 361.35pt>
 File: slidWin.pdf Graphic file (type pdf)
  <use slidWin.pdf>
 Package pdftex.def Info: slidWin.pdf used on input line 853.
@@ -357,20 +357,20 @@ Overfull \hbox (16.34912pt too wide) in paragraph at lines 853--854
 
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 858.
-[25] [26 <./slidWin.pdf>] [27] <slideAnalyses.pdf, id=424, 722.7pt x 722.7pt>
+[25] [26 <./slidWin.pdf>] [27] <slideAnalyses.pdf, id=425, 722.7pt x 722.7pt>
 File: slideAnalyses.pdf Graphic file (type pdf)
 
 <use slideAnalyses.pdf>
 Package pdftex.def Info: slideAnalyses.pdf used on input line 913.
 (pdftex.def)             Requested size: 345.0pt x 344.99533pt.
  [28 <./slideAnalyses.pdf>] [29]
-<slideBoxplots.pdf, id=441, 1084.05pt x 722.7pt>
+<slideBoxplots.pdf, id=442, 1084.05pt x 722.7pt>
 File: slideBoxplots.pdf Graphic file (type pdf)
  <use slideBoxplots.pdf>
 Package pdftex.def Info: slideBoxplots.pdf used on input line 964.
 (pdftex.def)             Requested size: 310.4979pt x 206.9972pt.
 
-<weevilsBox.pdf, id=444, 1084.05pt x 722.7pt>
+<weevilsBox.pdf, id=445, 1084.05pt x 722.7pt>
 File: weevilsBox.pdf Graphic file (type pdf)
  <use weevilsBox.pdf>
 Package pdftex.def Info: weevilsBox.pdf used on input line 982.
@@ -430,10 +430,10 @@ ive/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texli
 ve/2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive
 /2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/
 2011/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on tutorial.pdf (33 pages, 733032 bytes).
+Output written on tutorial.pdf (33 pages, 733148 bytes).
 PDF statistics:
- 554 PDF objects out of 1000 (max. 8388607)
- 492 compressed objects within 5 object streams
+ 555 PDF objects out of 1000 (max. 8388607)
+ 493 compressed objects within 5 object streams
  107 named destinations out of 1000 (max. 500000)
  369 words of extra memory for PDF output out of 10000 (max. 10000000)
 

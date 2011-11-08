@@ -559,10 +559,10 @@ FALSE  TRUE
 \end{Routput}
 
 \subsubsection{BOLD identification criteria}% we changed this no? should be more options: true, false, ambig, no id ... % I also thought we removed the upper threshold as it is only for actually making an ID
-The function \fun{idBOLD()} mimics the ``\href{http://www.barcodinglife.com/views/idrequest.php}{species identification}'' method used by \progname{Bold}. \fun{idBOLD()} offers a threshold based criterion (default of 1\%), looking at all specimens within the threshold of the query. There are four possible outcomes for each identification query (i.e.\ specimen in the dataset): \fun{"correct"}---all matches within the threshold of the query are the same species; \fun{"incorrect"}---all matches within the threshold are different species to the query; \fun{"ambiguous"}---both correct and incorrect species are within the threshold; \fun{"no id"}---no matches were found to any individual within the threshold . 
+The function \fun{threshID()} mimics the ``\href{http://www.barcodinglife.com/views/idrequest.php}{species identification}'' method used by \progname{Bold}. \fun{threshID()} offers a threshold based criterion (default of 1\%), looking at all specimens within the threshold of the query. There are four possible outcomes for each identification query (i.e.\ specimen in the dataset): \fun{"correct"}---all matches within the threshold of the query are the same species; \fun{"incorrect"}---all matches within the threshold are different species to the query; \fun{"ambiguous"}---both correct and incorrect species are within the threshold; \fun{"no id"}---no matches were found to any individual within the threshold . 
 
 \begin{console}
-table(idBOLD(anoDist, anoSpp))
+table(threshID(anoDist, anoSpp))
 \end{console}
 
 \begin{Routput}
@@ -571,12 +571,12 @@ table(idBOLD(anoDist, anoSpp))
 \end{Routput}
 
 \subsubsection{Meier's best match}
-Meier's best close match \citep{Meier.2006} is another distance-based analysis, similar to \fun{nearNeighbour()}, but it incorporates a threshold (default value of 1\%). Like \fun{idBOLD()}, the same four identification categories are given (\fun{"correct, incorrect, ambiguous, no id"}), but critically, this function only operates upon the single nearest-neighbour match, rather than all matches within the threshold (as with \fun{idBOLD()}). The ambiguous result would apply when there are more than one equally close match of different species. 
+Meier's best close match \citep{Meier.2006} is another distance-based analysis, similar to \fun{nearNeighbour()}, but it incorporates a threshold (default value of 1\%). Like \fun{threshID()}, the same four identification categories are given (\fun{"correct, incorrect, ambiguous, no id"}), but critically, this function only operates upon the single nearest-neighbour match, rather than all matches within the threshold (as with \fun{threshID()}). The ambiguous result would apply when there are more than one equally close match of different species. 
 
 %if there are no matches within this threshold, a result of \fun{"no id"} is given. If the nearest match is the same as the test individual, the result is \fun{"correct"}, if the nearest match is different, it is \fun{"incorrect"}. This test also gives us an extra degree of uncertainty, with a result of \fun{"ambiguous"} if there is more than one species closest to the test individual.
 
 \begin{console}
-table(meiersBestMatch(anoDist, anoSpp))
+table(bestCloseMatch(anoDist, anoSpp))
 \end{console}
 
 \begin{Routput}
@@ -586,10 +586,10 @@ table(meiersBestMatch(anoDist, anoSpp))
 
 
 \subsubsection{Threshold optimisation} %% do we need to add the "localMinima" function? comes out with same result?
-While the 1\% threshold used by \progname{Bold} is often a good rule of thumb, it may not always be appropriate to every dataset, and identification success can often be increased if a better threshold given the data can be found  \citep{Meye.Paul.2005}.  The function \fun{idError()} provides the basis for this analysis. The function returns the number of positive identifications, the number of false negatives and the number of false positives at a given threshold. 
+While the 1\% threshold used by \progname{Bold} is often a good rule of thumb, it may not always be appropriate to every dataset, and identification success can often be increased if a better threshold given the data can be found  \citep{Meye.Paul.2005}.  The function \fun{threshOpt()} provides the basis for this analysis. The function returns the number of positive identifications, the number of false negatives and the number of false positives at a given threshold. 
 
 \begin{console}
-idError(doloDist, doloSpp, thresh = 0.01)
+threshOpt(doloDist, doloSpp, thresh = 0.01)
 \end{console}
 
 \begin{Routput}
@@ -597,11 +597,11 @@ idError(doloDist, doloSpp, thresh = 0.01)
 [1,]   0.01  28         9         0
 \end{Routput}
 
-The threshold has a default of 0.01 (= 1\%), but can be changed as the user pleases. If the threshold is changed systematically, the optimum threshold value can be determined by minimising the false positive (no conspecific matches within threshold of query) and false negative identifications (non-conspecific species within threshold distance of query). The following code shows how to create a range of threshold values (here 0.1\% to 2\%), how to test these values, and how to plot the result (Figure \ref{sensitivity.fig}). If the data contain singleton species (i.e.\ one individual per species), it is important when running this optimisation analysis to remove these, as with \fun{idError()} a singleton will be a true negative, rather than a false positive identification; see \fun{rmSingletons()} for more details.
+The threshold has a default of 0.01 (= 1\%), but can be changed as the user pleases. If the threshold is changed systematically, the optimum threshold value can be determined by minimising the false positive (no conspecific matches within threshold of query) and false negative identifications (non-conspecific species within threshold distance of query). The following code shows how to create a range of threshold values (here 0.1\% to 2\%), how to test these values, and how to plot the result (Figure \ref{sensitivity.fig}). If the data contain singleton species (i.e.\ one individual per species), it is important when running this optimisation analysis to remove these, as with \fun{threshOpt()} a singleton will be a true negative, rather than a false positive identification; see \fun{rmSingletons()} for more details.
 
 \begin{console}
 threshVal <- seq(0.001,0.02, by = 0.001)
-sens <- lapply(threshVal, function(x) idError(doloDist, doloSpp, thresh = x))
+sens <- lapply(threshVal, function(x) threshOpt(doloDist, doloSpp, thresh = x))
 sensMat <- do.call(rbind, sens)
 barplot(t(sensMat)[3:4,], names.arg=paste((sensMat[,1]*100), "%"))
 \end{console}
@@ -629,9 +629,9 @@ From the figure we can see that the optimum threshold for the \fun{dolomedes} da
 [10,]  0.010  28         9         0
 \end{Routput}
 
-An experimental new function for optimising threshold values is \fun{localMinima()}. This method creates a density object from the distance matrix, and then infers where a dip in the density of genetic distances indicates the transition between intra- and inter-specific distances. A key advantage of this method, is that unlike \fun{idError()}, this method does not require prior knowledge of species identity to get an indication of potential threshold values.
+An experimental new function for optimising threshold values is \fun{localMinima()}. This method creates a density object from the distance matrix, and then infers where a dip in the density of genetic distances indicates the transition between intra- and inter-specific distances. A key advantage of this method, is that unlike \fun{threshOpt()}, this method does not require prior knowledge of species identity to get an indication of potential threshold values.
 
-Here \fun{localMinima()} suggests a threshold of 0.7\%, which is entirely consistent with the results above using \fun{idError()}. We would like to note, however, that \fun{localMinima()} has not yet been fully tested, but has so far yielded reliable results. We recommend further exploration of the method.
+Here \fun{localMinima()} suggests a threshold of 0.7\%, which is entirely consistent with the results above using \fun{threshOpt()}. We would like to note, however, that \fun{localMinima()} has not yet been fully tested, but has so far yielded reliable results. We recommend further exploration of the method.
 
 \begin{console}
 doloThresh <- localMinima(doloDist)
@@ -776,13 +776,13 @@ length(unique(anoSpp))
 \end{Routput}
 
 
-We can see that 15 of the 22 species in the dataset are singletons. Next, we can exclude these singletons and only look at species with multiple individuals. To illustrate, we will repeat the analysis of \fun{meiersBestMatch()} with both singletons included and excluded. It is important to note that the singletons are not actually removed from the analysis, they are just excluded from the results; this means the singleton individuals are still available as potential mis-matches for other species.
+We can see that 15 of the 22 species in the dataset are singletons. Next, we can exclude these singletons and only look at species with multiple individuals. To illustrate, we will repeat the analysis of \fun{bestCloseMatch()} with both singletons included and excluded. It is important to note that the singletons are not actually removed from the analysis, they are just excluded from the results; this means the singleton individuals are still available as potential mis-matches for other species.
 
 \begin{console}
 excl <- rmSingletons(anoSpp, exclude = TRUE)
-mbm <- meiersBestMatch(anoDist, anoSpp)
+mbm <- bestCloseMatch(anoDist, anoSpp)
 table(mbm[excl], useNA = "ifany")
-table(meiersBestMatch(anoDist, anoSpp))
+table(bestCloseMatch(anoDist, anoSpp))
 \end{console}
 
 \begin{Routput}
