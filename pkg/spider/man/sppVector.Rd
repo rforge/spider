@@ -33,7 +33,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 
 \seealso{
 Functions for creating species vectors:
-\code{\link[base:strsplit]{strsplit}}, \code{\link[base:substr]{substr}}, \code{\link[base:sapply]{sapply}}.
+\code{\link{strsplit}}, \code{\link{substr}}, \code{\link{sapply}}.
 
 Functions that use species vectors:
 \code{\link{nearNeighbour}}, \code{\link{monophyly}}, \code{\link{nonConDist}}, \code{\link{nucDiag}}, \code{\link{rmSingletons}}, \code{\link{slideAnalyses}}, \code{\link{slideBoxplots}}, \code{\link{sppDist}}, \code{\link{sppDistMatrix}}, \code{\link{threshOpt}}.

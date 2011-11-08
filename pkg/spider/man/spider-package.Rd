@@ -52,8 +52,8 @@ Brown S. D. J., Collins R. A., Boyer S., Lefort M.-C., Malumbres-Olarte J., Vink
 \keyword{ package }
 \seealso{
 
-\code{\link[ape:ape-package]{ape}}, 
-\code{\link[pegas:pegas-package]{pegas}}.
+\code{\link{ape-package}}, 
+\code{\link{pegas-package}}.
 }
 \examples{
 }
