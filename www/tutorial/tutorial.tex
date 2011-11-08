@@ -28,7 +28,7 @@ urlcolor=royalblue,
 %   New commands and environments
 %################################
 
-\newcommand{\spider}{\textsc{Spider}~} %With space at end
+\newcommand{\spider}{\textsc{spider}} %With space at end
 \newcommand{\Spider}{\textsc{Spider}} %Without space at end. Note the capital letter!
 \newcommand{\scinm}{\emph}
 \newcommand{\progname}[1]{\textsc{#1}}
@@ -81,16 +81,16 @@ urlcolor=royalblue,
 \section{Introduction}
 \Spider: Species Identity and Evolution in R, is an \progname{R} package implementing a number of the most useful analyses for DNA barcoding studies and other research into species delimitation and speciation. It has been developed primarily by staff and students in the Department of Ecology at Lincoln University, and was first released in 2011. The package seeks to provide a number of analyses that the developers have found useful in their own research and hadn't been implemented in other \progname{R} packages. 
 
-This document is a tutorial on the use of some of the functions implemented in \Spider, and offers a guide to the interpretation of its output. It is intended to be useful for the beginner, so users who are familiar with \progname{R} and \progname{Ape} are encouraged to skip the first few sections. This tutorial does not discuss in detail the basic \progname{R} syntax and data structures (with a few exceptions), and the reader is referred to other manuals\footnote{The freely available \href{http://cran.r-project.org/doc/manuals/R-intro.pdf}{An Introduction to R}, \href{http://cran.r-project.org/doc/contrib/usingR.pdf}{Using R for data analysis and graphics} and \href{http://cran.r-project.org/doc/contrib/Paradis-rdebuts_en.pdf}{R for beginners} are particularly recommended} for this information.
+This document is a tutorial on the use of some of the functions implemented in \spider, and offers a guide to the interpretation of its output. It is intended to be useful for the beginner, so users who are familiar with \progname{R} and \progname{Ape} are encouraged to skip the first few sections. This tutorial does not discuss the basic \progname{R} syntax and data structures in detail (with a few exceptions), and the reader is referred to other manuals\footnote{The freely available \href{http://cran.r-project.org/doc/manuals/R-intro.pdf}{An Introduction to R}, \href{http://cran.r-project.org/doc/contrib/usingR.pdf}{Using R for data analysis and graphics} and \href{http://cran.r-project.org/doc/contrib/Paradis-rdebuts_en.pdf}{R for beginners} are particularly recommended} for this information.
 
 \subsection{Conventions}
 
 \subsubsection{Species}
 \label{speciesDef}
-The term ``species'' will be used a lot in this document. The creators of the package are biologists, mostly working with DNA sequences in ecology, taxonomy and systematics, and so this term is naturally the one we feel most comfortable using. However, in the context of \progname{Spider} it is important to remember that ``species'' are just an identifying tag for our group of interest, and is not necessarily limited to biological species---it can	refer to any population, group, lineage or cluster of interest. 
+The term ``species'' will be used a lot in this document. The creators of the package are biologists, mostly working with DNA sequences in ecology, taxonomy and systematics, and so this term is naturally the one we feel most comfortable using. However, in the context of \spider~it is important to remember that ``species'' are just an identifying tag for our group of interest, and is not necessarily limited to biological species---it can refer to any population, group, lineage or cluster of interest. 
 
 \subsubsection{R commands}
-Commands to be typed into the \progname{R} console are typeset in \texttt{\textcolor{blue}{blue typewriter}} font, while  \progname{R}'s output is typeset in \texttt{\textcolor{red}{red typewriter}} font. Functions mentioned in the text are typeset in \texttt{black typewriter} font.
+Commands to be typed into the \progname{R} console are typeset in \texttt{\textcolor{blue}{blue typewriter}} font, while  \progname{R}'s output is typeset in \texttt{\textcolor{red}{red typewriter}} font. Functions, objects and classes mentioned in the text are typeset in \texttt{black typewriter} font.
 
 \subsubsection{Vectors}
 Character vectors will be discussed a lot, particularly in ``Species vectors'' (Section \ref{species.vectors}), so I will briefly discuss them here. Vectors form the basic \progname{R} data structure, created in the following way:
@@ -105,21 +105,21 @@ Character vectors will be discussed a lot, particularly in ``Species vectors'' (
 There are many different modes of vectors, however here we will only deal with two of them: numeric and character. The first example above is a numeric vector---funnily enough, it's made up of numbers. The second is a character vector. Numbers and letters can be mixed, but the result will be a character vector. The parts of a vector will be called ``elements'' here, such that the first element of \fun{x} is 1, while that of \fun{y} is ``A''. The 2nd is 4 and ``B'' respectively, and the 4th is 7 and ``F''.
 
 \subsubsection{Lists}
-\spider uses lists a lot. Lists are very useful in that they are able to store in one big object, lots of other little objects bits of different classes, modes and lengths. In addition, the \fun{lapply()} function makes it easy to do the same thing to each element within a list. To demonstrate the utility of lists:
+\Spider~uses lists a lot. Lists are very useful in that they are able to store in one big object, lots of other little objects bits of different classes, modes and lengths. In addition, the \fun{lapply()} function makes it easy to do the same thing to each element within a list. To demonstrate the structure of lists:
 
 \begin{console}
-testList <- list(a=1:5, b=LETTERS[1:10], c=matrix(1:4, 2))
+testList <- list(aa = 1:5, bb = LETTERS[1:10], cc = matrix(1:4, 2))
 testList
 \end{console}
 
 \begin{Routput}
-$a
+$aa
 [1] 1 2 3 4 5
 
-$b
+$bb
  [1] "A" "B" "C" "D" "E" "F" "G" "H" "I" "J"
 
-$c
+$cc
      [,1] [,2]
 [1,]    1    3
 [2,]    2    4
@@ -128,13 +128,13 @@ $c
 \fun{testList} contains three quite different objects, all happily coexisting. These objects can be indexed in number of ways:
 
 \begin{Rio}
-testList$a
+testList$aa
 [1] 1 2 3 4 5
 testList[[1]]
 [1] 1 2 3 4 5
 testList[[2]][3:5]
 [1] "C" "D" "E"
-testList$c[2,]
+testList$cc[2,]
 [1] 2 4
 \end{Rio}
 
@@ -151,7 +151,7 @@ testList$c[2,]
 
 \progname{R} help pages have a justified reputation for being dense and overwhelming at first glance, but keep trying because most of the time (particularly for the base packages) the answer is in there. It's jolly difficult writing help pages, and our attempts at it renew our appreciation for what others have produced.
 
-If any of \Spider's help pages fail to live up to standards, please send us an email, preferably with suggestions, and we'll update it accordingly.
+If any of \spider's help pages fail to live up to standards, please send us an email, preferably with suggestions, and we'll update it accordingly.
 
 
 %####################################
@@ -159,7 +159,7 @@ If any of \Spider's help pages fail to live up to standards, please send us an e
 %####################################
 
 \section{Obtaining \spider}
-\spider is a package of the statistical programming environment \progname{R}, which is available for all computing platforms from the Comprehensive R Archive Network (CRAN, \href{http://cran.r-project.org}{http://cran.r-project.org}). A stable version of \spider is also available on CRAN, and can be downloaded from within R while connected to the internet by entering the following command at the prompt:
+\Spider~is a package of the statistical programming environment \progname{R}, which is available for all computing platforms from the Comprehensive R Archive Network (CRAN, \href{http://cran.r-project.org}{http://cran.r-project.org}). A stable version of \spider~is also available on CRAN, and can be downloaded from within R while connected to the internet by entering the following command at the prompt:
 
 \begin{console}
 install.packages("spider")
@@ -171,7 +171,7 @@ In addition to the stable version on CRAN, a development version is available at
 install.packages("spider", repos="http://R-Forge.R-project.org")
 \end{console}
 
-\spider requires the installation of the packages \progname{Ape} \citep{SW.Para.2004.ape} and \progname{Pegas} \citep{SW.Para.2010.pegas} which provide the primary data structures for working with DNA sequences and phylogenetic trees. If these packages are not already on your system, they will automatically be installed when the commands above have been run.
+\Spider~requires the installation of the packages \progname{Ape} \citep{SW.Para.2004.ape} and \progname{Pegas} \citep{SW.Para.2010.pegas} which provide the primary data structures for working with DNA sequences and phylogenetic trees. If these packages are not already on your system, they will automatically be installed when the commands above have been run.
 
 
 %####################################
@@ -181,17 +181,17 @@ install.packages("spider", repos="http://R-Forge.R-project.org")
 \section{Loading data}
 
 \subsection{Loading spider}
-Once you have installed \Spider, load the package using the following command: 
+Once you have installed \spider, load the package using the following command: 
 
 \begin{console}
 library(spider)
 \end{console}
 
-As well as \Spider, this command will load the packages \progname{Ape}, \progname{Pegas} and the required packages for \progname{Pegas}, \progname{Adegenet} \citep{Jomb.2008} and \progname{Mass} \citep{Vena.Ripl.2002}.
+As well as \spider, this command will load the packages \progname{Ape}, \progname{Pegas} and the required packages for \progname{Pegas}, \progname{Adegenet} \citep{Jomb.2008} and \progname{Mass} \citep{Vena.Ripl.2002}.
 
 
 \subsection{Bundled datasets}
-Once the packages are loaded, you are ready to go! It's now time to get some data to play with. Included in \spider are two datasets including sequences from (appropriately enough) two New Zealand spider genera, the wolf spider genus \scinm{Anoteropsis} and the nurseryweb spider genus \scinm{Dolomedes}. These datasets have been published as \citet{Vink.Pate.2003} and \citet{Vink.Dupe.2010}. To load up these datasets, simply type: 
+Once the packages are loaded, you are ready to go! It's now time to get some data to play with. Included in \spider~are two datasets including sequences from (appropriately enough) two New Zealand spider genera, the wolf spider genus \scinm{Anoteropsis} and the nurseryweb spider genus \scinm{Dolomedes}. These datasets have been published as \citet{Vink.Pate.2003} and \citet{Vink.Dupe.2010}. To load up these datasets, simply type: 
 
 \begin{console}
 data(anoteropsis)
@@ -244,7 +244,7 @@ class(dolomedes)
 This tells us a whole bunch of stuff. Starting from the top, the first line tells us how many sequences are in the alignment, and if these sequences are stored as a list or as a matrix. This latter piece of information is handy to know if we want to manipulate them further down the track. The next line tells us the length of the sequences, including the minimum, maximum and average if the sequences are of different lengths. The third line shows the names of the first few sequences to give us an idea of the naming scheme, and finally the base composition of the alignment is given.
 
 \subsection{Loading your own}
-While the above datasets give us something to work on for the rest of the tutorial, what is a lot more interesting is working on your own datasets. To load your own datasets into \Spider, use the function \fun{read.dna()} supplied by \progname{Ape}. This function can read DNA sequence files encoded in the \href{http://cmgm.stanford.edu/phylip/formats.html#6}{\progname{Phylip}} sequential or interleaved formats, \progname{Clustal}, or (my preferred option) \progname{Fasta} format. To load sequences stored in a \progname{Fasta} formatted file called ``mySequences.fas'' in the ``R'' folder in your ``My Documents'', use the following commands:
+While the above datasets give us something to work on for the rest of the tutorial, what is a lot more interesting is working on your own datasets. To load your own datasets into \spider, use the function \fun{read.dna()} supplied by \progname{Ape}. This function can read DNA sequence files encoded in the \href{http://cmgm.stanford.edu/phylip/formats.html#6}{\progname{Phylip}} sequential or interleaved formats, \progname{Clustal}, or (my preferred option) \progname{Fasta} format. To load sequences stored in a \progname{Fasta} formatted file called ``mySequences.fas'' in the ``R'' folder in your ``My Documents'', use the following commands:
 
 \begin{console}
 setwd("C:\\My Documents\\R")
@@ -261,7 +261,7 @@ If the alignment contains sequences of different lengths, \fun{read.dna()} store
 \subsection{Getting sequences from GenBank}
 \href{http://www.ncbi.nlm.nih.gov/nuccore}{GenBank} is the premier global depository for DNA sequences from all organisms. It is a huge and exciting place to visit and is an extremely valuable resource for doing all sorts of research that involves DNA. 
 
-\progname{Ape} provides a function \fun{read.GenBank()} which allows sequences to be downloaded from the system directly into a \fun{DNAbin} object. The original version did not include information such as species names or gene regions, so a modified version is included in \Spider, \fun{read.GB()}. This function works on a character vector of GenBank accession numbers, and retrieves the records that correspond to those numbers. As an example, the following code downloads 63 sequences of antarctic springtails \citep{Green.etal.2011}.
+\progname{Ape} provides a function \fun{read.GenBank()} which allows sequences to be downloaded from the system directly into a \fun{DNAbin} object. The original version did not include information such as species names or gene regions, so a modified version is included in \spider, \fun{read.GB()}. This function works on a character vector of GenBank accession numbers, and retrieves the records that correspond to those numbers. As an example, the following code downloads 63 sequences of antarctic springtails \citep{Green.etal.2011}.
 
 \begin{console}
 seq <- 732028:732089
@@ -269,7 +269,7 @@ seq <- paste("HQ", seq, sep="")
 collembola <- read.GB(seq)
 \end{console}
 
-GenBank considers the DNA sequences it stores as individuals, so the data downloaded from it are not necessarily aligned. To check properly, it is necessary to export the sequences to an external alignment editor such as \href{http://www.megasoftware.net}{\progname{Mega}} \citep{SW.Tamu.etal.2011.MEGA}, \href{http://www.mekentosj.com/science/4peaks}{\progname{4Peaks}} or \href{http://pbil.univ-lyon1.fr/software/seaview.html}{\progname{Seaview}} \citep{SW.Guoy.etal.2010.SeaView}. However,  \spider provides a few tools for us to do a rough-and-ready job within \progname{R} itself. First of all, we'll see how long the sequences are:
+GenBank considers the DNA sequences it stores as individuals, so the data downloaded from it are not necessarily aligned. To check properly, it is necessary to export the sequences to an external alignment editor such as \href{http://www.megasoftware.net}{\progname{Mega}} \citep{SW.Tamu.etal.2011.MEGA}, \href{http://www.mekentosj.com/science/4peaks}{\progname{4Peaks}} or \href{http://pbil.univ-lyon1.fr/software/seaview.html}{\progname{Seaview}} \citep{SW.Guoy.etal.2010.SeaView}. However,  \spider~provides a few tools for us to do a rough-and-ready job within \progname{R} itself. First of all, we'll see how long the sequences are:
 
 \begin{console}
 collLength <- sapply(collembola, length)
@@ -308,7 +308,7 @@ This code plots the sequences for 5 randomly sampled \fun{collembola} and one \f
 
 \subsection{Getting sequences from BOLD}
 \label{BOLD.section}
-The \href{http://www.barcodinglife.com}{Barcode of Life Data System (\progname{Bold})} is the data storage portal for a global endeavour to catalogue the living world, using short (around 650 bp) DNA sequences from standard gene regions \citep{Ratnasingham2007}. The bulk of this data comes from the mitochondrial gene region cytochrome \emph{c} oxidase I (COI). There are a lot of sequences in the database, but unfortunately only a small portion of them are currently made public. \spider contains functions for searching and downloading sequences from \progname{Bold}. We will download some sequences of \scinm{Trigonopterus} weevils from northern New Guinea rainforest that show high levels of diversity \citep{Ried.etal.2010,Ried.2010}
+The \href{http://www.barcodinglife.com}{Barcode of Life Data System (\progname{Bold})} is the data storage portal for a global endeavour to catalogue the living world, using short (around 650 bp) DNA sequences from standard gene regions \citep{Ratnasingham2007}. The bulk of this data comes from the mitochondrial gene region cytochrome \emph{c} oxidase I (COI). There are a lot of sequences in the database, but unfortunately only a small portion of them are currently made public. \Spider~contains functions for searching and downloading sequences from \progname{Bold}. We will download some sequences of \scinm{Trigonopterus} weevils from northern New Guinea rainforest that show high levels of diversity \citep{Ried.etal.2010,Ried.2010}
 
 \begin{console}
 nums <- search.BOLD("Trigonopterus")
@@ -340,7 +340,7 @@ We now have an alignment that is only 670 bp long. Less than half of the origina
 \label{species.vectors}
 
 \subsection{What they're all about}
-Species vectors are the method used by \spider to distinguish between the species in the dataset. They are simply a character vector that is the same length as the number of individuals in the dataset. The elements in the species vector correspond to the individuals in the dataset, so order is very important. The elements must also be \emph{consistent within} each species, and \emph{unique between} them. In the terminology for this document, ``species vector'' refers to the whole object, while ``species index'' refers to individual elements within it. I will reiterate here, that the term ``species'' can refer to any grouping structure that you care to use. See Section \ref{speciesDef} for more details on how ``species'' is used in this document.
+Species vectors are the method used by \spider~to distinguish between the species in the dataset. They are simply a character vector that is the same length as the number of individuals in the dataset. The elements in the species vector correspond to the individuals in the dataset, so order is very important. The elements must also be \emph{consistent within} each species, and \emph{unique between} them. In the terminology for this document, ``species vector'' refers to the whole object, while ``species index'' refers to individual elements within it. I will reiterate here, that the term ``species'' can refer to any grouping structure that you care to use. See Section \ref{speciesDef} for more details on how ``species'' is used in this document.
 
 Examples of species vectors and different methods of creating them are discussed below. 
 
@@ -501,13 +501,13 @@ The above examples have made extensive use of a few of the \progname{R}'s key fu
 
 
 \section{DNA barcoding}
-\progname{Spider} and R provide an ideal platform for manipulating and analysing DNA barcode data. DNA barcoding is a method of identifying of organisms using standard gene regions---particularly COI\footnote{the mitochondrial gene cytochrome \emph{c} oxidase I}---by comparing new sequences to a database of barcodes from identified and vouchered specimens. The method was first proposed by \citet{Her.etal.2003.barcoding} and has since become a global endeavour, with ongoing efforts to gather sequences and further develop the \progname{Bold} database (section \ref{BOLD.section}). Research into the utility of DNA barcoding for identification centres on determining the amount of sequence variation within and between species, and whether accurate determinations can be made. 
+\Spider~and R provide an ideal platform for manipulating and analysing DNA barcode data. DNA barcoding is a method of identifying of organisms using standard gene regions---particularly COI\footnote{the mitochondrial gene cytochrome \emph{c} oxidase I}---by comparing new sequences to a database of barcodes from identified and vouchered specimens. The method was first proposed by \citet{Her.etal.2003.barcoding} and has since become a global endeavour, with ongoing efforts to gather sequences and further develop the \progname{Bold} database (section \ref{BOLD.section}). Research into the utility of DNA barcoding for identification centres on determining the amount of sequence variation within and between species, and whether accurate determinations can be made. 
 
 Calculating how effectively the DNA barcodes are able to discriminate species is usually one of the key outputs of a DNA barcoding study. In theory, the best way to do this would be to create a barcode reference library, and then independently collect additional data to test it. However, more often reference libraries are created and tested using the same data in a simulated identification scenario. The assumption is that if more data were collected, they would have a similar success rate. Testing the data involves treating each individual as an unknown query in turn, using the fact that we already know the identity of the individual from its species vector. 
 
 
 \subsection{Summary statistics}
-\spider provides two functions for determining summary statistics from your data. The first---\fun{dataStat()}---calculates the number of species and genera in the dataset, as well as the number of individuals sampled in each species. Normally the genus vector (\fun{doloGen}) would be constructed in the same way as the species vectors (section \ref{species.vectors}), but here we already know there is only one genus so don't need to extract it from the taxon names.
+\Spider~provides two functions for determining summary statistics from your data. The first---\fun{dataStat()}---calculates the number of species and genera in the dataset, as well as the number of individuals sampled in each species. Normally the genus vector (\fun{doloGen}) would be constructed in the same way as the species vectors (section \ref{species.vectors}), but here we already know there is only one genus so don't need to extract it from the taxon names.
 
 The second function---\fun{seqStat()}---determines sequence number and length, and reports the amount of missing data inferred from the commonly used symbols (``-, N, ?''). Except for ``N'', This function does not report ambiguous bases (e.g.\ ``R, Y, S, M'' etc)  as missing data, although they are treated as such by most other programs as well as \progname{Ape} functions such as \fun{dist.dna()}; here, we refer the user to \fun{is.ambig()}
 
@@ -646,7 +646,7 @@ plot(doloThresh)
 
 \subsubsection{The barcoding gap}
 
-The ``barcoding gap'' \citep{Meye.Paul.2005} is an important concept in DNA barcoding. It is the assumption that the amount of genetic variation within species is smaller than the amount of variation between species. This allows the two to be distinguished. As pointed out by \citet{Meier2008}, the barcode gap should be calculated using the smallest, rather than the mean interspecific distances. \spider generates two statistics for each individual in the dataset, the furthest intraspecific distance among its own species---\fun{maxInDist()} and the closest, non-conspecific (i.e., interspecific distance)---\fun{nonConDist()}. Note that the distances are converted to percentages (multiply by 100).
+The ``barcoding gap'' \citep{Meye.Paul.2005} is an important concept in DNA barcoding. It is the assumption that the amount of genetic variation within species is smaller than the amount of variation between species. This allows the two to be distinguished. As pointed out by \citet{Meier2008}, the barcode gap should be calculated using the smallest, rather than the mean interspecific distances. \Spider~generates two statistics for each individual in the dataset, the furthest intraspecific distance among its own species---\fun{maxInDist()} and the closest, non-conspecific (i.e., interspecific distance)---\fun{nonConDist()}. Note that the distances are converted to percentages (multiply by 100).
 
 \begin{console}
 inter <- nonConDist(anoDist, anoSpp) *100
@@ -762,7 +762,7 @@ nodelabels(pch=21, bg=anoLabs, node=as.numeric(names(anoLabs)), cex=2)
 
 As mentioned already, singletons (a species represented by only one individual) can be a problem for barcoding analyses \citep{Lim2011}. When treating each individual as an identification query, a singleton will not have a match available in the dataset, so will either result in an ``incorrect'' or ``no identification''---not a good result. Until databases have complete taxon coverage, singletons are likely to occur, and a real unknown specimen has a chance of not having a conspecific represented in the reference library. If your data contain a number of singleton species, it is worth additionally analysing it with the singletons removed. This will give a better identification success rate, and may be more representative of how the data may behave once fully sampled.
 
-\spider can effectively deal with the singleton issue, using the \fun{rmSingletons()} function. First, we can find out how many singletons are in the data. The \fun{exclude = FALSE} option reports these singletons, and this can be compared to the number of species in the dataset.
+\Spider~can effectively deal with the singleton issue, using the \fun{rmSingletons()} function. First, we can find out how many singletons are in the data. The \fun{exclude = FALSE} option reports these singletons, and this can be compared to the number of species in the dataset.
 
 \begin{console}
 length(rmSingletons(anoSpp, exclude = FALSE))
@@ -805,7 +805,7 @@ We see here a huge improvement in identification success with singletons omitted
 \subsection{The basic idea}
 The principle of sliding window analysis is fairly simple---a DNA alignment is divided up into multiple smaller fragments throughout the length of the region in question. Measures of diversity \citep{Roe.Sper.2007} or questions of phylogenetic character conflict \citep{Crui.2011} can then be explored.
 
-The \spider function \fun{slidingWindow()} provides the base for conducting sliding window analyses. 
+The \spider~function \fun{slidingWindow()} provides the base for conducting sliding window analyses. 
 
 \begin{console}
 anoWin <- slidingWindow(anoteropsis, width=50, interval=1)
@@ -989,9 +989,9 @@ plot(weevilsBox)
 %####################################
 
 \section{Conclusion}
-This tutorial gives an introduction the the usage of some of the functions implemented in \Spider, particularly with regards to its sliding window capabilities and use in DNA barcoding research. 
-\spider is an actively developing package, and it is intended that further analyses will be developed within it, with an especial focus on the analysis of conflict in phylogenetic data, checks of alignment quality, tools for studying ancient DNA and further analyses for morphological and categorical data.
-As the package matures, it is hoped that \spider will be a valuable addition to toolkit of \progname{R} packages available for use in the field of taxonomy, systematics and molecular biology. For more information, or to get involved in the development of the package, please visit our site on R-Forge, \href{http://spider.r-forge.r-project.org/}{http://spider.r-forge.r-project.org/}.
+This tutorial gives an introduction the the usage of some of the functions implemented in \spider, particularly with regards to its sliding window capabilities and use in DNA barcoding research. 
+\Spider~is an actively developing package, and it is intended that further analyses will be developed within it, with an especial focus on the analysis of conflict in phylogenetic data, checks of alignment quality, tools for studying ancient DNA and further analyses for morphological and categorical data.
+As the package matures, it is hoped that \spider~will be a valuable addition to toolkit of \progname{R} packages available for use in the field of taxonomy, systematics and molecular biology. For more information, or to get involved in the development of the package, please visit our site on R-Forge, \href{http://spider.r-forge.r-project.org/}{http://spider.r-forge.r-project.org/}.
 
 
 
