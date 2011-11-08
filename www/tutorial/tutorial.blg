@@ -1,63 +1,46 @@
-This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2011)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: tutorial.aux
 The style file: apa-good.bst.bst
 Database file #1: tutorial_references.bib
-Warning--I didn't find a database entry for "SW.Para.2004.ape"
-Warning--I didn't find a database entry for "SW.Para.2010.pegas"
-Warning--I didn't find a database entry for "Jomb.2008"
-Warning--I didn't find a database entry for "Vena.Ripl.2002"
-Warning--I didn't find a database entry for "Vink.Pate.2003"
-Warning--I didn't find a database entry for "Vink.Dupe.2010"
-Warning--I didn't find a database entry for "Green.etal.2011"
-Warning--I didn't find a database entry for "SW.Tamu.etal.2011.MEGA"
-Warning--I didn't find a database entry for "SW.Guoy.etal.2010.SeaView"
-Warning--I didn't find a database entry for "Ried.etal.2010"
-Warning--I didn't find a database entry for "Ried.2010"
-Warning--I didn't find a database entry for "Her.etal.2003.barcoding"
-Warning--I didn't find a database entry for "Meier.2006"
-Warning--I didn't find a database entry for "Meye.Paul.2005"
-Warning--I didn't find a database entry for "Roe.Sper.2007"
-Warning--I didn't find a database entry for "Crui.2011"
-Warning--I didn't find a database entry for "Meus.etal.2008"
-You've used 3 entries,
+You've used 21 entries,
             2804 wiz_defined-function locations,
-            643 strings with 5905 characters,
-and the built_in function-call counts, 1657 in all, are:
-= -- 135
-> -- 56
-< -- 2
-+ -- 21
-- -- 18
-* -- 129
-:= -- 262
-add.period$ -- 9
-call.type$ -- 3
-change.case$ -- 21
-chr.to.int$ -- 3
-cite$ -- 3
-duplicate$ -- 123
-empty$ -- 126
-format.name$ -- 27
-if$ -- 313
+            741 strings with 8983 characters,
+and the built_in function-call counts, 12537 in all, are:
+= -- 1024
+> -- 506
+< -- 11
++ -- 193
+- -- 168
+* -- 1007
+:= -- 1946
+add.period$ -- 64
+call.type$ -- 21
+change.case$ -- 162
+chr.to.int$ -- 21
+cite$ -- 21
+duplicate$ -- 908
+empty$ -- 924
+format.name$ -- 233
+if$ -- 2399
 int.to.chr$ -- 1
 int.to.str$ -- 1
-missing$ -- 25
-newline$ -- 25
-num.names$ -- 12
-pop$ -- 46
+missing$ -- 201
+newline$ -- 119
+num.names$ -- 84
+pop$ -- 349
 preamble$ -- 1
-purify$ -- 18
+purify$ -- 140
 quote$ -- 0
-skip$ -- 42
+skip$ -- 299
 stack$ -- 0
-substring$ -- 83
-swap$ -- 65
+substring$ -- 660
+swap$ -- 503
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 27
+type$ -- 186
 warning$ -- 0
-while$ -- 13
+while$ -- 99
 width$ -- 0
-write$ -- 47
-(There were 17 warnings)
+write$ -- 286

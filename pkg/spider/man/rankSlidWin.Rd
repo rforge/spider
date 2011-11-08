@@ -23,7 +23,7 @@ Number of windows to return. Default of 10.
 }
 }
 \details{
-The criteria for \code{rankSlidWin} correlate to the variables outputted by \code{\link{slideAnalyses}} and are sorted in the following manner:
+The criteria for \code{rankSlidWin} correspond to the variables outputted by \code{\link{slideAnalyses}} and are sorted in the following manner:
 \tabular{lll}{
 \code{rankSlidWin} criterion: \tab \code{\link{slideAnalyses}} output:\tab Sorting method:\cr
 \code{"mean_distance"} \tab \code{"dist_mean_out"} \tab Ascending\cr

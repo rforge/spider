@@ -21,7 +21,7 @@ Threshold sequence length. Default of 500 (minimum length for official DNA barco
 }
 
 \details{
-
+This function considers bases coded as '?', 'N' and '-' as missing data.
 }
 
 \value{

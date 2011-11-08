@@ -24,7 +24,7 @@ The species vector (see \code{\link{sppVector}}).
 
 }
 \value{
-A list giving the pure, private diagnostic nucleotides (i.e. those nucleotides that are fixed within species and different from all other species) for each species in the species vector. A result of \code{integer(0)} indicates there are no diagnostic nucleotides for those species.
+A list giving the pure, simple diagnostic nucleotides (i.e. those nucleotides that are fixed within species and different from all other species) for each species in the species vector. A result of \code{integer(0)} indicates there are no diagnostic nucleotides for those species.
 }
 \references{
 Sarkar, I., Planet, P., & DeSalle, R. (2008). CAOS software for use in character-

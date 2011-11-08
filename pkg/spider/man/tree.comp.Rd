@@ -43,7 +43,7 @@ When \code{method = "shallow"}, only those nodes tipwards of the median node dep
 
 }
 \references{
-Penny, D. and Hendy, M. D. (1985) The use of tree comparison metrics. _Systemetic Zoology_ *34* 75-82.
+Penny, D. and Hendy, M. D. (1985) The use of tree comparison metrics. _Systematic Zoology_ *34* 75-82.
 
 }
 \author{

@@ -5,7 +5,7 @@
 Detect and remove singletons
 }
 \description{
-A utility to detect and remove of species represented only by singletons.
+A utility to detect and remove species represented only by singletons.
 }
 \usage{
 rmSingletons(sppVector, exclude = TRUE)

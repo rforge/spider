@@ -1,16 +1,55 @@
-\begin{thebibliography}{4}
+\begin{thebibliography}{21}
 \expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
 \expandafter\ifx\csname url\endcsname\relax
   \def\url#1{{\tt #1}}\fi
 \expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+
+\bibitem[{Cruickshank(2011)}]{Crui.2011}
+Cruickshank, R.~H. (2011).
+\newblock Exploring character conflict in molecular data.
+\newblock {\em Zootaxa\/}, {\em 2946\/}, 45--51.
+
+\bibitem[{Greenslade et~al.(2011)Greenslade, Stevens, Torricelli, \&
+  D'Haese}]{Green.etal.2011}
+Greenslade, P., Stevens, M.~I., Torricelli, G., \& D'Haese, C.~A. (2011).
+\newblock An ancient {A}ntarctic endemic genus restored: morphological and
+  molecular support for \emph{{G}omphiocephalus hodgsoni} ({C}ollembola:
+  {H}ypogastruridae).
+\newblock {\em Systematic Entomology\/}, {\em 36\/}(2), 223--240.
+
+\bibitem[{Guoy et~al.(2010)Guoy, Guindon, \&
+  Gascuel}]{SW.Guoy.etal.2010.SeaView}
+Guoy, M., Guindon, S., \& Gascuel, O. (2010).
+\newblock Sea{V}iew version 4: a multiplatform graphical user interface for
+  sequence alignment and phylogenetic tree building.
+\newblock {\em Molecular Biology and Evolution\/}, {\em 27\/}(2), 221--224.
+
+\bibitem[{Hebert et~al.(2003)Hebert, Cywinska, Ball, \& {de
+  Waard}}]{Her.etal.2003.barcoding}
+Hebert, P. D.~N., Cywinska, A., Ball, S.~L., \& {de Waard}, J.~R. (2003).
+\newblock Biological identification through {DNA} barcodes.
+\newblock {\em Proceedings of the Royal Society of London. B.\/}, {\em 270\/},
+  313--321.
+
+\bibitem[{Jombart(2008)}]{Jomb.2008}
+Jombart, T. (2008).
+\newblock adegenet: a {R} package for the multivariate analysis of genetic
+  markers.
+\newblock {\em Bioinformatics\/}, {\em 24\/}, 1403--1405.
 
 \bibitem[{Lim et~al.(2011)Lim, Balke, \& Meier}]{Lim2011}
 Lim, G., Balke, M., \& Meier, R. (2011).
 \newblock {Determining species boundaries in a world full of rarity:
   singletons, species delimitation methods}.
 \newblock {\em Systematic Biology in press: doi:10.1093/sysbio/syr030\/}.
-\newline\urlprefix\url{http://sysbio.oxfordjournals.org/content/early/2011/04/%
-11/sysbio.syr030.short}
+\newline\urlprefix\url{http://sysbio.oxfordjournals.org/content/early/2011/04/11/sysbio.syr030.short}
+
+\bibitem[{Meier et~al.(2006)Meier, Shiyang, Vaidya, \& Ng}]{Meier.2006}
+Meier, R., Shiyang, K., Vaidya, G., \& Ng, P. K.~L. (2006).
+\newblock {DNA barcoding and taxonomy in Diptera: a tale of high intraspecific
+  variability and low identification success}.
+\newblock {\em Systematic Biology\/}, {\em 55\/}(5), 715--728.
+\newline\urlprefix\url{http://sysbio.oxfordjournals.org/content/55/5/715.abstract}
 
 \bibitem[{Meier et~al.(2008)Meier, Zhang, \& Ali}]{Meier2008}
 Meier, R., Zhang, G., \& Ali, F. (2008).
@@ -20,12 +59,52 @@ Meier, R., Zhang, G., \& Ali, F. (2008).
 \newblock {\em Systematic Biology\/}, {\em 57\/}(5), 809--813.
 \newline\urlprefix\url{http://sysbio.oxfordjournals.org/content/57/5/809.short}
 
+\bibitem[{Meusnier et~al.(2008)Meusnier, Singer, Landry, Hickey, Hebert, \&
+  Hajibabaei}]{Meus.etal.2008}
+Meusnier, I., Singer, G. A.~C., Landry, J.-F., Hickey, D.~A., Hebert, P. D.~N.,
+  \& Hajibabaei, M. (2008).
+\newblock A universal {DNA} mini-barcode for biodiversity analysis.
+\newblock {\em BMC Genomics\/}, {\em 9\/}(214), 1--4.
+
+\bibitem[{Meyer \& Paulay(2005)}]{Meye.Paul.2005}
+Meyer, C.~P., \& Paulay, G. (2005).
+\newblock {DNA} barcoding: error rates based on comprehensive sampling.
+\newblock {\em PLoS Biology\/}, {\em 3\/}(12), 2229--2238.
+
+\bibitem[{Paradis(2010)}]{SW.Para.2010.pegas}
+Paradis, E. (2010).
+\newblock pegas: an {R} package for population genetics with an
+  integrated--modular approach.
+\newblock {\em Bioinformatics\/}, {\em 26\/}, 419--420.
+
+\bibitem[{Paradis et~al.(2004)Paradis, Claude, \& Strimmer}]{SW.Para.2004.ape}
+Paradis, E., Claude, J., \& Strimmer, K. (2004).
+\newblock {APE}: analyses of phylogenetics and evolution in {R} language.
+\newblock {\em Bioinformatics\/}, {\em 20\/}, 289--290.
+
 \bibitem[{Ratnasingham \& Hebert(2007)}]{Ratnasingham2007}
 Ratnasingham, S., \& Hebert, P. (2007).
 \newblock {BOLD: The Barcode of Life Data System (www.barcodinglife.org)}.
 \newblock {\em Molecular Ecology Notes\/}, {\em 7\/}(3), 355--364.
-\newline\urlprefix\url{http://www3.interscience.wiley.com/journal/118523757/ab%
-stract}
+\newline\urlprefix\url{http://www3.interscience.wiley.com/journal/118523757/abstract}
+
+\bibitem[{Riedel(2010)}]{Ried.2010}
+Riedel, A. (2010).
+\newblock One of a thousand---a new species of \emph{{T}rigonopterus}
+  (coleoptera, curculionidae, cryptorhynchinae) from {N}ew {G}uinea.
+\newblock {\em Zootaxa\/}, {\em 2403\/}, 59--68.
+
+\bibitem[{Riedel et~al.(2010)Riedel, Daawia, \& Balke}]{Ried.etal.2010}
+Riedel, A., Daawia, D., \& Balke, M. (2010).
+\newblock Deep cox1 divergence and hyperdiversity of \emph{{T}rigonopterus}
+  weevils in a {N}ew {G}uinea mountain range ({C}oleoptera, {C}urculionidae).
+\newblock {\em Zoologica Scripta\/}, {\em 39\/}(1), 63--74.
+
+\bibitem[{Roe \& Sperling(2007)}]{Roe.Sper.2007}
+Roe, A.~D., \& Sperling, F. A.~H. (2007).
+\newblock Patterns of evolution of mitochondrial cytochrome \emph{c} oxidase
+  {I} and {II} {DNA} and implications for {DNA} barcoding.
+\newblock {\em Molecular Phylogenetics and Evolution\/}, {\em 44\/}, 325--345.
 
 \bibitem[{Rosenberg(2007)}]{Rosenberg2007}
 Rosenberg, N.~A. (2007).
@@ -33,5 +112,32 @@ Rosenberg, N.~A. (2007).
   monophyly.
 \newblock {\em Evolution\/}, {\em 61\/}(2), 317--323.
 \newline\urlprefix\url{http://dx.doi.org/10.1111/j.1558-5646.2007.00023.x}
+
+\bibitem[{Tamura et~al.(2011)Tamura, Peterson, Peterson, Stecher, Nei, \&
+  Kumar}]{SW.Tamu.etal.2011.MEGA}
+Tamura, K., Peterson, D., Peterson, N., Stecher, G., Nei, M., \& Kumar, S.
+  (2011).
+\newblock {MEGA5}: {M}olecular {E}volutionary {G}enetics {A}nalysis using
+  maximum likelihood, evolutionary distance, and maximum parsiomony methods.
+\newblock {\em Molecular Biology and Evolution\/}, {\em In Press\/}.
+
+\bibitem[{Venables \& Ripley(2002)}]{Vena.Ripl.2002}
+Venables, W.~N., \& Ripley, B.~D. (2002).
+\newblock {\em Modern Applied Statistics with S\/}.
+\newblock New York: Springer, fourth ed.
+\newblock ISBN 0-387-95457-0.
+\newline\urlprefix\url{http://www.stats.ox.ac.uk/pub/MASS4}
+
+\bibitem[{Vink \& Dup{\'e}rr{\'e}(2010)}]{Vink.Dupe.2010}
+Vink, C.~J., \& Dup{\'e}rr{\'e}, N. (2010).
+\newblock Pisauridae ({A}rachnida: {A}raneae).
+\newblock {\em Fauna of New Zealand\/}, {\em 64\/}, 1--54.
+
+\bibitem[{Vink \& Paterson(2003)}]{Vink.Pate.2003}
+Vink, C.~J., \& Paterson, A.~M. (2003).
+\newblock Combined molecular and morphological phylogenetic analyses of the
+  {N}ew {Z}ealand wolf spider genus \emph{{A}noteropsis} ({A}raneae:
+  {L}ycosidae).
+\newblock {\em Molecular Phylogenetics and Evolution\/}, {\em 28\/}, 576--587.
 
 \end{thebibliography}

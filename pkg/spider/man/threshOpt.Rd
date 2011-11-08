@@ -5,7 +5,7 @@
 Threshold optimisation
 }
 \description{
-Determines the positive, false positive and false negative rates of identification accuracy for a given threshold.
+Determines the positive, negative, false positive and false negative rates of identification accuracy for a given threshold.
 }
 \usage{
 threshOpt(distobj, sppVector, threshold)
@@ -30,7 +30,7 @@ When run over a range of thresholds, this function allows the optimisation of th
 }
 
 \value{
-A table giving the threshold and number of negative and positive identifications, number of false negatives and false positives, and cumulative error.
+A table giving the threshold and number of negative and positive identifications, number of false negative and false positive identifications, and the cumulative error.
 }
 \references{
 Meyer, C. P., and Paulay, G. (2005). DNA barcoding: error rates based on

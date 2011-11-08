@@ -3,7 +3,7 @@
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Check a DNA alignment for missing data}
 
-\description{This functions counts the number of bases in an alignment that are coded as one of the missing bases (i.e. '?' and 'N'). By default, gaps (coded as '-') are also considered missing.}
+\description{This functions counts the number of bases in an alignment that are composed of missing data.}
 
 \usage{checkDNA(DNAbin, gapsAsMissing = TRUE)}
 
@@ -15,7 +15,7 @@
 }
 
 \details{
-
+This function considers bases coded as '?' and 'N' as missing data. By default, gaps (coded as '-') are also considered missing.
 }
 
 \value{
