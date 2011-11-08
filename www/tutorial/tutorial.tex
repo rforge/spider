@@ -570,8 +570,8 @@ table(threshID(anoDist, anoSpp))
        11         2        20 
 \end{Routput}
 
-\subsubsection{Meier's best match}
-Meier's best close match \citep{Meier.2006} is another distance-based analysis, similar to \fun{nearNeighbour()}, but it incorporates a threshold (default value of 1\%). Like \fun{threshID()}, the same four identification categories are given (\fun{"correct, incorrect, ambiguous, no id"}), but critically, this function only operates upon the single nearest-neighbour match, rather than all matches within the threshold (as with \fun{threshID()}). The ambiguous result would apply when there are more than one equally close match of different species. 
+\subsubsection{Meier's best close match}
+Meier's best close match \citep{Meier.2006} is another distance-based analysis, similar to \fun{nearNeighbour()}, but it incorporates a threshold (default value of 1\%). Like \fun{threshID()}, the same four identification categories are given (\fun{"correct, incorrect, ambiguous, no id"}), but critically, this function only operates upon the single nearest-neighbour match, rather than all matches within the threshold (as with \fun{threshID()}). The ambiguous result would apply when there are more than one equally close match of different species (and including the correct species). 
 
 %if there are no matches within this threshold, a result of \fun{"no id"} is given. If the nearest match is the same as the test individual, the result is \fun{"correct"}, if the nearest match is different, it is \fun{"incorrect"}. This test also gives us an extra degree of uncertainty, with a result of \fun{"ambiguous"} if there is more than one species closest to the test individual.
 
@@ -584,9 +584,9 @@ table(bestCloseMatch(anoDist, anoSpp))
        11         2        20 
 \end{Routput}
 
-
+%%%%%%%%%%%%% NEED TO COMPLETELY REDO THIS BIT
 \subsubsection{Threshold optimisation} %% do we need to add the "localMinima" function? comes out with same result?
-While the 1\% threshold used by \progname{Bold} is often a good rule of thumb, it may not always be appropriate to every dataset, and identification success can often be increased if a better threshold given the data can be found  \citep{Meye.Paul.2005}.  The function \fun{threshOpt()} provides the basis for this analysis. The function returns the number of positive identifications, the number of false negatives and the number of false positives at a given threshold. 
+While the 1\% threshold used by \progname{Bold} is often a good rule of thumb, it may not always be appropriate to every dataset, and identification success can sometimes be increased if a better threshold given the data can be found  \citep{Meye.Paul.2005}.  The function \fun{threshOpt()} provides the basis for this analysis. The function returns the number of positive identifications, the number of false negatives and the number of false positives at a given threshold. Importantly, for data where unsampled species are likely to be encountered, optimising the threshold can guard against erroneously identifying these unsampled species as species currently present in the reference library.
 
 \begin{console}
 threshOpt(doloDist, doloSpp, thresh = 0.01)
@@ -654,11 +654,15 @@ intra <- maxInDist(anoDist, anoSpp) *100
 length(which(inter-intra <= 0))
 \end{console}
 
+When there is no barcode gap, this is shown by a zero or negative difference when the maximum intraspecific distance (\fun{intra}) is subtracted from the minimum interspecific distance (\fun{inter}). When we use \fun{length()} and \fun{which()} to ask how many times this occurred in our dataset, we find that this was the case on three occasions.
+
+\begin{console}
+length(which(inter-intra <= 0))
+\end{console}
+
 \begin{Routput}
 [1] 3
 \end{Routput}
-
-When there is no barcode gap, this is shown by a zero or negative difference when the maximum intraspecific distance (\fun{intra}) is subtracted from the minimum interspecific distance (\fun{inter}). When we use \fun{length()} and \fun{which()} to ask how many times this occurred in our dataset, we find that this was the case on three occasions.
 
 What we may also want to do, is provide a graphical representation of the barcode gap so we can see exactly how big the differences are (Figure \ref{barcode_gap.fig}). The following code provides a very informative and pretty figure, but more importantly it gives us a tantalising glimpse into R's potential for data manipulation and plotting. 
 
@@ -719,7 +723,11 @@ FALSE  TRUE
 
 \subsubsection{Bootstrap monophyly}
 
-We also provide an extension to the measure of monophyly, by incorporating the bootstrap support measure. Here we use the \fun{monophylyBoot()} function with the following options: minimum of 70\% bootstrap support for a correct identification, 1000 replications, and codon based resampling for protein coding loci. 
+We also provide an extension to the measure of monophyly, by incorporating the bootstrap support measure. Here we use the \fun{monophylyBoot()} function with the following options: minimum of 70\% bootstrap support for a correct identification, 1,000 replications, and codon based resampling for protein coding loci. By default the trees created in the bootstrapping part of the function are automatically rerooted along the longest branch (edge) length. The original tree object should also be rooted by the user, either in the same way (below) or on another group with the \fun{root()} function. 
+
+\begin{console}
+NEED TO COMPLETE.
+\end{console}
 
 Like many bootstrap analyses it can be lengthy to complete, and may also significantly reduce the proportion of successful identifications. We can see this from our \emph{Anoteropsis} data; there is not a single correct identification!
 
@@ -739,7 +747,7 @@ FALSE
 \subsubsection{Rosenberg's probability of reciprocal monophyly}
 Frequently we get excited about a specimen being different from other samples we have. Rosenberg's probability of reciprocal monophyly offers a measure to temper our excitement by bringing the sampling regime into the picture \citep{Rosenberg2007}. Rosenberg states: ``especially for small samples, an observation of monophyly for a set of lineages---even if strongly supported statistically---does not necessarily indicate that the lineages are from a distinctive group. Here I develop a test of the null hypothesis that monophyly is a chance outcome of random branching''. This is a particularly useful function for investigating support for cryptic species.
 
-To carry out the test, a neighbour joining tree is required (\fun{anoTr}), but note that depending on the topology, sometimes the tree will have to be rooted first with \progname{Ape}'s \fun{root()} command. We then can plot colours on all the nodes that are significant to the $\alpha = 0.05$ level according to Rosenberg's random model, but this significance level can be changed \citep{Rosenberg2007}. We see in Figure \ref{rosenbergs.fig}, that very few of the nodes are red (significantly monophyletic), indicating that monophyly of some species may be due to chance, and that further sampling is required. 
+To carry out the test, a neighbour joining tree is required (\fun{anoTr}), but again note that depending on the topology, sometimes the tree will have to be rooted first with \progname{Ape}'s \fun{root()} command. We then can plot colours on all the nodes that are significant to the $\alpha = 0.05$ level according to Rosenberg's random model, but this significance level can be changed \citep{Rosenberg2007}. We see in Figure \ref{rosenbergs.fig}, that very few of the nodes are red (significantly monophyletic), indicating that monophyly of some species may be due to chance, and that further sampling is required. 
 
 \begin{console}
 anoRos <- rosenberg(anoTr)
