@@ -501,7 +501,7 @@ The above examples have made extensive use of a few of the \progname{R}'s key fu
 
 
 \section{DNA barcoding}
-\Spider~and R provide an ideal platform for manipulating and analysing DNA barcode data. DNA barcoding is a method of identifying of organisms using standard gene regions---particularly COI\footnote{the mitochondrial gene cytochrome \emph{c} oxidase I}---by comparing new sequences to a database of barcodes from identified and vouchered specimens. The method was first proposed by \citet{Her.etal.2003.barcoding} and has since become a global endeavour, with ongoing efforts to gather sequences and further develop the \progname{Bold} database (section \ref{BOLD.section}). Research into the utility of DNA barcoding for identification centres on determining the amount of sequence variation within and between species, and whether accurate determinations can be made. 
+\Spider~and R provide an ideal platform for manipulating and analysing DNA barcode data. DNA barcoding is a method of identifying of organisms using standard gene regions---particularly COI---by comparing new sequences to a database of barcodes from identified and vouchered specimens. The method was first proposed by \citet{Her.etal.2003.barcoding} and has since become a global endeavour, with ongoing efforts to gather sequences and further develop the \progname{Bold} database (section \ref{BOLD.section}). Research into the utility of DNA barcoding for identification centres on determining the amount of sequence variation within and between species, and whether accurate determinations can be made. 
 
 Calculating how effectively the DNA barcodes are able to discriminate species is usually one of the key outputs of a DNA barcoding study. In theory, the best way to do this would be to create a barcode reference library, and then independently collect additional data to test it. However, more often reference libraries are created and tested using the same data in a simulated identification scenario. The assumption is that if more data were collected, they would have a similar success rate. Testing the data involves treating each individual as an unknown query in turn, using the fact that we already know the identity of the individual from its species vector. 
 
@@ -571,7 +571,7 @@ table(threshID(anoDist, anoSpp))
 \end{Routput}
 
 \subsubsection{Meier's best close match}
-Meier's best close match \citep{Meier.2006} is another distance-based analysis, similar to \fun{nearNeighbour()}, but it incorporates a threshold (default value of 1\%). Like \fun{threshID()}, the same four identification categories are given (\fun{"correct, incorrect, ambiguous, no id"}), but critically, this function only operates upon the single nearest-neighbour match, rather than all matches within the threshold (as with \fun{threshID()}). The ambiguous result would apply when there are more than one equally close match of different species (and including the correct species). 
+Meier's best close match \citep{Meier.2006} is another distance-based analysis, similar to \fun{nearNeighbour()}, but it incorporates a threshold (default value of 1\%). Like \fun{threshID()}, the same four identification categories are given (\fun{"correct, incorrect, ambiguous, no id"}), but critically, this function only operates upon the single nearest-neighbour match, rather than all matches within the threshold (as with \fun{threshID()}). The ambiguous result would apply when there are more than one equally close match of different species (but including the correct species). 
 
 %if there are no matches within this threshold, a result of \fun{"no id"} is given. If the nearest match is the same as the test individual, the result is \fun{"correct"}, if the nearest match is different, it is \fun{"incorrect"}. This test also gives us an extra degree of uncertainty, with a result of \fun{"ambiguous"} if there is more than one species closest to the test individual.
 
@@ -585,25 +585,27 @@ table(bestCloseMatch(anoDist, anoSpp))
 \end{Routput}
 
 %%%%%%%%%%%%% NEED TO COMPLETELY REDO THIS BIT
-\subsubsection{Threshold optimisation} %% do we need to add the "localMinima" function? comes out with same result?
-While the 1\% threshold used by \progname{Bold} is often a good rule of thumb, it may not always be appropriate to every dataset, and identification success can sometimes be increased if a better threshold given the data can be found  \citep{Meye.Paul.2005}.  The function \fun{threshOpt()} provides the basis for this analysis. The function returns the number of positive identifications, the number of false negatives and the number of false positives at a given threshold. Importantly, for data where unsampled species are likely to be encountered, optimising the threshold can guard against erroneously identifying these unsampled species as species currently present in the reference library.
+\subsubsection{Threshold optimisation} %
+While the 1\% threshold used by \progname{Bold} is often a good rule of thumb, it may not always be appropriate to every dataset, and identification success can sometimes be increased if a better threshold given the data can be found  \citep{Meye.Paul.2005}.  The function \fun{threshOpt()} provides the basis for this analysis. The function returns the number of true positive, false negative, false positive, and true negative identifications at a given threshold, plus the cumulative error (false negative + false positive). Importantly, for data where unsampled species are likely to be encountered, optimising the threshold can guard against erroneously identifying these unsampled species as species currently present in the reference library.
 
 \begin{console}
 threshOpt(doloDist, doloSpp, thresh = 0.01)
 \end{console}
 
 \begin{Routput}
-     Thresh Pos False neg False pos
-[1,]   0.01  28         9         0
+       Threshold         True neg         True pos        False neg 
+            0.01             0.00            28.00             9.00 
+       False pos Cumulative error 
+            0.00             9.00
 \end{Routput}
 
-The threshold has a default of 0.01 (= 1\%), but can be changed as the user pleases. If the threshold is changed systematically, the optimum threshold value can be determined by minimising the false positive (no conspecific matches within threshold of query) and false negative identifications (non-conspecific species within threshold distance of query). The following code shows how to create a range of threshold values (here 0.1\% to 2\%), how to test these values, and how to plot the result (Figure \ref{sensitivity.fig}). If the data contain singleton species (i.e.\ one individual per species), it is important when running this optimisation analysis to remove these, as with \fun{threshOpt()} a singleton will be a true negative, rather than a false positive identification; see \fun{rmSingletons()} for more details.
+The threshold has a default of 0.01 (= 1\%), but can be changed as the user pleases. If the threshold is changed systematically, the optimum threshold value can be determined by minimising the false positive (no conspecific matches within threshold of query) and false negative identifications (non-conspecific species within threshold distance of query)---i.e., cumulative error. The following code shows how to create a range of threshold values (here 0.1\% to 2\%), how to test these values, and how to plot the result (Figure \ref{sensitivity.fig}). %If the data contain singleton species (i.e.\ one individual per species), it is important when running this optimisation analysis to remove these, as with \fun{threshOpt()} a singleton will be a true negative, rather than a false positive identification; see \fun{rmSingletons()} for more details.
 
 \begin{console}
 threshVal <- seq(0.001,0.02, by = 0.001)
 sens <- lapply(threshVal, function(x) threshOpt(doloDist, doloSpp, thresh = x))
 sensMat <- do.call(rbind, sens)
-barplot(t(sensMat)[3:4,], names.arg=paste((sensMat[,1]*100), "%"))
+barplot(t(sensMat)[4:5,], names.arg=paste((sensMat[,1]*100), "%"))
 \end{console}
 
 \begin{figure}[p]
@@ -613,20 +615,20 @@ barplot(t(sensMat)[3:4,], names.arg=paste((sensMat[,1]*100), "%"))
 	\label{sensitivity.fig}
 \end{figure}
 
-From the figure we can see that the optimum threshold for the \fun{dolomedes} dataset is between 0.5\% and 0.8\% K2P distance. By looking at \fun{sensMat}, we confirm that these thresholds have the highest number of positive identifications at 36, and that the default 1\% is way off the mark.
+From the figure we can see that the optimum threshold for the \fun{dolomedes} dataset is between 0.5\% and 0.8\% K2P distance. By looking at \fun{sensMat}, we confirm that these thresholds have the lowest cumulative error at 1, and that the default 1\% is way off the mark in predicting false positive identifications.
 
 \begin{Routput}
-      Thresh Pos False neg False pos
- [1,]  0.001   0         0        37
- [2,]  0.002  21         0        16
- [3,]  0.003  31         0         6
- [4,]  0.004  34         0         3
- [5,]  0.005  36         0         1
- [6,]  0.006  36         0         1
- [7,]  0.007  36         0         1
- [8,]  0.008  36         0         1
- [9,]  0.009  33         4         0
-[10,]  0.010  28         9         0
+      Threshold True neg True pos False neg False pos Cumulative error
+ [1,]     0.001        0        0         0        37               37
+ [2,]     0.002        0       21         0        16               16
+ [3,]     0.003        0       31         0         6                6
+ [4,]     0.004        0       34         0         3                3
+ [5,]     0.005        0       36         0         1                1
+ [6,]     0.006        0       36         0         1                1
+ [7,]     0.007        0       36         0         1                1
+ [8,]     0.008        0       36         0         1                1
+ [9,]     0.009        0       33         4         0                4
+[10,]     0.010        0       28         9         0                9
 \end{Routput}
 
 An experimental new function for optimising threshold values is \fun{localMinima()}. This method creates a density object from the distance matrix, and then infers where a dip in the density of genetic distances indicates the transition between intra- and inter-specific distances. A key advantage of this method, is that unlike \fun{threshOpt()}, this method does not require prior knowledge of species identity to get an indication of potential threshold values.
@@ -689,13 +691,21 @@ segments(x0=1:length(ord$inter), y0=ord$inter, y1=ord$intra, col=segCol, lwd=6)
 
 The species monophyly criterion determines if each species is monophyletic over a neighbour-joining (NJ) phylogram (tree). It uses a fairly simple definition of monophyly---search for clades with the same number of tips as there are species members, and see if they match. Singletons (species represented by only one individual) cause a headache. Obviously, they are either always or never monophyletic depending on your point of view. The way that \fun{monophyly()} gets around this problem is by getting the user to tell it what the point of view should be. The default is TRUE---singletons are monophyletic.
 
-First we need to make our tree and ensure the labels are the same as the species vector. Then we can test for monophyly:
+First we need to make and root our tree, and will here root our tree on its longest branch (edge length).
 
 \begin{console}
 anoTr <- nj(anoDist)
-anoTr$tip.label <- anoSpp
-monophyly(anoTr, anoSpp)
-table(monophyly(anoTr, anoSpp))
+maxInt <- max(anoTr$edge.length[anoTr$edge[, 2] > length(anoTr$tip.label)])
+nodeRoot <- anoTr$edge[which(anoTr$edge.length == maxInt), 2]
+anoTrRoot <- root(anoTr, node = nodeRoot, resolve.root = TRUE)
+\end{console}
+
+Next we ensure the labels are the same as the species vector. Then we can test for monophyly:
+
+\begin{console}
+anoTrRoot$tip.label <- anoSpp
+monophyly(anoTrRoot, anoSpp)
+table(monophyly(anoTrRoot, anoSpp))
 \end{console}
 
 \begin{Routput}
@@ -706,11 +716,11 @@ FALSE  TRUE
     1    21
 \end{Routput}
 
-The species are ordered in the same way as \fun{unique(anoSpp)}, so this output tells us that \scinm{Anoteropsis adumbrata} is not monophyletic on this tree. However, if you've looked at the \fun{anoteropsis} dataset at all, you'll know that there are a number of singletons in this dataset. When we change the default behaviour to consider singletons as FALSE, we get a rather different picture.
+However, if you've looked at the \fun{anoteropsis} dataset at all, you'll know that there are a number of singletons in this dataset. When we change the default behaviour to consider singletons as FALSE, we get a rather different picture.
 
 \begin{console}
-monophyly(anoTr, anoSpp, singletonsMono=FALSE)
-table(monophyly(anoTr, anoSpp, singletonsMono=FALSE))
+monophyly(anoTrRoot, anoSpp, singletonsMono=FALSE)
+table(monophyly(anoTrRoot, anoSpp, singletonsMono=FALSE))
 \end{console}
 
 \begin{Routput}
@@ -721,36 +731,59 @@ FALSE  TRUE
    16     6 
 \end{Routput}
 
+Because the monophyly functions work on the species, rather than individual level, this next code rescales the result reported in terms of the number of individuals per species---i.e., if a species is monophyletic, then all its members are also. This takes into account sampling per species, and makes the result more comparable with the individual-query distance-based methods described above.
+
+\begin{console}
+monoR <- monophyly(anoTrRoot, anoSpp, singletonsMono=FALSE)
+table(monoR[match(anoSpp, unique(anoSpp))], useNA = "ifany")
+\end{console}
+
+\begin{Routput}
+FALSE  TRUE 
+   18    15
+\end{Routput}
+
 \subsubsection{Bootstrap monophyly}
 
 We also provide an extension to the measure of monophyly, by incorporating the bootstrap support measure. Here we use the \fun{monophylyBoot()} function with the following options: minimum of 70\% bootstrap support for a correct identification, 1,000 replications, and codon based resampling for protein coding loci. By default the trees created in the bootstrapping part of the function are automatically rerooted along the longest branch (edge) length. The original tree object should also be rooted by the user, either in the same way (below) or on another group with the \fun{root()} function. 
 
 \begin{console}
-NEED TO COMPLETE.
+monoBoot <-  monophylyBoot(anoTrRoot, anoSpp, anoteropsis,
+ singletonsMono = FALSE, reps = 1000, thresh = 0.7, block = 3)
+monoBoot
 \end{console}
 
-Like many bootstrap analyses it can be lengthy to complete, and may also significantly reduce the proportion of successful identifications. We can see this from our \emph{Anoteropsis} data; there is not a single correct identification!
+\begin{Routput}
+$results
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 
-Because the monophyly functions work on the species, rather than individual level, the third line of code rescales the result reported in terms of the number of individuals per species---i.e., if a species is monophyletic, then all its members are also. This takes into account sampling per species, and makes the result more comparable with the individual-query distance-based methods described above.
+$BSvalues
+ [1] 0.000 0.000 0.447 0.921 0.000 0.000 0.000 0.122 0.000 0.000 0.000 0.000
+[13] 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.000 0.365 0.000 0.000
+[25] 0.000 0.000 0.000 0.000 0.000 0.000 0.536 0.000
+\end{Routput}
+
+Here we are given two results from \fun{monophylyBoot()}: the TRUE/FALSE report for each species, plus the actual bootstrap values for each these. Like many bootstrap analyses it can be lengthy to complete, and may also significantly reduce the proportion of successful identifications. We can see this here from our \emph{Anoteropsis} data; lots of zeros, and there's is not a single correct identification!
+
+Results from \fun{monophylyBoot()} can also be scaled and tabulated in the way as for \fun{monophyly()}. 
 
 \begin{console}
-monoBoot <- monophylyBoot(anoTr, anoSpp, anoteropsis, 
-singletonsMono = FALSE, reps = 1000, thresh = 0.7, block = 3)
-table(monoBoot[match(anoSpp, unique(anoSpp))], useNA = "ifany")
+table(monoBoot$results[match(anoSpp, unique(anoSpp))], useNA = "ifany")
 \end{console}
 
 \begin{Routput}
 FALSE 
-   33
+   33 
 \end{Routput}
 
 \subsubsection{Rosenberg's probability of reciprocal monophyly}
 Frequently we get excited about a specimen being different from other samples we have. Rosenberg's probability of reciprocal monophyly offers a measure to temper our excitement by bringing the sampling regime into the picture \citep{Rosenberg2007}. Rosenberg states: ``especially for small samples, an observation of monophyly for a set of lineages---even if strongly supported statistically---does not necessarily indicate that the lineages are from a distinctive group. Here I develop a test of the null hypothesis that monophyly is a chance outcome of random branching''. This is a particularly useful function for investigating support for cryptic species.
 
-To carry out the test, a neighbour joining tree is required (\fun{anoTr}), but again note that depending on the topology, sometimes the tree will have to be rooted first with \progname{Ape}'s \fun{root()} command. We then can plot colours on all the nodes that are significant to the $\alpha = 0.05$ level according to Rosenberg's random model, but this significance level can be changed \citep{Rosenberg2007}. We see in Figure \ref{rosenbergs.fig}, that very few of the nodes are red (significantly monophyletic), indicating that monophyly of some species may be due to chance, and that further sampling is required. 
+To carry out the test, a rooted neighbour joining tree is required (\fun{anoTrRoot}). We then can plot colours on all the nodes that are significant to the $\alpha = 0.05$ level according to Rosenberg's random model, but this significance level can be changed \citep{Rosenberg2007}. We see in Figure \ref{rosenbergs.fig}, that very few of the nodes are red (significantly monophyletic), indicating that monophyly of some species may be due to chance, and that further sampling is required. 
 
 \begin{console}
-anoRos <- rosenberg(anoTr)
+anoRos <- rosenberg(anoTrRoot)
 anoNodes <- anoRos < 0.05
 anoLabs <- anoRos
 anoLabs[anoNodes] <- "red"
@@ -761,7 +794,7 @@ nodelabels(pch=21, bg=anoLabs, node=as.numeric(names(anoLabs)), cex=2)
 
 \begin{figure}[p]
 	\centering
-	\includegraphics[width=1\textwidth, trim=3cm 1cm 3cm 0cm]{rosenbergs}
+	\includegraphics[width=1\textwidth, trim=3cm 3cm 3cm 3cm]{rosenbergs}
 	\caption{Rosenberg's probability of reciprocal monophyly for  \emph{Anoteropsis} spp. Red nodes are significant to $\alpha = 0.05$.}
 	\label{rosenbergs.fig}
 \end{figure}
