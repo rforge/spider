@@ -844,7 +844,7 @@ We see here a huge improvement in identification success with singletons omitted
 \section{Sliding windows} 
 
 \subsection{The basic idea}
-The principle of sliding window analysis is fairly simple---a DNA alignment is divided up into multiple smaller fragments throughout the length of the region in question. Measures of diversity \citep{Roe.Sper.2007} or questions of phylogenetic character conflict \citep{Crui.2011} can then be explored.
+The principle of sliding window analysis is fairly simple---a DNA alignment is divided up into multiple smaller fragments throughout the length of the region in question. We can then assess different types of information content though the alignment, measure nucleotide diversity \citep{Roe.Sper.2007}, or investigate phylogenetic character conflict \citep{Crui.2011}.
 
 The \spider~function \fun{slidingWindow()} provides the base for conducting sliding window analyses. 
 
@@ -897,14 +897,14 @@ If we plot the results of \fun{anoGC}, we get Figure \ref{slidWin.fig}.
 \end{figure}
 
 \subsection{The magic of \fun{slideAnalyses}}
-A number of the most useful analyses for determining the optimum region for designing mini-barcodes \citep{Meus.etal.2008} have been implemented in the \fun{slideAnalyses()} function. This function does the whole shebang from creating the windows, to conducting the analyses. The result is a massive list detailing the data from each window. %Take note that this is our first glimpse of ``species vectors'' in action:
+A number of the most useful analyses for determining the optimum region for designing mini-barcodes \citep{Meus.etal.2008} have been implemented in the \fun{slideAnalyses()} function. This function does the whole shebang from creating the windows, to conducting the analyses. The result is a massive list detailing the data from each window. 
 
 \begin{console}
-anoAna <- slideAnalyses(anoteropsis, 50, anoSpp, interval="codons", 
+anoAna <- slideAnalyses(anoteropsis, anoSpp, width=50, interval="codons", 
 distMeasures=TRUE, treeMeasures=TRUE)
 \end{console}
 
-First up: the arguments. \fun{anoteropsis} is our \fun{DNAbin} object containing our sequences, ``50'' is the desired width of the windows in question. \fun{anoSpp} is our species vector, \fun{"codons"} is a fancy way of getting an interval of 3 between our windows, \fun{distMeasures=TRUE} indicates that we want to calculate metrics based on a Kimura 2-parameter distance matrix for each window, and \fun{treeMeasures=TRUE} indicates that we want to calculate metrics based on a neighbour-joining tree monophyly from the distance matrix above. The default is that \fun{distMeasures=TRUE} and \fun{treeMeasures=FALSE} because the latter takes a lot more time to compute than the former. 
+First up: the arguments. \fun{anoteropsis} is our \fun{DNAbin} object containing our sequences, \fun{anoSpp} is our species vector, \fun{width=50} is the desired width of the windows in question, \fun{"codons"} is a fancy way of getting an interval of 3 between our windows, \fun{distMeasures=TRUE} indicates that we want to calculate metrics based on a Kimura 2-parameter distance matrix for each window, and \fun{treeMeasures=TRUE} indicates that we want to calculate metrics based on a neighbour-joining tree monophyly from the distance matrix above. The default is that \fun{distMeasures=TRUE} and \fun{treeMeasures=FALSE} because the latter takes a lot more time to compute than the former. 
 
 If we have a look at the object created by the function above, we get something fairly nasty:
 
@@ -913,36 +913,31 @@ str(anoAna)
 \end{console}
 
 \begin{Routput}
-List of 16
- $ win_mono_out   : num [1:120] 0.864 0.864 0.909 0.909 0.864 ...
- $ comp_depth_out : num [1:120] 0.588 0.471 0.529 0.529 0.412 ...
- $ comp_out       : num [1:120] 0.355 0.29 0.323 0.323 0.258 ...
- $ pos_tr_out     : num [1:120] 1 4 7 10 13 16 19 22 25 28 ...
- $ noncon_out     : num [1:120] 0.333 0.394 0.212 0.212 0.303 ...
- $ thres_below_out: num [1:120] 409 404 369 357 374 411 370 384 402 402 ...
- $ thres_above_out: num [1:120] 5 4 11 10 24 18 24 21 7 7 ...
- $ zero_out       : num [1:120] 0.0303 0.0398 0.0265 0.0246 0.036 ...
- $ dist_mean_out  : num [1:120] 0.0759 0.0758 0.0822 0.0848 0.0814 ...
- $ pos_out        : num [1:120] 1 4 7 10 13 16 19 22 25 28 ...
- $ dat_zero_out   : num 0
- $ boxplot_out    : logi FALSE
- $ distMeasures   : logi TRUE
- $ thresA         : num 0.2
- $ thresB         : num 0.1
- $ treeMeasures   : logi TRUE
+List of 13
+ $ win_mono_out  : num [1:120] 0.864 0.864 0.909 0.909 0.864 ...
+ $ comp_depth_out: num [1:120] 0.588 0.471 0.471 0.471 0.353 ...
+ $ comp_out      : num [1:120] 0.355 0.29 0.29 0.29 0.226 ...
+ $ pos_tr_out    : num [1:120] 1 4 7 10 13 16 19 22 25 28 ...
+ $ noncon_out    : num [1:120] 0.333 0.394 0.212 0.212 0.303 ...
+ $ nd_out        : num [1:120] 8 9 7 6 5 6 6 8 9 9 ...
+ $ zero_out      : num [1:120] 0.0303 0.0398 0.0265 0.0246 0.036 ...
+ $ dist_mean_out : num [1:120] 0.0742 0.0741 0.0804 0.083 0.0796 ...
+ $ pos_out       : num [1:120] 1 4 7 10 13 16 19 22 25 28 ...
+ $ dat_zero_out  : num 0
+ $ boxplot_out   : logi FALSE
+ $ distMeasures  : logi TRUE
+ $ treeMeasures  : logi TRUE
  - attr(*, "class")= chr "slidWin"
 \end{Routput}
 
-% RUPERT: I think we need a bit more explanation of some of these?
-% might need to explain what a non-conspecific distance is?
 \verb|win_mono_out| is the proportion of species that are monophyletic. The closer to 1 this number gets, the more species are monophyletic.
-\verb|comp_depth| and \verb|comp_depth_out| compare the clades of the trees in the window to the trees made from the full dataset. The difference is that \verb|comp_depth_out| considers only the clades that are closer to the tips of the tree than the median node depth, while \verb|comp_out| looks at all of them.
+\verb|comp_out| and \verb|comp_depth_out| compare the clades of the trees in the window to the trees made from the full dataset. The difference is that \verb|comp_depth_out| considers only the clades that are closer to the tips of the tree than the median node depth, while \verb|comp_out| looks at all of them.
 \verb|pos_out| is the position of each window (in bp) from the start of the sequence. Occasionally, trees might not be able to be made if there is too much missing data, and \verb|pos_tr_out| records the position of windows from which trees were made.
 \verb|noncon_out| gives the proportion of non-conspecific distances that are 0, i.e., no difference between species. Ideally, this number would be 0 (where every species could be differentiated from one another).
-\verb|thres_above_out| and \verb|thres_below_out| are the numbers of cells with distances above and below given thresholds (\verb|thresA| and \verb|thresB|). It is best if these numbers are maximised and minimised respectively.
+\verb|nd_out| summarises nucleotide diagnostic sites (i.e., pure, simple, characteristic attributes) for each and all species; handy for primer design.
 \verb|zero_out| is the proportion of cells in the distance matrix which have a distance of 0, and can be compared with \verb|dat_zero_out| which is the same proportion in the full dataset. The closer \verb|zero_out| is to \verb|dat_zero_out|, the better.
 \verb|dist_mean_out| is the mean of the distance matrix. Usually, it is best if this number is large.
-Finally, the last five objects in the list are used by \fun{plot()} in creating the plots  described below.
+Finally, the last three objects in the list are used by \fun{plot()} in creating the plots  described below.
 
 All the information above can be presented graphically using the \fun{plot} command to produce Figure \ref{slideAnalyses.fig}:
 
@@ -952,11 +947,11 @@ plot(anoAna)
 
 \begin{figure}[tbp]
 	\includegraphics[width=\textwidth]{slideAnalyses}
-	\caption{Results of several analyses across the COI sequences of \emph{Anoteropsis} spp. See text for more details.}%RUPERT: the "comp" figure has too much text!
+	\caption{Results of several analyses across the COI sequences of \emph{Anoteropsis} spp. See text for more details.}
 	\label{slideAnalyses.fig}
 \end{figure}
 
-Starting at the top left of Figure \ref{slideAnalyses.fig}, we have the plot of the mean distance (\verb|dist_mean_out|). We see that this is at its greatest at the 200 bp position, and at its lowest around 150 bp. Next one down the column, we have the proportion of zero cells in the distance matrix (\verb|zero_out|). Once again, this is minimised around 200 bp and is at its highest at 150 bp. The unbroken horizontal line crossing the y-axis at 0 is the proportion of zero cells in the distance matrix created from the full dataset (\verb|dat_zero_out|). At the bottom of the first column, we have the number of cells above and below the thresholds (\verb|thres_above_out| and \verb|thres_below_out|). The two metrics meet their maximum and minimum respectively at (surprise, surprise!) 200 bp. The top right plot displays the proportion of zero non-conspecific distances, which find their minimum at 200 bp, but is greatest (a scary 0.8) around 100 bp. The middle right plot shows the proportion of clades that are identical between the windows and the full dataset. Black nodes comprise all clades, while the blue ones are a subset making up the shallower clades. In this example they're mixed up with each other, due to the fact that this dataset has few representatives of each species. For datasets including lots of conspecific individuals, there is greater separation between the blue and the black points. As we've come to expect though, both measures are pretty high at 200 bp and low at 140 bp. Finally, at the bottom right we have the proportion of species that are monophyletic. Unlike previous measures, it appears that the 50 bp mark is best (though 200 bp is fairly respectable), but 140 is still in the doldrums. All in all, these plots consistently indicate that the best region for creating 50 bp mini-barcodes is around the 200 bp mark.
+Starting at the top left of Figure \ref{slideAnalyses.fig}, we have the plot of the mean distance (\verb|dist_mean_out|). We see that this is at its greatest at the 200 bp position, and at its lowest around 150 bp. Next one down the column, we have the proportion of zero cells in the distance matrix (\verb|zero_out|). Once again, this is minimised around 200 bp and is at its highest at 150 bp. The unbroken horizontal line crossing the y-axis at 0 is the proportion of zero cells in the distance matrix created from the full dataset (\verb|dat_zero_out|). At the bottom of the first column, we have the sum of diagnostic nucleotide positions for all species (\verb|nd_out|). The top right plot displays the proportion of zero non-conspecific distances, which find their minimum at 200 bp, but is greatest (a scary 0.8) around 100 bp. The middle right plot shows the proportion of clades that are identical between the windows and the full dataset (all nodes), and is pretty high at 200 bp and low at 110--150 bp. Finally, at the bottom right we have the proportion of species that are monophyletic. Unlike previous measures, it appears that the 50 bp mark is best (though 200 bp is fairly respectable), but 140 is still in the doldrums. All in all, these plots consistently indicate that the best region for creating 50 bp mini-barcodes is around the 200 bp mark.
 
 The information can also be shown as a table that ranks the windows, showing by default the top 10 windows:
 
@@ -965,37 +960,37 @@ rankSlidWin(anoAna)
 \end{console}
 
 \begin{Routput}
-   position mean_distance monophyly clade_comparison clade_comp_shallow
-67      199    0.10878089 0.8636364        0.3870968          0.5882353
-66      196    0.10733553 0.8636364        0.3870968          0.5882353
-68      202    0.10581874 0.8636364        0.3870968          0.5882353
-69      205    0.10287159 0.8636364        0.3870968          0.5882353
-63      187    0.10685304 0.8636364        0.3548387          0.5294118
-65      193    0.10453572 0.8636364        0.3225806          0.5294118
-64      190    0.10446778 0.8636364        0.3225806          0.5294118
-4        10    0.08482881 0.9090909        0.3225806          0.5294118
-3         7    0.08223324 0.9090909        0.3225806          0.5294118
-73      217    0.09090806 0.8636364        0.4193548          0.5294118
-   zero_noncon zero_distances above_threshold below_threshold
-67   0.1212121     0.01136364              20             216
-66   0.1212121     0.01136364              20             225
-68   0.1212121     0.01136364              20             229
-69   0.1212121     0.01136364              20             253
-63   0.1212121     0.01136364              14             230
-65   0.1212121     0.01136364              18             241
-64   0.1212121     0.01136364               8             234
-4    0.2121212     0.02462121              10             357
-3    0.2121212     0.02651515              11             369
-73   0.1818182     0.02462121               1             312
+   position mean_distance zero_noncon zero_distances diag_nuc monophyly
+67      199    0.10636352   0.1212121     0.01136364        7 0.8636364
+66      196    0.10495195   0.1212121     0.01136364        6 0.8636364
+63      187    0.10448748   0.1212121     0.01136364        7 0.8636364
+68      202    0.10347462   0.1212121     0.01136364        7 0.8636364
+65      193    0.10222185   0.1212121     0.01136364        7 0.8636364
+64      190    0.10215716   0.1212121     0.01136364        7 0.8636364
+69      205    0.10059984   0.1212121     0.01136364        7 0.8636364
+60      178    0.09360184   0.2727273     0.01704545        7 0.8181818
+62      184    0.09350650   0.2727273     0.01704545        7 0.8181818
+61      181    0.09210280   0.2727273     0.01704545        6 0.8181818
+   clade_comparison clade_comp_shallow
+67        0.3870968          0.5882353
+66        0.3870968          0.5882353
+63        0.3548387          0.5294118
+68        0.3870968          0.5882353
+65        0.3225806          0.5294118
+64        0.3225806          0.5294118
+69        0.3870968          0.5882353
+60        0.3225806          0.4705882
+62        0.2903226          0.4117647
+61        0.2903226          0.4117647
 \end{Routput}
 
-It shows the same conclusion that we drew from the graphical representation of the data, namely that the windows around the 200 bp mark are particularly good by most of the criteria. The default behaviour of \fun{rankSlidWin()} is that it returns the best summed over all critera, but other criteria can be used to rank the windows. See the help page of \fun{rankSlidWin()} for more details.
+This shows the same conclusion that we drew from the graphical representation of the data, namely that the windows around the 200 bp mark are particularly good by most of the criteria. The default behaviour of \fun{rankSlidWin()} is that it returns the best window sorted on highest mean distance, but the other criteria can be used to rank the windows. See the help page of \fun{rankSlidWin()} for more details.
 
 \subsection{Plots of boxes}
 Another way of looking at the variation across the sequences is by plotting boxplots that show the distribution of pairwise genetic distances of each window. This can be done by using the function \fun{slideBoxplots()}. This function has three methods that be used. \fun{"overall"} shows a single boxplot that represents the whole distance matrix, \fun{"interAll"} separates the distances into intra- and inter-specific distances and plots a boxplot of each. This differs from \fun{"nonCon"} (the default) in that \fun{"nonCon"} restricts the inter-specific distances to only the nearest non-conspecific distance for each individual in the dataset.
 
 \begin{console}
-anoBox <- slideBoxplots(anoteropsis, 50, anoSpp, interval="codons", 
+anoBox <- slideBoxplots(anoteropsis, anoSpp, 50, interval="codons", 
 method="nonCon")
 plot(anoBox)
 \end{console}
@@ -1008,12 +1003,12 @@ plot(anoBox)
 \end{figure}
 
 
-When plotted, this function produces the graphic shown in Figure \ref{slideBoxplots.fig}. Unfortunately, there is very little difference between the intra and inter-specific distances at the 50 bp window size. Even the windows around the 200 bp position display significant overlap between the two measures, showing that there is no ``barcoding gap'' with this size of DNA fragment.
+When plotted, this function produces the graphic shown in Figure \ref{slideBoxplots.fig}. Unfortunately, there is very little difference between the intra- and interspecific distances at the 50 bp window size. Even the windows around the 200 bp position display significant overlap between the two measures, showing that there is no ``barcoding gap'' with this size of DNA fragment.
 
 To look at a more conventional example of the barcoding gap we can have a look at the \fun{weevils} dataset (Figure \ref{weevilsBox.fig}):
 
 \begin{console}
-weevilsBox <- slideBoxplots(weevils, 50, weevilSpp1, interval="codons", 
+weevilsBox <- slideBoxplots(weevils, weevilSpp1, 50, interval="codons", 
 method="nonCon")
 plot(weevilsBox)
 \end{console}
@@ -1032,9 +1027,7 @@ plot(weevilsBox)
 \section{Conclusion}
 This tutorial gives an introduction the the usage of some of the functions implemented in \spider, particularly with regards to its sliding window capabilities and use in DNA barcoding research. 
 \Spider~is an actively developing package, and it is intended that further analyses will be developed within it, with an especial focus on the analysis of conflict in phylogenetic data, checks of alignment quality, tools for studying ancient DNA and further analyses for morphological and categorical data.
-As the package matures, it is hoped that \spider~will be a valuable addition to toolkit of \progname{R} packages available for use in the field of taxonomy, systematics and molecular biology. For more information, or to get involved in the development of the package, please visit our site on R-Forge, \href{http://spider.r-forge.r-project.org/}{http://spider.r-forge.r-project.org/}.
-
-
+As the package matures, it is hoped that \spider~will be a valuable addition to toolkit of \progname{R} packages available for use in the field of taxonomy, systematics and molecular biology. For more information, or to get involved in the development of the package, please visit our site on R-Forge, \href{http://spider.r-forge.r-project.org/}{http://spider.r-forge.r-project.org/}. %Questions can be posted on the forum at...
 
 \bibliography{tutorial_references}
 
