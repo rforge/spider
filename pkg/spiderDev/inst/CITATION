@@ -1,4 +1,4 @@
-citHeader("To cite spider in a publication, please use:")
+citHeader("To cite spiderDev in a publication, please use:")
 
 citEntry(entry="Article",
 	title = "{SPIDER}: an {R} package for the analysis of species identity and evolution, with particular reference to {DNA} barcoding",
@@ -8,4 +8,4 @@ citEntry(entry="Article",
 	
         textVersion = "Brown S. D. J., Collins R. A., Boyer S., Lefort M.-C., Malumbres-Olarte J., Vink C. J., & Cruickshank R. H. In Press. SPIDER: an R package for the analysis of species identity and evolution, with particular reference to DNA barcoding. Molecular Ecology Resources")
 
-citFooter("As spider is developing rapidly, you may want to cite also its version number (found with 'library(help = spider)').")
+citFooter("As spiderDev is developing rapidly, you may want to cite also its version number (found with 'library(help = spiderDev)').")
