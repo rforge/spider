@@ -6,7 +6,6 @@
 -- read.GB: modified to work with eFetch version 2.0 (http://www.ncbi.nlm.nih.gov/books/NBK25499/)
 -- read.BOLD: help file updated
 -- search.BOLD: Modified to work with BOLDsystems v 3.0
--- Functions added: stats.BOLD
 
 ############################################
                                 SPIDER VERSION 1.1-1
