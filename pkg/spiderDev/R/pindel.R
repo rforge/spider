@@ -8,6 +8,6 @@ pindel <- function(DNAbin, proportion = TRUE, indelmod = "indel"){
 	
 	
 	
-test <- read.dna("/home/sam/Desktop/testSeqs.fas", format="fasta")
+#test <- read.dna("/home/sam/Desktop/testSeqs.fas", format="fasta")
 
-raw <- dist.dna(test, model="raw")
+#raw <- dist.dna(test, model="raw")
