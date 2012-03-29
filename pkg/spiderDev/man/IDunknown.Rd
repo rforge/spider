@@ -41,6 +41,7 @@ For more information on some of the different matching criteria see: \code{\link
 
 \examples{
 
+\donotrun{
 data(dolomedes)
 
 #Simulate a dataset of unknown specimens
@@ -51,7 +52,7 @@ attr(unknown, "dimnames")[[1]] <- paste("unkow", 1:5, sep="")
 
 IDunknown(unknown, dolomedes)
 
-
+}
 }
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the

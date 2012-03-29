@@ -42,7 +42,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 \examples{
 
 data(anoteropsis)
-anoTr <- nj(dist.dna(anoteropsis)
+anoTr <- nj(dist.dna(anoteropsis))
 
 nodeDesc(anoTr, 51)
 
