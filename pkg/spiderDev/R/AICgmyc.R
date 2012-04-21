@@ -1,4 +1,4 @@
-AIC.gmyc <- function(gmyc){
+AICgmyc <- function(gmyc){
 	L <- gmyc$likelihood
 	ell <- gmyc$tree$Nnode
 	k <- dim(gmyc$parameters)[2] + sapply(gmyc$threshold.time, length)

@@ -1,0 +1,163 @@
+\documentclass{article}
+
+\usepackage{hyperref}
+
+\newcommand{\ape}{\textsc{ape}}
+\newcommand{\spider}{\textsc{spider}}
+\newcommand{\funname}[1]{\texttt{#1}}
+
+\title{Benchmarking \ape 's ability to handle large DNA alignments \footnote{This note was supplied as supplementary data for \cite{Brown.etal.2012}.
+}}
+\author{Samuel D. J. Brown}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+This note presents the results of a benchmarking test to determine the capacity of \ape~\cite{SW.Para.2004.ape} to handle large datasets. 
+
+This note is also available as a Sweave (.Rnw) file from the \spider~website (\href{http://spider.r-forge.r-project.org/}{http://spider.r-forge.r-project.org/}), which allows these tests to be replicated on computing platforms other than that on which it is performed here. To do this, download the document, open up R, install \spider, \ape and their required packages, set the working directory and run the command \funname{Sweave("benchmarking.Rnw")}. Pass the resulting .tex file through \LaTeX to get the finished product.
+
+For more information about Sweave and reproducible research, visit the Sweave web page (\href{http://www.stat.uni-muenchen.de/~leisch/Sweave/}{http://www.stat.uni-muenchen.de/~leisch/Sweave/}) and the \href{http://www.reproducibleresearch.net}{ReproducibleResearch.net} webpage.
+
+\section{Methods}
+The tests performed in this document involve recording the time taken to create a K2P distance matrix and neighbour joining tree using the \ape~command \funname{nj(dist.dna(x))}. The effect of sequence length and sequence number are investigated independantly by manipulating a single DNA alignment. Tests are repeated 50 times and the mean and standard deviation is recorded of the elapsed system time by the samples. 
+
+The DNA alignment that will be used is an alignment of 37 sequences of the mitochondrial protein-coding gene cytochrome oxidase I from the 4 New Zealand species of the nursery-web spider genus \emph{Dolomedes} (Pisauridae) \cite{Vink.Dupe.2010}. These sequences are available on GenBank as accession numbers GQ337328 through GQ337385 and are pre-loaded as a \funname{DNAbin} object in \spider~as the \funname{dolomedes} dataset.
+
+Please note that the .Rnw file takes a while to run to completion. The time taken to process the file is roughly around 10 min, so go and get a cup of tea while the computer thinks about it.
+
+\section{Benchmarking tests}
+
+<<echo = TRUE>>=
+library(spider)
+#Benchmarking
+data(dolomedes)
+
+LenDat <- dolomedes
+
+#Sequence length
+LenOutput <- matrix(NA, ncol = 4, nrow = 10, dimnames = list(NULL, c("Number", "Length", "Time mean", "Time SD")))
+for(i in 1:10){
+	LenDat <- cbind(LenDat, dolomedes)
+	subput <- list()
+	length(subput) <- 50
+	for(j in 1:50){
+		subput[[j]][1] <- dim(LenDat)[1]
+		subput[[j]][2] <- dim(LenDat)[2]
+		subput[[j]][3] <- system.time(nj(dist.dna(LenDat)))[3]
+	}
+	LenOutput[i,1] <- mean(sapply(subput, function(x) x[1]))
+	LenOutput[i,2] <- mean(sapply(subput, function(x) x[2]))
+	LenOutput[i,3] <- mean(sapply(subput, function(x) x[3]))
+	LenOutput[i,4] <- sd(sapply(subput, function(x) x[3]))
+	
+}
+
+
+NumDat <- dolomedes
+
+#Sequence number
+NumOutput <- matrix(NA, ncol = 4, nrow = 10, dimnames = list(NULL, c("Number", "Length", "Time mean", "Time SD")))
+for(i in 1:10){
+	NumDat <- rbind(NumDat, dolomedes)
+	subput <- list()
+	length(subput) <- 50
+	for(j in 1:50){
+		subput[[j]][1] <- dim(NumDat)[1]
+		subput[[j]][2] <- dim(NumDat)[2]
+		subput[[j]][3] <- system.time(nj(dist.dna(NumDat)))[3]
+	}
+	NumOutput[i,1] <- mean(sapply(subput, function(x) x[1]))
+	NumOutput[i,2] <- mean(sapply(subput, function(x) x[2]))
+	NumOutput[i,3] <- mean(sapply(subput, function(x) x[3]))
+	NumOutput[i,4] <- sd(sapply(subput, function(x) x[3]))
+}
+@
+
+\section{Effect of sequence length}
+
+
+<<figLentime, include=TRUE, term=false, fig=true, width=7, height=7, echo=TRUE>>=
+LenNum <- max(LenOutput[,1])
+LenMax <- max(LenOutput[,2])
+LenMaxTime <- max(mapply(x = LenOutput[,3], y = 1.96 * LenOutput[,4], sum))
+
+plot(LenOutput[,2], LenOutput[,3], xlab = "Sequence length (bp)", ylab = "Processing time (s)", ylim = c(0, LenMaxTime))
+arrows(x0 = LenOutput[,2], y0 = LenOutput[,3], y1 = LenOutput[,3] - 1.96 * LenOutput[,4], angle = 90)
+arrows(x0 = LenOutput[,2], y0 = LenOutput[,3], y1 = LenOutput[,3] + 1.96 * LenOutput[,4], angle = 90)
+@
+
+From this graph we can see that the processing time increases linearly with sequence length. Processing time is very fast however. In this instance, with \Sexpr{LenNum} sequences and a length of \Sexpr{LenMax}, in 97.5\% of instances, the processing time will be less than \Sexpr{LenMaxTime} seconds.
+
+<<echo=TRUE>>=
+LenOutput
+@
+
+\section{Effect of sequence number}
+<<figNumtime, include=TRUE, term=false, fig=true, width=7, height=7, echo=TRUE>>=
+NumLen <- max(NumOutput[,2])
+NumMax <- max(NumOutput[,1])
+NumMaxTime <- max(mapply(x = NumOutput[,3], y = 1.96 * NumOutput[,4], sum))
+
+plot(NumOutput[,1], NumOutput[,3], xlab = "Number of sequences", ylab = "Processing time (s)", ylim = c(0, NumMaxTime))
+arrows(x0 = NumOutput[,1], y0 = NumOutput[,3], y1 = NumOutput[,3] - 1.96 * NumOutput[,4], angle = 90)
+arrows(x0 = NumOutput[,1], y0 = NumOutput[,3], y1 = NumOutput[,3] + 1.96 * NumOutput[,4], angle = 90)
+@
+
+From this graph we can see that the processing time increases exponentially as the number of sequences in the alignment increases. In this instance, with \Sexpr{NumMax} sequences and a length of \Sexpr{NumLen}, in 97.5\% of instances, the processing time will be less than \Sexpr{NumMaxTime} seconds.
+
+<<echo=TRUE>>=
+NumOutput
+@
+
+\section{Large datasets}
+<<echo=TRUE>>=
+bigDat <- dolomedes[sample(1:dim(dolomedes)[1], 3000, replace=TRUE),]
+
+bigDistRes <- system.time(dist.dna(bigDat))
+bigTreeRes <- system.time(nj(dist.dna(bigDat)))
+
+@
+
+This dataset represents one that might be obtained from an environmental DNA project using next-generation sequencing technology. Creating the distance matrix is fairly rapid, taking around \Sexpr{bigDistRes[3]} seconds. Building the tree is a much more intensive job, the whole process from alignment through distance matrix to NJ tree taking around \Sexpr{bigTreeRes[3]} seconds. 
+
+Testing larger datasets is left as an exercise for the user ;)
+
+
+\section{System information}
+
+The following is the information of the system this file has been run on, for purposes of comparison between machines.
+
+<<echo=TRUE>>=
+sessionInfo()
+@
+
+\section{Conclusion}
+Although it is an interpreted language, the time \ape~takes for basic DNA sequence manipulation is generally within the realms of acceptability. Using the process from alignment to distance matrix to neighbour-joining tree as a standard, the time taken increases linearly with increasing sequence length, but exponentially as the number of sequences in the alignment increases. 
+
+
+\begin{thebibliography}{1}
+
+\bibitem{Brown.etal.2012}
+Samuel David~James Brown, Rupert~A Collins, Stephane Boyer, Marie-Caroline
+  Lefort, Jagoba Malumbres-Olarte, Cor~J Vink, and Robert~H Cruickshank.
+\newblock {\textsc{Spider}}: An {R} package for the analysis of species
+  identity and evolution, with particular reference to {DNA} barcoding.
+\newblock {\em Molecular Ecology Resources}, In press.
+
+\bibitem{SW.Para.2004.ape}
+E.~Paradis, J.~Claude, and K.~Strimmer.
+\newblock {APE}: analyses of phylogenetics and evolution in {R} language.
+\newblock {\em Bioinformatics}, 20:289--290, 2004.
+
+\bibitem{Vink.Dupe.2010}
+Cor~J Vink and N~Dup{\'e}rr{\'e}.
+\newblock Pisauridae ({A}rachnida: {A}raneae).
+\newblock {\em Fauna of New Zealand}, 64:1--54, 2010.
+
+\end{thebibliography}
+
+
+\end{document}

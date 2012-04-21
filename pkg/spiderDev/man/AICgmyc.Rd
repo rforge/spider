@@ -1,5 +1,5 @@
-\name{AIC.gmyc}
-\alias{AIC.gmyc}
+\name{AICgmyc}
+\alias{AICgmyc}
 \alias{AICweights}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{Calculate AIC values for GMYC objects}
@@ -59,10 +59,10 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 data(doloGMYC)
 data(doloMultGMYC)
 
-AIC.gmyc(doloGMYC)
-AIC.gmyc(doloMultGMYC)
+AICgmyc(doloGMYC)
+AICgmyc(doloMultGMYC)
 
-comb <- c(AIC.gmyc(doloGMYC)$AIC, AIC.gmyc(doloMultGMYC)$AIC)
+comb <- c(AICgmyc(doloGMYC)$AIC, AICgmyc(doloMultGMYC)$AIC)
 AICweights(comb)
 
 }

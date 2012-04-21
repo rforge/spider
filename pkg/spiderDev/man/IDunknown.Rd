@@ -41,7 +41,7 @@ For more information on some of the different matching criteria see: \code{\link
 
 \examples{
 
-\donotrun{
+\dontrun{
 data(dolomedes)
 
 #Simulate a dataset of unknown specimens

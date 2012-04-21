@@ -55,5 +55,3 @@ Brown S. D. J., Collins R. A., Boyer S., Lefort M.-C., Malumbres-Olarte J., Vink
 \code{\link{ape-package}}, 
 \code{\link{pegas-package}}.
 }
-\examples{
-}

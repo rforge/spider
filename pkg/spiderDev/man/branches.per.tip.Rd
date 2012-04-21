@@ -38,7 +38,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 
 \examples{
 
-data(dolomedes}
+data(dolomedes)
 doloTr <- nj(dist.dna(dolomedes))
 
 branches.per.tip(doloTr)
