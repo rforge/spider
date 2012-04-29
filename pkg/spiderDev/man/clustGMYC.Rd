@@ -11,7 +11,7 @@ clustGMYC(gmyc, index = "maxLikelihood")
 
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{gmyc}{A `gmyc' object created with \code{\link{gmyc}}.}
+  \item{gmyc}{A `gmyc' object created with \code{gmyc}.}
   \item{index}{The GMYC model to create the species vector. Default of the maximum likelihood model.}
 }
 
@@ -37,7 +37,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{gmyc}}, \code{\link{sppVector}}
+\code{gmyc}, \code{\link{sppVector}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 

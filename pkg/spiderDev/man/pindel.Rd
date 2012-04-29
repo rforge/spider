@@ -1,25 +1,31 @@
-\name{branches.per.tip}
-\alias{branches.per.tip}
+\name{pindel}
+\alias{pindel}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Branches leading to each tip}
+\title{DNA distance model incorporating alignment gaps}
 
-\description{This function returns the indices of the branches leading to each tip.}
+\description{Calculates the p-distance between sequences, incorporating gaps as a fifth character}
 
 \usage{
-branches.per.tip(phy)
+pindel(DNAbin, proportion = TRUE, indelmod = "indel")
 }
 
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{phy}{A `phylo' object.}
+  \item{DNAbin}{A `DNAbin' object.}
+  \item{proportion}{Something I'll need to figure out later}
+  \item{indelmod}{Something to do with indels.}
 }
 
 \details{
 }
 
 \value{
-A list with a length corresponding to the number of tips in the tree. Each element contains the indices of the branches leading to that tip.
+A distance matrix
 }
+
+\references{
+}
+
 
 \author{
 Samuel Brown <s_d_j_brown@hotmail.com>
@@ -32,19 +38,14 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{gmyc}
+\code{\link[ape]{dist.dna}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 
 \examples{
 
-data(dolomedes)
-doloTr <- nj(dist.dna(dolomedes))
-
-branches.per.tip(doloTr)
-
 }
 
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
-\keyword{Utilities}
+

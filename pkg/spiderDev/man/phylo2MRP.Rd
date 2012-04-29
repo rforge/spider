@@ -1,12 +1,12 @@
-\name{branches.per.tip}
-\alias{branches.per.tip}
+\name{phylo2MRP}
+\alias{phylo2MRP}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Branches leading to each tip}
+\title{Create a matrix representing a tree}
 
-\description{This function returns the indices of the branches leading to each tip.}
+\description{The distance from the root for each tip in a tree.}
 
 \usage{
-branches.per.tip(phy)
+phylo2MRP(phy)
 }
 
 %- maybe also 'usage' for other objects documented here.
@@ -18,7 +18,7 @@ branches.per.tip(phy)
 }
 
 \value{
-A list with a length corresponding to the number of tips in the tree. Each element contains the indices of the branches leading to that tip.
+A matrix with rows = number of tips on tree and columns = number of nodes. 
 }
 
 \author{
@@ -32,8 +32,6 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{gmyc}
-%% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 
 \examples{
@@ -41,7 +39,8 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 data(dolomedes)
 doloTr <- nj(dist.dna(dolomedes))
 
-branches.per.tip(doloTr)
+phylo2MRP(doloTr)
+
 
 }
 

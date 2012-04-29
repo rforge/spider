@@ -13,7 +13,7 @@ maxLike.gmyc(gmyc)
 
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{gmyc}{A `gmyc' object created with \code{\link{gmyc}}.}
+  \item{gmyc}{A `gmyc' object created with \code{gmyc}.}
 }
 
 \details{
@@ -41,7 +41,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{gmyc}}
+\code{gmyc}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 

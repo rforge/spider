@@ -7,13 +7,13 @@
 \description{This function calculates AIC values, weights and model-weighted average number of entities inferred using GMYC.}
 
 \usage{
-AIC.gmyc(gmyc)
+AICgmyc(gmyc)
 AICweights(AIC)
 }
 
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{gmyc}{A `gmyc' object created with \code{\link{gmyc}}.}
+  \item{gmyc}{A `gmyc' object created with \code{gmyc}.}
   \item{AIC}{A vector of AIC values for which weights are to be calculated.}
 }
 
@@ -50,7 +50,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{gmyc}}
+\code{gmyc}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 

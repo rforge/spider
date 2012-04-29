@@ -6,7 +6,7 @@
 \description{This function calculates AIC values, weights and model-weighted average number of entities inferred using GMYC.}
 
 \usage{
-nodDesc(tr, node, tips.only = TRUE)
+nodeDesc(tr, node, tips.only = TRUE)
 }
 
 %- maybe also 'usage' for other objects documented here.

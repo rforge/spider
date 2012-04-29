@@ -12,7 +12,7 @@ compList(list1, list2, returnList = FALSE)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{list1, list2}{Lists to compare}
-  \item{returnList}{Logical. If FALSE, the output is simplified to a logical vector. If TRUE, a list with the results of each element is returned.
+  \item{returnList}{Logical. If FALSE, the output is simplified to a logical vector. If TRUE, a list with the results of each element is returned.}
 }
 
 \details{

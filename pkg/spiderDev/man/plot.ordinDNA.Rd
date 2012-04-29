@@ -8,14 +8,17 @@ Plot an 'ordinDNA' object
 Plots an ordination of the Principal Components Analysis conducted by \code{\link{ordinDNA}}.
 }
 \usage{
-\method{plot}{ordinDNA}(x, outliers = FALSE, ...)
+\method{plot}{ordinDNA}(x, majorAxes = c(1,2), plotCol = "default", textcex = 0.7, pchCentroid = FALSE, namePos = "top", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{An object of class `ordinDNA'.}
-  \item{textcex}{Numeric. Controls the size of the text giving the species value of the centroids.}
-  \item{plotCol}{A vector of RGB colours giving the colours of the points and circles. Must be in the form of a character vector with elements "#XXXXXX" where XXXXXX gives the hexadecimal value for the colours desired. Default of \code{"default"}. Colours are recycled if necessary.}
   \item{majorAxes}{Numeric. Gives the numbers of the major axes that should be plotted. Default of the first two major axes (\code{majorAxes = c(1,2)})}
+  \item{plotCol}{A vector of RGB colours giving the colours of the points and circles. Must be in the form of a character vector with elements "#XXXXXX" where XXXXXX gives the hexadecimal value for the colours desired. Default of \code{"default"}. Colours are recycled if necessary.}
+  \item{textcex}{Numeric. Controls the size of the text giving the species value of the circles.}
+  \item{pchCentroid}{Numeric. Controls the shape of the point showing the centroid of the circle for each species. Default of FALSE, no plotting of centroid position.}
+  \item{namePos}{Character vector of length 1 giving the position where the species names should be plotted. Possible values are: "top" and "bottom", anything else plots the names at the centroid.}
+  
    \item{...}{Other arguments to be passed to \code{plot}.}
 }
 \details{
@@ -53,6 +56,8 @@ plot(doloOrd)
 plot(doloOrd, majorAxes = c(1,3))
 plot(doloOrd, textcex = 0.001)
 plot(doloOrd, plotCol = c("#FF0000", "#00FF00", "#0000FF"))
+plot(doloOrd, namesPos = "bottom")
+plot(doloOrd, namesPos = "centre")
 
 data(anoteropsis)
 anoDist <- dist.dna(anoteropsis)

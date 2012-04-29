@@ -13,15 +13,15 @@ sing2multLRT(test1, test2)
 
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{gmyc}{A `gmyc' object created with \code{\link{gmyc}}.}
-  \item{test1}{A `gmyc' object created with \code{\link{gmyc}}.}
-  \item{test2}{A `gmyc' object created with \code{\link{gmyc}}.}
+  \item{gmyc}{A `gmyc' object created with \code{gmyc}.}
+  \item{test1}{A `gmyc' object created with \code{gmyc}.}
+  \item{test2}{A `gmyc' object created with \code{gmyc}.}
 }
 
 \details{
 \code{best2null} compares the best model with the null model.
 
-\code{sing2multLRT} compares a multiple-threshold model with a single-threshold model. It is a re-implementation of \code{\link{compare}} in the \code{splits} package, to facilitate the use of data in downstream applications.
+\code{sing2multLRT} compares a multiple-threshold model with a single-threshold model. It is a re-implementation of \code{compare} in the \code{splits} package, to facilitate the use of data in downstream applications.
 }
 
 \value{
@@ -42,7 +42,7 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{\link{gmyc}}
+\code{gmyc}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 

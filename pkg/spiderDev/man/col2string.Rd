@@ -1,25 +1,29 @@
-\name{branches.per.tip}
-\alias{branches.per.tip}
+\name{col2string}
+\alias{col2string}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Branches leading to each tip}
+\title{Converts R colous names to RGB strings}
 
-\description{This function returns the indices of the branches leading to each tip.}
+\description{This function return the RGB string for the R colour name given.}
 
 \usage{
-branches.per.tip(phy)
+col2string(x)
 }
 
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{phy}{A `phylo' object.}
+  \item{x}{One of the R colour names returned by \code{colours()}.}
 }
 
 \details{
 }
 
 \value{
-A list with a length corresponding to the number of tips in the tree. Each element contains the indices of the branches leading to that tip.
+A character string of form #XXXXXX where .
 }
+
+\references{
+}
+
 
 \author{
 Samuel Brown <s_d_j_brown@hotmail.com>
@@ -32,16 +36,15 @@ Samuel Brown <s_d_j_brown@hotmail.com>
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{
-\code{gmyc}
+\code{\link{colours}}
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 
 \examples{
 
-data(dolomedes)
-doloTr <- nj(dist.dna(dolomedes))
+col2string("steelblue2")
 
-branches.per.tip(doloTr)
+col2string("tomato1")
 
 }
 
