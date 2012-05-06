@@ -9,22 +9,27 @@ An experimental function that determines the diagnostic nucleotides for each spe
 }
 
 \usage{
-nucDiagExptl(DNAbin, sppVector, block = 1, private = FALSE)
+nucDiagExptl(DNAbin, sppVector, block = 1, category = c("all", "pure", "private"))
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{DNAbin}{An object of class 'DNAbin'.}
   \item{sppVector}{The species vector (see \code{\link{sppVector}}).}
   \item{block}{Numeric. Number of bases to consider. Default of 1.}
-  \item{private}{Logical. Should private characters be detected? Default of FALSE.}
+  \item{category}{Character vector. What category of diagnostic nucleotides should be returned? Options of \code{"all"}, \code{"pure"} or \code{"private"}. Default of \code{"pure"}.}
 }
 
 \details{
-This first version of the function (svn revision 48), returns both pure and private diagnostic nucleotides when \code{private = FALSE}.
+\code{"pure"} diagnostic nucleotides are possessed by ALL members have differences at those sites, and are different from the other species.
+
+\code{"private"} diagnostic nucleotides are possessed by only some of the individuals in the dataset.
+
+Setting the option to \code{"all"} returns all diagnostic nucleotides regardless of whether they are pure or private.
+
 }
 
 \value{
-A list giving the pure, simple diagnostic nucleotides (i.e. those nucleotides that are fixed within species and different from all other species) for each species in the species vector. A result of \code{integer(0)} indicates there are no diagnostic nucleotides for those species.
+A list giving the site numbers which show diagnostic nucleotides for each species in the species vector. A result of \code{integer(0)} indicates there are no diagnostic nucleotides for those species.
 }
 \references{
 Sarkar, I., Planet, P., & DeSalle, R. (2008). CAOS software for use in character-
@@ -56,5 +61,20 @@ data(dolomedes)
 doloSpp <- substr(dimnames(dolomedes)[[1]], 1, 5)
 
 nucDiag(dolomedes, doloSpp)
-nucDiagExptl(dolomedes, doloSpp, private = TRUE)
+nucDiagExptl(dolomedes, doloSpp, category = "pure")
+nucDiagExptl(dolomedes, doloSpp, category = "private")
+nucDiagExptl(dolomedes, doloSpp, category = "all")
+
+#An interesting exercise: Are the diagnostic nucleotides just the same as the seg.sites?
+doloSeg <- seg.sites(dolomedes)
+doloDiag <- nucDiagExptl(dolomedes, doloSpp, category = "all")
+length(doloSeg)
+length(doloDiag)
+#No, they're not
+
+doloDiagVec <- c(sort(unlist(doloDiag)), rep(NA, 16))
+
+plot(doloDiagVec ~ doloSeg)
+abline(0, 1)
+
 }
