@@ -9,7 +9,7 @@ An experimental function that determines the diagnostic nucleotides for each spe
 }
 
 \usage{
-nucDiagExptl(DNAbin, sppVector, block = 1, category = c("all", "pure", "private"))
+nucDiagExptl(DNAbin, sppVector, block = 1, category = "pure")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
