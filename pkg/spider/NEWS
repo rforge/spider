@@ -1,4 +1,14 @@
 ############################################
+                                SPIDER VERSION 1.1-5
+				Released 11 October 2012
+				
+
+-- monophyly: Code changed from calling the ape C routine "bipartition" directly, to using prop.part()
+-- monophylyBoot: Code changed from calling the ape C routine "bipartition" directly, to using prop.part()
+-- tree.comp: Code changed from calling the ape C routine "bipartition" directly, to using prop.part()
+
+
+############################################
                                 SPIDER VERSION 1.1-4
 				Released 17 June 2012
 				

@@ -8,4 +8,4 @@ Maintainer: Samuel Brown <s_d_j_brown@hotmail.com>
 Description: A package for the analysis of species limits and DNA barcoding data. Development area for functions that will eventually be included in spider proper.
 License: GPL
 LazyLoad: yes
-Depends: spider
+Depends: spider, phangorn
