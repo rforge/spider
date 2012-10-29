@@ -2,24 +2,27 @@
 \docType{data}
 \alias{doloGMYC}
 \alias{doloMultGMYC}
-\title{Cytochrome oxidase I (COI) sequences of New Zealand _Anoteropsis_ species}
+\title{GMYC results from New Zealand _Dolomedes_ species}
 
-\description{GMYC objects from the dataset provided by \code{data(dolomedes)}. They were derived as shown in the example below.}
+\description{Results of the generalised mixed yule coalescent model (GMYC) on the dataset provided by \code{data(dolomedes)}. They were derived as shown in the example below.}
 
 \usage{
 doloGMYC
 doloMultGMYC
 }
 
-\format{Objects of class `gmyc'. \code{doloGMYC} is a single-threshold model, while \code{doloMultGMYC} is a multiple-threshold model.}
+\format{Objects of class `gmyc'. \code{doloGMYC} is a single-threshold model, while \code{doloMultGMYC} is a multiple-threshold model.
+
+These objects are created using the \code{gmyc} function from the \code{splits} package, as shown below.}
 
 \source{
-Vink, C. J., and Paterson, A. M. (2003). Combined molecular and morphological phylogenetic analyses of the New Zealand wolf spider genus _Anoteropsis_
-(Araneae: Lycosidae). _Molecular Phylogenetics and Evolution_ *28* 576-587.
+Vink, C. J., and Duperre, N. (2010). Pisauridae (Arachnida: Araneae). _Fauna of New Zealand_ *64* 1-54.
 }
 
 \examples{
 \dontrun{
+install.packages("splits", repos = "http://r-forge.r-project.org")
+
 data(dolomedes)
 doloTr <- nj(dist.dna(dolomedes))
 doloTr <- root(doloTr, node = 43, resolve.root = TRUE)

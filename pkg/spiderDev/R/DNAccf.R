@@ -1,7 +1,7 @@
-DNAccf <- function(DNAbin, randomRefSeq = FALSE, lag.max = NULL){
+DNAccf <- function(DNAbin, refSeq = 1, lag.max = NULL){
 	numMat <- apply(DNAbin, 1, as.numeric)
 	
-	if(!randomRefSeq) ref <- 1 else ref <- sample(1:dim(DNAbin)[[1]], 1)
+	if(refSeq == "random") ref <- sample(1:dim(DNAbin)[[1]], 1) else ref <- refSeq
 	
 	outMaxCor <- vector()
 	outLag <- vector()

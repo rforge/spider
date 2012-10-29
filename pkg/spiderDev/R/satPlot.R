@@ -6,5 +6,8 @@ satPlot <- function(DNAbin){
 	MLtree <- optim.pml(Pml, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE)
 	MLdist <- cophenetic(MLtree$tree)
 	Pdist <- as.matrix(Pdist)
-	list(Pdist = Pdist,  MLdist = MLdist)
+	satList <- list(Pdist = Pdist,  MLdist = MLdist)
+	plot(satList$Pdist ~ satList$MLdist, xlab = "ML distance", ylab = "p-distance")
+	abline(a = 0, b = 1)
+	invisible(satList)
 }
