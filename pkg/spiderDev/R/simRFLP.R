@@ -1,5 +1,5 @@
 simRFLP <- function(DNAbin, enzyme){
-	data(enzymes)
+	data(enzymes, package = "spiderDev")
 	pattern <- enzymes[match(tolower(enzyme), tolower(enzymes[,1])), 2]
 	pattern <- paste(as.character(pattern), collapse = ")|(")
 	pattern <- paste("(", pattern, ")", sep = "")

@@ -6,12 +6,12 @@
 \description{Cross-correlation between sequences in an alignment to detect potentially incorrectly aligned sequences.}
 
 \usage{
-DNAccf(DNAbin, randomRefSeq = FALSE, lag.max = NULL)
+DNAccf(DNAbin, refSeq = 1, lag.max = NULL)
 }
 
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-	\item{DNAbin}{A distance matrix.}
+	\item{DNAbin}{An object of class \code{DNAbin}}
 	\item{refSeq}{Numeric. The sequence that should be used as a reference. Default of 1, i.e. the first sequence. The option \code{"random"} can be given, which randomly selects a sequence.}
 	\item{lag.max}{Numeric. The maximum lag at which to calculate the correlation between sequences. Default is 10*log10(N/m)where N is the number of observations and m the number of series (see \code{\link{ccf}}).}
 }

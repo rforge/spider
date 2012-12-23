@@ -27,10 +27,12 @@ plot.ordinDNA <- function(x, majorAxes = c(1,2), plotCol = "default", textcex = 
 	radius <- sapply(unique(sppVector), function(xx) maxDist(mat[sppVector == xx,]))
 	radius <- radius[match(sort(names(radius)), names(radius))]
 	
+	#Proportion of variation in each axis
+	propVar <- round(x$pco$eig/max(cumsum(x$pco$eig)) * 100, 1)
 	
 	if(namePos == "top") labRadius <- radius else if(namePos == "bottom") labRadius <- -radius else labRadius <- 0
 
-	plot(mat[,1], mat[,2], type = "n", asp = 1, xlab = paste("Major axis", majorAxes[1]), ylab = paste("Major axis", majorAxes[2]), ...)
+	plot(mat[,1], mat[,2], type = "n", asp = 1, xlab = paste("Major axis ", majorAxes[1], " (", propVar[majorAxes[1]], "%)", sep = ""), ylab = paste("Major axis ", majorAxes[2], " (", propVar[majorAxes[2]], "%)", sep = ""), ...)
 	symbols(centroids[,2], centroids[,3], circles = radius, bg = transCol[as.numeric(sort(unique(sppVecFac)))], inches = FALSE, add = TRUE)
 	if(pchCentroid) points(centroids[,2], centroids[,3], pch = 21, bg = plotCol[as.numeric(sort(unique(sppVecFac)))])
 	points(mat[,1], mat[,2], pch=22, bg = plotCol[as.numeric(sppVecFac)], cex = 0.5)

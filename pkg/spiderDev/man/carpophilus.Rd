@@ -1,5 +1,6 @@
 \name{carpophilus}
 \docType{data}
+\alias{carpophilus}
 \alias{carpoCOI}
 \alias{carpo28S}
 \alias{carpoITS}
@@ -38,10 +39,15 @@ Brown, S. D. J., Armstrong, K. F., and Cruickshank, R. H. (2012). Molecular phyl
 
 data(carpophilus)
 
-#subspecies vector
-carpoCOIsspp <- sapply(strsplit(dimnames(carpoCOI)[[1]], split = "\\|"), function(xx) xx[2])
-#species vector
+#subspecies vectors
+carpoCOIsspp <- sapply(strsplit(dimnames(carpoCOI)[[1]], split = "\\\\|"), function(xx) xx[2])
+carpo28Ssspp <- sapply(strsplit(dimnames(carpo28S)[[1]], split = "\\\\|"), function(xx) xx[2])
+carpoITSsspp <- sapply(strsplit(dimnames(carpoITS)[[1]], split = "\\\\|"), function(xx) xx[2])
+
+#species vectors
 carpoCOIspp <- substr(carpoCOIsspp, 1,  8)
+carpo28Sspp <- substr(carpo28Ssspp, 1,  8)
+carpoITSspp <- substr(carpoITSsspp, 1,  8)
 
 }
 
