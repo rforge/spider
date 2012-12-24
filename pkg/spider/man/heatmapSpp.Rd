@@ -11,7 +11,7 @@
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{distObj}{A matrix or object of class \code{dist}.}
-  \item{sppVector}{The species vector. See \link{\code{sppVector}}.}
+  \item{sppVector}{The species vector. See \code{\link{sppVector}}.}
   \item{col}{A vector giving the colours for the heatmap.}
   \item{axisLabels}{A character vector that provides the axis labels for the heatmap. By default the species vector is used.}
 }
