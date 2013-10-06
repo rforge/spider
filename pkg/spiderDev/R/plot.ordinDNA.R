@@ -1,4 +1,4 @@
-plot.ordinDNA <- function(x, majorAxes = c(1,2), plotCol = "default", textcex = 0.7, pchCentroid = FALSE, namePos = "top", ...){
+plot.ordinDNA <- function(x, majorAxes = c(1,2), plotCol = "default", trans = "CC", textcex = 0.7, pchCentroid = FALSE, sppBounds = "circles", sppNames = TRUE, namePos = "top", ptPch = 21, ptCex = 0.5, netWd = 1, ...){
 	#Colours
 	if(plotCol[1] == "default") {
 		plotCol <- c("#D33F6A", "#D95260", "#DE6355", "#E27449", "#E6833D", "#E89331", 
@@ -9,9 +9,11 @@ plot.ordinDNA <- function(x, majorAxes = c(1,2), plotCol = "default", textcex = 
 		"#E1DDDD", "#D9C6C9", "#CEA5AC", "#BE7E8A", "#A94F64", "#8E063B"
 		)
 		} else plotCol <-  rep(plotCol, length(x$sppVector)/length(plotCol))
-	transCol <- paste(plotCol, "CC", sep = "")
+	transCol <- paste(plotCol, trans, sep = "")
 	sppVector <- x$sppVector
 	sppVecFac <- as.factor(sppVector)
+	sppVecFacNum <- as.numeric(unique(sppVecFac))
+
 	
 	#Figure out the centroid positions
 	mat <- x$pco$points[, majorAxes]
@@ -27,15 +29,21 @@ plot.ordinDNA <- function(x, majorAxes = c(1,2), plotCol = "default", textcex = 
 	radius <- sapply(unique(sppVector), function(xx) maxDist(mat[sppVector == xx,]))
 	radius <- radius[match(sort(names(radius)), names(radius))]
 	
+	# net setup
+	sppPoints <- lapply(unique(sppVector), function(xx) mat[sppVector == xx, , drop = FALSE])
+	topPoint <- sapply(aa, function(xx) xx[which.max(xx[,2]), ])
+	
 	#Proportion of variation in each axis
 	propVar <- round(x$pco$eig/max(cumsum(x$pco$eig)) * 100, 1)
 	
 	if(namePos == "top") labRadius <- radius else if(namePos == "bottom") labRadius <- -radius else labRadius <- 0
 
 	plot(mat[,1], mat[,2], type = "n", asp = 1, xlab = paste("Major axis ", majorAxes[1], " (", propVar[majorAxes[1]], "%)", sep = ""), ylab = paste("Major axis ", majorAxes[2], " (", propVar[majorAxes[2]], "%)", sep = ""), ...)
-	symbols(centroids[,2], centroids[,3], circles = radius, bg = transCol[as.numeric(sort(unique(sppVecFac)))], inches = FALSE, add = TRUE)
-	if(pchCentroid) points(centroids[,2], centroids[,3], pch = 21, bg = plotCol[as.numeric(sort(unique(sppVecFac)))])
-	points(mat[,1], mat[,2], pch=22, bg = plotCol[as.numeric(sppVecFac)], cex = 0.5)
-	text(centroids[,2], centroids[,3] + labRadius, labels = sort(unique(sppVector)), cex = textcex, pos = 3, offset = 0.06)
+	if(sppBounds == "circles") symbols(centroids[,2], centroids[,3], circles = radius, fg = transCol[as.numeric(sort(unique(sppVecFac)))], bg = transCol[as.numeric(sort(unique(sppVecFac)))], inches = FALSE, add = TRUE)
+	if(sppBounds == "net") lapply(1:length(sppPoints), function(xx) net(sppPoints[[xx]], col = plotCol[sppVecFacNum[xx]], lwd = netWd))	
+	if(pchCentroid) points(centroids[,2], centroids[,3], pch = ptPch, bg = plotCol[as.numeric(sort(unique(sppVecFac)))])
+	if(sppNames & namePos != "topPoint") text(centroids[,2], centroids[,3] + labRadius, labels = sort(unique(sppVector)), cex = textcex, pos = 3, offset = 0.06) else if(sppNames & namePos == "topPoint") text(topPoint[1, ], topPoint[2, ], labels = unique(sppVector), cex = textcex, pos = 3, offset = 0.06)
+	points(mat[,1], mat[,2], pch=22, bg = plotCol[as.numeric(sppVecFac)], cex = ptCex)
 	#~ list(radius, centroids, mat)
+	sppPoints
 }

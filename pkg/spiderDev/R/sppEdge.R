@@ -9,8 +9,7 @@ sppEdge <- function(phy, sppVector, cols = NULL){
 	cols <- rep(cols, length.out = length(sppList))
 	
 	sppMRCA <- lapply(sppList, function(xx) phyMRCA[xx, xx])
-	sppNodes <- sapply(sppMRCA, function(xx) if (class(xx) == "matrix") min(xx[xx > Ntips]) else match(xx, phy$edge[,2]))
-	sppEdges <- lapply(sppNodes, function(xx) branchesFromNode(phy, xx))
+	sppEdges <- sapply(sppMRCA, function(xx) if (class(xx) == "matrix") branchesFromNode(phy, min(xx[xx > Ntips])) else match(xx, phy$edge[,2]))
 
 	edgeCol <- rep("black", dim(phy$edge)[1])
 	for (i in 1:length(sppEdges)) edgeCol[sppEdges[[i]]] <- cols[i]

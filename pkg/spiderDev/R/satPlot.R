@@ -1,5 +1,5 @@
 satPlot <- function(DNAbin){
-	Pdist <- dist.dna(DNAbin, model = "raw")
+	Pdist <- dist.dna(DNAbin, model = "raw", pairwise.deletion = TRUE)
 	Tree <- nj(Pdist)
 	Phy <- as.phyDat(DNAbin)
 	Pml <- pml(Tree, Phy, model = "HKY", k = 4)

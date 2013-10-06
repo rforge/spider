@@ -6,12 +6,12 @@
 \description{Determines the number of homopolymeric series over a certain size within DNA sequences.}
 
 \usage{
-homoP(string, num)
+homoP(sequence, num)
 }
 
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{string}{DNA sequence}
+  \item{sequence}{DNA sequence}
   \item{num}{Length of homopolymer}
 }
 
