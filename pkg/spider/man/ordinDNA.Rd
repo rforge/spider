@@ -35,10 +35,6 @@ Additionally returns a list of class \code{"ordinDNA"} with the following elemen
 Samuel Brown <s_d_j_brown@hotmail.com>
 }
 
-\note{
-%%  ~~further notes~~
-}
-
 %% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{

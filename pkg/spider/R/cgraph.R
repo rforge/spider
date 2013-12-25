@@ -1,4 +1,4 @@
-net <- function(x, y = NULL, ...){
+cgraph <- function(x, y = NULL, ...){
 	if(!is.null(y)) mat <- cbind(x, y) else mat <- x
 	dd <- dim(mat)[1]
 	if(dd < 2) return()
