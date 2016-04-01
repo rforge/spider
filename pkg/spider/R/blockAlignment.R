@@ -1,4 +1,4 @@
-blockAlignment <- function(DNAbin, mode = "shortest", range = NULL) {
+blockAlignment <- function(DNAbin, mode = "shortest", range = NULL, fill = "") {
 	
 	DNAbin <- as.list(DNAbin)
 	
@@ -14,6 +14,12 @@ blockAlignment <- function(DNAbin, mode = "shortest", range = NULL) {
 		if (mode == "longest") {
 			outDNAbin <- as.DNAbin(t(sapply(as.character(DNAbin), function(xx) xx[1:sizeRange[2]])))
 		}
-	}	
-	outDNAbin
+	}
+	
+	db <- as.list(outDNAbin)
+	dbs <- lapply(db, function(x) as.character(x))
+	dbs <- lapply(dbs, function(x) replace(x, which(x == ""), fill))
+	outDNAbin <- as.DNAbin(dbs)
+	
+	as.matrix(outDNAbin)
 }
