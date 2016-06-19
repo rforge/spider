@@ -1,5 +1,6 @@
 \name{nucDiag}
 \alias{nucDiag}
+\alias{rnucDiag}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Nucleotide diagnostics for species alignments
@@ -10,6 +11,7 @@ Determines the diagnostic nucleotides for each species given in \code{sppVector}
 
 \usage{
 nucDiag(DNAbin, sppVector)
+rnucDiag(DNAbin, sppVector, n = 100)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -19,8 +21,17 @@ An object of class 'DNAbin'.
   \item{sppVector}{
 The species vector (see \code{\link{sppVector}}).
 }
+  \item{n}{
+The number of pseudoreplicates to perform. Default of 100
+}
 }
 
+\details{
+These functions provide a means for evaluating the presence of diagnostic nucleotides that distinguish species within an alignment. \code{nucDiag} returns the positions of bases corresponding to the definition of pure, simple diagnostic nucleotides given by Sarkar et al (2008).
+
+\code{rnucDiag} runs a bootstrapping-style resampling test to determine the numbers of diagnostic nucleotides that might be expected by random assortment of specimens.
+
+}
 
 \value{
 A list giving the pure, simple diagnostic nucleotides (i.e. those nucleotides that are fixed within species and different from all other species) for each species in the species vector. A result of \code{integer(0)} indicates there are no diagnostic nucleotides for those species.
@@ -44,6 +55,8 @@ anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"),
 	function(x) paste(x[1], x[2], sep="_"))
 
 nucDiag(anoteropsis, anoSpp)
+
+rnucDiag(anoteropsis, anoSpp, n = 100)
 
 #To view the nucleotide values 
 anoNuc <- nucDiag(anoteropsis, anoSpp)

@@ -10,6 +10,6 @@ minInDist <- function (distobj, sppVector = NULL, propZero = FALSE, rmNA = FALSE
     }
     if (propZero) 
         output <- length(which(unlist(conSpecDists) == 0))/length(unlist(conSpecDists))
-    else output <- unlist(conSpecDists)
+    else output <- unname(unlist(conSpecDists))
     output
 }

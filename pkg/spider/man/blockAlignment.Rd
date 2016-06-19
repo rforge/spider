@@ -6,17 +6,18 @@
 \description{Coerces all sequences in a DNAbin object to the same length.}
 
 \usage{
-blockAlignment(DNAbin, mode = "shortest", range = NULL)
+blockAlignment(DNAbin, mode = "shortest", range = NULL, fill = "")
 }
 
 \arguments{
 	\item{DNAbin}{An object of class \code{DNAbin}}
 	\item{mode}{Character vector. Options of "shortest" or "longest"}
-	\item{range}{Numeric vector of length 2. Index of the bases where the }
+	\item{range}{Numeric vector of length 2. Index of the bases where the new alignment should begin and end}
+	\item{fill}{Character to fill the extra bases in short sequences. Default of "" (blank). Recommend that only "-" (gap) or "?" be used}
 }
 
 \details{
-When \code{mode = "shortest"}, the alignment is truncated at the length of the shortest sequence. When \code{mode = "longest"}, the alignment is extended to the end of the longest sequence, with shorter sequences filled in with "N"s.
+When \code{mode = "shortest"}, the alignment is truncated at the length of the shortest sequence. When \code{mode = "longest"}, the alignment is extended to the end of the longest sequence, with shorter sequences filled in with \code{"fill"}s.
 }
 
 \value{
@@ -26,16 +27,6 @@ A DNAbin object in matrix format.
 
 \author{
 Samuel Brown <s_d_j_brown@hotmail.com>
-}
-
-\note{
-%%  ~~further notes~~
-}
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-
 }
 
 \examples{

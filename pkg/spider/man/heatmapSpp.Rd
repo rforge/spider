@@ -5,7 +5,7 @@
 
 \description{This function plots a heatmap of the distance matrix, with shorter distances indicated by darker colours.}
 
-\usage{heatmapSpp(distObj, sppVector, col = NULL, axisLabels = NULL)}
+\usage{heatmapSpp(distObj, sppVector, col = NULL, axisLabels = NULL, triangle = "both")}
 
 
 %- maybe also 'usage' for other objects documented here.
@@ -14,6 +14,7 @@
   \item{sppVector}{The species vector. See \code{\link{sppVector}}.}
   \item{col}{A vector giving the colours for the heatmap.}
   \item{axisLabels}{A character vector that provides the axis labels for the heatmap. By default the species vector is used.}
+  \item{triangle}{Which triangle of the heatmap should be plotted. Possible values of "both", "upper" and "lower". Default of "both".}
 }
 
 \details{
@@ -41,6 +42,8 @@ anoDist <- dist.dna(anoteropsis, model = "raw")
 anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"), 
     function(x) paste(x[1], x[2], sep="_"))
 heatmapSpp(anoDist, anoSpp)
+heatmapSpp(anoDist, anoSpp, triangle = "upper")
+heatmapSpp(anoDist, anoSpp, triangle = "lower")
 
 }
 
