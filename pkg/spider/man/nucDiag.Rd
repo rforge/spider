@@ -29,7 +29,7 @@ The number of pseudoreplicates to perform. Default of 100
 \details{
 These functions provide a means for evaluating the presence of diagnostic nucleotides that distinguish species within an alignment. \code{nucDiag} returns the positions of bases corresponding to the definition of pure, simple diagnostic nucleotides given by Sarkar et al (2008).
 
-\code{rnucDiag} runs a bootstrapping-style resampling test to determine the numbers of diagnostic nucleotides that might be expected by random assortment of specimens.
+\code{rnucDiag} runs a bootstrapping-style resampling test to evaluate the numbers of diagnostic nucleotides that might be expected by random assortment of specimens.
 
 }
 
@@ -56,7 +56,6 @@ anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"),
 
 nucDiag(anoteropsis, anoSpp)
 
-rnucDiag(anoteropsis, anoSpp, n = 100)
 
 #To view the nucleotide values 
 anoNuc <- nucDiag(anoteropsis, anoSpp)
@@ -67,4 +66,8 @@ as.character(anoteropsis[ ,anoNuc[[1]][1] ])
 data(sarkar)
 sarkarSpp <- substr(dimnames(sarkar)[[1]], 1, 3)
 nucDiag(sarkar, sarkarSpp)
+
+\dontrun{
+rnucDiag(anoteropsis, anoSpp, n = 100)
+}
 }

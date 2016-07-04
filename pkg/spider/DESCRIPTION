@@ -1,8 +1,8 @@
 Package: spider
 Type: Package
 Title: Species Identity and Evolution in R
-Version: 1.4-0
-Date: 2016-06-20
+Version: 1.4-1
+Date: 2016-07-05
 Author: Samuel Brown, Rupert Collins, Stephane Boyer, Marie-Caroline Lefort, Jagoba Malumbres-Olarte, Cor Vink, Rob Cruickshank
 Maintainer: Samuel Brown <s_d_j_brown@hotmail.com>
 Description: Provides functions for the analysis of species limits and DNA barcoding data.

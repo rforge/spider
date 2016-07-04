@@ -7,6 +7,9 @@ exportPattern("^[^\\.]")
 importFrom(ape, dist.dna, base.freq, seg.sites, as.DNAbin, prop.part, nj, boot.phylo, root, unroot, node.depth)
 importFrom(pegas, haplotype)
 importFrom(graphics, plot)
+importFrom("graphics", "abline", "axis", "boxplot", "bxp", "image", "layout", "lines", "matlines", "par", "points", "polygon", "segments", "symbols", "text")
+importFrom("stats", "aggregate", "cmdscale", "density", "dist", "median", "sd")
+importFrom("utils", "as.roman", "combn", "head")
 
 
 #S3 methods
