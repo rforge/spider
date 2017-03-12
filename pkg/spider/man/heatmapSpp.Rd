@@ -5,7 +5,8 @@
 
 \description{This function plots a heatmap of the distance matrix, with shorter distances indicated by darker colours.}
 
-\usage{heatmapSpp(distObj, sppVector, col = NULL, axisLabels = NULL, triangle = "both", showData = FALSE, dataRound = 3)}
+\usage{heatmapSpp(distObj, sppVector, col = NULL, axisLabels = NULL, triangle = "both", 
+	showData = FALSE, dataRound = 3)}
 
 
 %- maybe also 'usage' for other objects documented here.
