@@ -6,7 +6,7 @@
 \description{This function plots a heatmap of the distance matrix, with shorter distances indicated by darker colours.}
 
 \usage{heatmapSpp(distObj, sppVector, col = NULL, axisLabels = NULL, triangle = "both", 
-	showData = FALSE, dataRound = 3)}
+	showData = FALSE, dataRound = 3, dataCEX = 1)}
 
 
 %- maybe also 'usage' for other objects documented here.
@@ -17,7 +17,8 @@
   \item{axisLabels}{A character vector that provides the axis labels for the heatmap. By default the species vector is used.}
   \item{triangle}{Which triangle of the heatmap should be plotted. Possible values of "both", "upper" and "lower". Default of "both".}
   \item{showData}{Logical. Should the data be shown on the heatmap? Default of FALSE.}
-  \item{dataRound}{The number of significant figures the printed data will show. Default of three.}
+  \item{dataRound}{The number of significant figures the printed data will show. Default of 3.}
+  \item{dataCEX}{Size of text for printed data. Default of 1.}
 }
 
 \details{
@@ -46,10 +47,10 @@ anoSpp <- sapply(strsplit(dimnames(anoteropsis)[[1]], split="_"),
     function(x) paste(x[1], x[2], sep="_"))
 heatmapSpp(anoDist, anoSpp)
 heatmapSpp(anoDist, anoSpp, showData = TRUE)
-heatmapSpp(anoDist, anoSpp, showData = TRUE, dataRound = 2)
+heatmapSpp(anoDist, anoSpp, showData = TRUE, dataRound = 1, dataCEX = 0.4)
 heatmapSpp(anoDist, anoSpp, triangle = "upper")
 heatmapSpp(anoDist, anoSpp, triangle = "lower")
-heatmapSpp(anoDist, anoSpp, triangle = "lower", showData = TRUE, dataRound = 2)
+heatmapSpp(anoDist, anoSpp, triangle = "lower", showData = TRUE, dataRound = 1, dataCEX = 0.4)
 
 }
 
