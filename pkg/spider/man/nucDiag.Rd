@@ -34,7 +34,15 @@ These functions provide a means for evaluating the presence of diagnostic nucleo
 }
 
 \value{
-A list giving the pure, simple diagnostic nucleotides (i.e. those nucleotides that are fixed within species and different from all other species) for each species in the species vector. A result of \code{integer(0)} indicates there are no diagnostic nucleotides for those species.
+\code{nucDiag} returns a list giving the pure, simple diagnostic nucleotides (i.e. those nucleotides that are fixed within species and different from all other species) for each species in the species vector. A result of \code{integer(0)} indicates there are no diagnostic nucleotides for those species.
+
+\code{rnucDiag} returns a list containing the following elements:
+\item{min}{The minimum number of diagnostic nucleotides in the sample.}
+\item{mean}{The mean number of diagnostic nucleotides in the sample.}
+\item{median}{The median number of diagnostic nucleotides in the sample.}
+\item{max}{The maximum number of diagnostic nucleotides in the sample.}
+\item{rndFreq}{A list of frequency distributions of the number of diagnostic nucleotides in groups formed by 1 sequence, 2 sequences, etc.}
+
 }
 \references{
 Sarkar, I., Planet, P., & DeSalle, R. (2008). CAOS software for use in character-

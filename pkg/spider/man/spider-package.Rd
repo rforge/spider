@@ -17,8 +17,8 @@ More information, including a tutorial on the use of spider can be found at \cod
 \tabular{ll}{
 Package: \tab spider\cr
 Type: \tab Package\cr
-Version: \tab 1.4-1\cr
-Date: \tab 2016-07-05\cr
+Version: \tab 1.4-2\cr
+Date: \tab 2017-03-12\cr
 License: \tab GPL\cr
 LazyLoad: \tab yes\cr
 }
@@ -26,7 +26,7 @@ LazyLoad: \tab yes\cr
 A few of the key functions provided by spider: 
 
 DNA barcoding:
-\code{\link{bestCloseMatch}}, \code{\link{nearNeighbour}}, \code{\link{threshID}}, \code{\link{threshOpt}}.
+\code{\link{bestCloseMatch}}, \code{\link{nearNeighbour}}, \code{\link{threshID}}, \code{\link{threshOpt}}, \code{\link{heatmapSpp}}.
 
 Sliding window:
 \code{\link{slidingWindow}}, \code{\link{slideAnalyses}}, \code{\link{slideBoxplots}}.
