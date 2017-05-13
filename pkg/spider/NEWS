@@ -1,9 +1,10 @@
 ############################################
                                 SPIDER VERSION 1.4-2
-				Released 12 March 2017
+				Released 13 May 2017
 				
 				
 -- Extra options added to heatmapSpp. Option of showing the data on the heatmap now available.
+-- Bug fix for seqStat
 
 ############################################
                                 SPIDER VERSION 1.4-1
