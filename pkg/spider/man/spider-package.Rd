@@ -44,7 +44,7 @@ Maintainer:
 Samuel Brown <s_d_j_brown@hotmail.com>
 }
 \references{
-Brown S. D. J., Collins R. A., Boyer S., Lefort M.-C., Malumbres-Olarte J., Vink C. J., & Cruickshank R. H. In Press. SPIDER: an R package for the analysis of species identity and evolution, with particular reference to DNA barcoding. _Molecular Ecology Resources_
+Brown S. D. J., Collins R. A., Boyer S., Lefort M.-C., Malumbres-Olarte J., Vink C. J., & Cruickshank R. H. 2012. SPIDER: an R package for the analysis of species identity and evolution, with particular reference to DNA barcoding. _Molecular Ecology Resources_ 12:562-565. doi: 10.1111/j.1755-0998.2011.03108.x
 }
 
 %~~ Optionally other standard keywords, one per line, from file KEYWORDS in ~~
